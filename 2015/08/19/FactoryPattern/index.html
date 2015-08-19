@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="工厂模式," />
 
 
 
@@ -35,15 +35,52 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="lwei的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="设计模式系列工厂模式（创建型设计模式）简单工厂模式public class Product
+{
+    public virtual void show()
+    {
+    }
+
+    public string className()
+    {
+        return this.GetType().Name;
+    }
+}
+
+public class ProductA : Pro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工厂模式">
+<meta property="og:url" content="http://yoursite.com/2015/08/19/FactoryPattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description">
+<meta property="og:description" content="设计模式系列工厂模式（创建型设计模式）简单工厂模式public class Product
+{
+    public virtual void show()
+    {
+    }
+
+    public string className()
+    {
+        return this.GetType().Name;
+    }
+}
+
+public class ProductA : Pro">
+<meta property="og:updated_time" content="2015-08-19T13:42:41.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lwei的博客">
-<meta name="twitter:description">
+<meta name="twitter:title" content="工厂模式">
+<meta name="twitter:description" content="设计模式系列工厂模式（创建型设计模式）简单工厂模式public class Product
+{
+    public virtual void show()
+    {
+    }
+
+    public string className()
+    {
+        return this.GetType().Name;
+    }
+}
+
+public class ProductA : Pro">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -53,7 +90,7 @@
   };
 </script>
 
-  <title> lwei的博客 </title>
+  <title> 工厂模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -81,9 +118,7 @@
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -188,9 +223,9 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -201,202 +236,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/08/19/SingletonPattern/" itemprop="url">
-                单例模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T21:02:02+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">设计模式</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/SingletonPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/SingletonPattern/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="设计模式系列">设计模式系列</h2><h3 id="单例模式（创建型模式）">单例模式（创建型模式）</h3><h4 id="懒汉式">懒汉式</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonA</span>
-{
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonA _singleton;
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonA</span>(<span class="params"></span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonA <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            _singleton = <span class="keyword">new</span> SingletonA();
-        }
-
-        <span class="keyword">return</span> _singleton;
-    }
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonA a1 = SingletonA.GetInstance();
-    SingletonA a2 = SingletonA.GetInstance();
-    <span class="keyword">if</span> (a1.Equals(a2))
-    {
-        Console.WriteLine(<span class="string">"a1 = a2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"a1 != a2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h4 id="饿汉式">饿汉式</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonB</span>
-{
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonB _singleton = <span class="keyword">new</span> SingletonB();
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonB</span>(<span class="params"></span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonB <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> _singleton;
-    }
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonB b1 = SingletonB.GetInstance();
-    SingletonB b2 = SingletonB.GetInstance();
-    <span class="keyword">if</span> (b1.Equals(b2))
-    {
-        Console.WriteLine(<span class="string">"b1 = b2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"b1 != b2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h4 id="双重检查锁定">双重检查锁定</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonLock</span>
-{
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonLock _singleton;
-    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Object sysncObject = <span class="keyword">new</span> Object();
-
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonLock</span>(<span class="params"></span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonLock <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            <span class="keyword">lock</span> (sysncObject)
-            {
-                <span class="keyword">if</span>(<span class="keyword">null</span> == _singleton) {
-                    _singleton = <span class="keyword">new</span> SingletonLock();
-                }
-            }
-        }
-        <span class="keyword">return</span> _singleton;
-    }
-
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{    
-    SingletonLock lock1 = SingletonLock.GetInstance();
-    SingletonLock lock2 = SingletonLock.GetInstance();
-    <span class="keyword">if</span> (lock1.Equals(lock2))
-    {
-        Console.WriteLine(<span class="string">"lock1 = lock2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"lock1 != lock2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="适用性">适用性</h3><blockquote>
-<p><strong>适用性</strong> 整个应用程序的生命周期只需要一个实例。</p>
-<p><strong>各种写法的比较</strong>  懒汉式适用于单线程的程序，在多线程的程序中会造成多个实例。 双重锁检查的写法可以很好的解决多线程的问题。饿汉式的写法在类装载的时候就出事话，没有达到懒汉式装载的效果。</p>
-</blockquote>
-<hr>
-<h4 id="参考资料">参考资料</h4><ul>
-<li><a href="http://www.cnblogs.com/BoyXiao/archive/2010/05/07/1729376.html?login=1" target="_blank" rel="external">小宝马爸爸–单例模式</a></li>
-<li><a href="http://cantellow.iteye.com/blog/838473" target="_blank" rel="external">单例模式的七种写法</a></li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/FactoryPattern/" itemprop="url">
-                工厂模式
-              </a>
+              工厂模式
             
           
         </h1>
@@ -446,8 +286,7 @@
       
 
       
-        
-          <span itemprop="articleBody"><h2 id="设计模式系列">设计模式系列</h2><h3 id="工厂模式（创建型设计模式）">工厂模式（创建型设计模式）</h3><h4 id="简单工厂模式">简单工厂模式</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product</span>
+        <span itemprop="articleBody"><h2 id="设计模式系列">设计模式系列</h2><h3 id="工厂模式（创建型设计模式）">工厂模式（创建型设计模式）</h3><h4 id="简单工厂模式">简单工厂模式</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product</span>
 {
     <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
     </span>{
@@ -613,129 +452,58 @@
 <li><a href="http://www.cnblogs.com/vipygd/p/3428259.html?utm_source=tuicool" target="_blank" rel="external">c++设计模式系列</a></li>
 </ul>
 </span>
-        
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/工厂模式/" rel="tag">#工厂模式</a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/19/SingletonPattern/" rel="prev">单例模式</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/15/Hexo/" rel="next">hexo部署github博客</a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-      
 
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/15/Hexo/" itemprop="url">
-                hexo部署github博客
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-15T13:02:02+08:00" content="2015-08-15">
-            2015-08-15
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/hexo/" itemprop="url" rel="index">
-                  <span itemprop="name">hexo</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/15/Hexo/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/15/Hexo/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="安装步骤">安装步骤</h2><p>###nodejs<br>在<a href="https://nodejs.org/download/" target="_blank" rel="external">nodejs</a>上下载msi的安装包，安装nodejs</p>
-<p>###hexo<br><code>Git Bash</code></p>
-<p><code>npm install hexo --save</code></p>
-<p>进入文件夹<br><code>hexo init</code></p>
-<p><code>hexo g</code></p>
-<p><code>npm install hexo-server --save</code></p>
-<p><code>npm install</code></p>
-<p><code>npm s</code></p>
-<p>这样就可以在<a href="http://localhost:4000" target="_blank" rel="external">本地地址</a>里面查看</p>
-<hr>
-<p>###参考资料</p>
-<hr>
-<blockquote>
-<p><a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/" target="_blank" rel="external">1,如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="external">2,hexo系列教程</a></p>
-</blockquote>
-</span>
-        
+    <div class="post-spread">
       
     </div>
+  </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
  </div>
 
         
 
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/08/19/FactoryPattern/"
+                   data-title="工厂模式" data-url="http://yoursite.com/2015/08/19/FactoryPattern/">
+              </div>
+            
+          </div>
         
       </div>
 
@@ -752,6 +520,15 @@
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
       
 
       <section class="site-overview">
@@ -799,6 +576,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式系列"><span class="nav-number">1.</span> <span class="nav-text">设计模式系列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂模式（创建型设计模式）"><span class="nav-number">1.1.</span> <span class="nav-text">工厂模式（创建型设计模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单工厂模式"><span class="nav-number">1.1.1.</span> <span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工厂模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象工厂模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">抽象工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优缺点"><span class="nav-number">1.1.4.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料："><span class="nav-number">1.1.5.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
       
 
     </div>
@@ -886,6 +674,165 @@
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
