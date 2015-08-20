@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="单例模式," />
+  <meta name="keywords" content="建造者模式," />
 
 
 
@@ -35,49 +35,40 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Singleton Pattern
+<meta name="description" content="BuilderPattern
 创建型模式
-保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
 
-懒汉式public class SingletonA
+产品类class Product
 {
-    private static SingletonA _singleton;
-    private SingletonA()
-    {
-    }
-
-    public static SingletonA GetInstan">
+    private string _partHead { get; set; }
+    private string _partBody { get; set; }
+    private string _partFoot { get;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单例模式">
-<meta property="og:url" content="http://yoursite.com/2015/08/19/SingletonPattern/index.html">
+<meta property="og:title" content="建造者模式">
+<meta property="og:url" content="http://yoursite.com/2015/08/20/BuilderPattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="Singleton Pattern
+<meta property="og:description" content="BuilderPattern
 创建型模式
-保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
 
-懒汉式public class SingletonA
+产品类class Product
 {
-    private static SingletonA _singleton;
-    private SingletonA()
-    {
-    }
-
-    public static SingletonA GetInstan">
-<meta property="og:updated_time" content="2015-08-20T13:53:20.101Z">
+    private string _partHead { get; set; }
+    private string _partBody { get; set; }
+    private string _partFoot { get;">
+<meta property="og:updated_time" content="2015-08-20T14:25:29.456Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单例模式">
-<meta name="twitter:description" content="Singleton Pattern
+<meta name="twitter:title" content="建造者模式">
+<meta name="twitter:description" content="BuilderPattern
 创建型模式
-保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
 
-懒汉式public class SingletonA
+产品类class Product
 {
-    private static SingletonA _singleton;
-    private SingletonA()
-    {
-    }
-
-    public static SingletonA GetInstan">
+    private string _partHead { get; set; }
+    private string _partBody { get; set; }
+    private string _partFoot { get;">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -87,7 +78,7 @@
   };
 </script>
 
-  <title> 单例模式 | lwei的博客 </title>
+  <title> 建造者模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +224,7 @@
           
           
             
-              单例模式
+              建造者模式
             
           
         </h1>
@@ -242,8 +233,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T21:02:02+08:00" content="2015-08-19">
-            2015-08-19
+          <time itemprop="dateCreated" datetime="2015-08-20T21:53:57+08:00" content="2015-08-20">
+            2015-08-20
           </time>
         </span>
 
@@ -268,8 +259,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/19/SingletonPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/SingletonPattern/" itemprop="commentsCount"></span>
+              <a href="/2015/08/20/BuilderPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/20/BuilderPattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -284,119 +275,148 @@
 
       
         <span itemprop="articleBody"><blockquote>
-<p>Singleton Pattern</p>
+<p>BuilderPattern</p>
 <p>创建型模式</p>
-<p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
 </blockquote>
-<h3 id="懒汉式">懒汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonA</span>
+<h4 id="产品类">产品类</h4><pre><code><span class="keyword">class</span> <span class="title">Product</span>
 {
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonA _singleton;
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonA</span>(<span class="params"></span>)
+    <span class="keyword">private</span> <span class="keyword">string</span> _partHead { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">private</span> <span class="keyword">string</span> _partBody { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">private</span> <span class="keyword">string</span> _partFoot { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHead</span>(<span class="params"><span class="keyword">string</span> property</span>)
     </span>{
+        _partHead = property;
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonA <span class="title">GetInstance</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBody</span>(<span class="params"><span class="keyword">string</span> property</span>)
     </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            _singleton = <span class="keyword">new</span> SingletonA();
-        }
+        _partBody = property;
+    }
 
-        <span class="keyword">return</span> _singleton;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFoot</span>(<span class="params"><span class="keyword">string</span> property</span>)
+    </span>{
+        _partFoot = property;
+    }
+
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>) 
+    </span>{
+        Console.WriteLine(<span class="string">"Head :"</span> + _partHead);
+        Console.WriteLine(<span class="string">"Body :"</span> + _partBody);
+        Console.WriteLine(<span class="string">"Foot :"</span> + _partFoot);
     }
 }
+</code></pre><h4 id="建造类">建造类</h4><pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Builder</span>
+{        
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">BuildHead</span>(<span class="params"></span>)</span>;
 
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonA a1 = SingletonA.GetInstance();
-    SingletonA a2 = SingletonA.GetInstance();
-    <span class="keyword">if</span> (a1.Equals(a2))
-    {
-        Console.WriteLine(<span class="string">"a1 = a2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"a1 != a2"</span>);
-    }
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">BuildBody</span>(<span class="params"></span>)</span>;
 
-    Console.ReadLine();
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">BuildFoot</span>(<span class="params"></span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Product <span class="title">GetProduct</span>(<span class="params"></span>)</span>;
 }
-</code></pre><h3 id="饿汉式">饿汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonB</span>
+
+<span class="keyword">class</span> <span class="title">ConcretBuilderAnimal</span> : <span class="title">Builder</span>
 {
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonB _singleton = <span class="keyword">new</span> SingletonB();
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonB</span>(<span class="params"></span>)
+    <span class="keyword">private</span> Product _product;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">ConcretBuilderAnimal</span>(<span class="params"></span>)
     </span>{
+        _product = <span class="keyword">new</span> Product();
+
+    }
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildHead</span>(<span class="params"></span>)
+    </span>{
+        _product.setHead(<span class="string">"this is animal head!"</span>);
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonB <span class="title">GetInstance</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildBody</span>(<span class="params"></span>)
     </span>{
-        <span class="keyword">return</span> _singleton;
+        _product.setBody(<span class="string">"this is animal body!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildFoot</span>(<span class="params"></span>)
+    </span>{
+        _product.setFoot(<span class="string">"this is animal foot!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">GetProduct</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _product;
     }
 }
 
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonB b1 = SingletonB.GetInstance();
-    SingletonB b2 = SingletonB.GetInstance();
-    <span class="keyword">if</span> (b1.Equals(b2))
-    {
-        Console.WriteLine(<span class="string">"b1 = b2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"b1 != b2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="双重检查锁定">双重检查锁定</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonLock</span>
+<span class="keyword">class</span> <span class="title">ConcretBuilderMan</span> : <span class="title">Builder</span>
 {
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonLock _singleton;
-    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Object sysncObject = <span class="keyword">new</span> Object();
+    <span class="keyword">private</span> Product _product;
 
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonLock</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="title">ConcretBuilderMan</span>(<span class="params"></span>)
     </span>{
+        _product = <span class="keyword">new</span> Product();
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonLock <span class="title">GetInstance</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildHead</span>(<span class="params"></span>)
     </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            <span class="keyword">lock</span> (sysncObject)
-            {
-                <span class="keyword">if</span>(<span class="keyword">null</span> == _singleton) {
-                    _singleton = <span class="keyword">new</span> SingletonLock();
-                }
-            }
-        }
-        <span class="keyword">return</span> _singleton;
+        _product.setHead(<span class="string">"this is man head!"</span>);
     }
 
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildBody</span>(<span class="params"></span>)
+    </span>{
+        _product.setBody(<span class="string">"this is man body!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildFoot</span>(<span class="params"></span>)
+    </span>{
+        _product.setFoot(<span class="string">"this is man foot!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">GetProduct</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _product;
+    }
 }
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{    
-    SingletonLock lock1 = SingletonLock.GetInstance();
-    SingletonLock lock2 = SingletonLock.GetInstance();
-    <span class="keyword">if</span> (lock1.Equals(lock2))
+</code></pre><h4 id="导演类">导演类</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="type">Director</span>
+{
+    public void <span class="type">Construct</span><span class="container">(<span class="type">Builder</span> <span class="title">builder</span>)</span>
     {
-        Console.WriteLine(<span class="string">"lock1 = lock2"</span>);
+        builder.<span class="type">BuildHead</span><span class="container">()</span>;
+        builder.<span class="type">BuildBody</span><span class="container">()</span>;
+        builder.<span class="type">BuildFoot</span><span class="container">()</span>;
     }
-    <span class="keyword">else</span>
+}</span>
+</code></pre><h4 id="具体测试和实现">具体测试和实现</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
     {
-        Console.WriteLine(<span class="string">"lock1 != lock2"</span>);
-    }
+        <span class="type">Builder</span> builder = <span class="keyword">new</span> <span class="type">ConcretBuilderMan</span><span class="literal">()</span>;
+        <span class="type">Director</span> director = <span class="keyword">new</span> <span class="type">Director</span><span class="literal">()</span>;
+        director.<span class="type">Construct</span>(builder);
 
-    Console.ReadLine();
+        <span class="type">Product</span> product = builder.<span class="type">GetProduct</span><span class="literal">()</span>;
+        product.show<span class="literal">()</span>;
+
+        <span class="type">Console</span>.<span class="type">ReadLine</span><span class="literal">()</span>;
+    }
 }
-</code></pre><h3 id="适用性">适用性</h3><blockquote>
-<p><strong>适用性</strong> 整个应用程序的生命周期只需要一个实例。</p>
-<p><strong>各种写法的比较</strong>  懒汉式适用于单线程的程序，在多线程的程序中会造成多个实例。 双重锁检查的写法可以很好的解决多线程的问题。饿汉式的写法在类装载的时候就出事话，没有达到懒汉式装载的效果。</p>
+</code></pre><p>建造类负责构造对象的细节，由导演类统一的规范流程来构造对象。使得同样的流程可以建造出不同的对象。</p>
+<h4 id="个人理解">个人理解</h4><p>举汽车建造过程的例子来说明：建造者生产不同汽车的轮胎，外壳， 系统。然后将这些产品拿到外面的工厂按照统一的组装成汽车。但是出来的汽车可能是甲壳虫，奥迪等。该模式的特点是：建造对象的算法，既独立于对象的组成部分，也独立于对象的装配过程。工厂模式中， 对象装配过程也在对象中。两者的使用区别是：构造<strong>复杂的对象</strong>，而且客户端不必知道产品的细节的时候，用工厂模式，构造<strong>更加复杂的对象</strong>用建造者模式</p>
+<blockquote>
+<p><strong>好处：</strong></p>
+<p>客户端不必知道产品的细节。</p>
+<p>建造者相互独立，有利于系统扩展。</p>
+<p>建造者是独立的，可以对建造的过程进行细化，而不影响其他的模块。</p>
+<p><strong>适用范围：</strong></p>
+<p>构建复杂的对象，构建的流程是统一的，构建的组件是复杂的。</p>
+<p>构建对象的算法，既独立于构建过程，也独立于组成部分的装配方法。</p>
 </blockquote>
 <hr>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/BoyXiao/archive/2010/05/07/1729376.html?login=1" target="_blank" rel="external">小宝马爸爸–单例模式</a></li>
-<li><a href="http://cantellow.iteye.com/blog/838473" target="_blank" rel="external">单例模式的七种写法</a></li>
+<h4 id="参考资料">参考资料</h4><ul>
+<li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/07/19/2599980.html" target="_blank" rel="external">设计模式之建造者模式（Builder)</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750447" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/hello_haozi/article/details/38819935" target="_blank" rel="external">设计模式——建造者</a></li>
 </ul>
 </span>
       
@@ -406,7 +426,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/单例模式/" rel="tag">#单例模式</a>
+            <a href="/tags/建造者模式/" rel="tag">#建造者模式</a>
           
         </div>
       
@@ -415,13 +435,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/20/BuilderPattern/" rel="prev">建造者模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/19/FactoryPattern/" rel="next">工厂模式</a>
+              <a href="/2015/08/19/SingletonPattern/" rel="next">单例模式</a>
             
           </div>
         </div>
@@ -446,8 +464,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/19/SingletonPattern/"
-                   data-title="单例模式" data-url="http://yoursite.com/2015/08/19/SingletonPattern/">
+              <div class="ds-thread" data-thread-key="2015/08/20/BuilderPattern/"
+                   data-title="建造者模式" data-url="http://yoursite.com/2015/08/20/BuilderPattern/">
               </div>
             
           </div>
@@ -544,7 +562,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#懒汉式"><span class="nav-number">1.</span> <span class="nav-text">懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#饿汉式"><span class="nav-number">2.</span> <span class="nav-text">饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双重检查锁定"><span class="nav-number">3.</span> <span class="nav-text">双重检查锁定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#适用性"><span class="nav-number">4.</span> <span class="nav-text">适用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#产品类"><span class="nav-number">1.</span> <span class="nav-text">产品类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建造类"><span class="nav-number">2.</span> <span class="nav-text">建造类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导演类"><span class="nav-number">3.</span> <span class="nav-text">导演类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体测试和实现"><span class="nav-number">4.</span> <span class="nav-text">具体测试和实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#个人理解"><span class="nav-number">5.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
