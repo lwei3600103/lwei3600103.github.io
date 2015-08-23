@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="单例模式," />
+  <meta name="keywords" content="桥接模式," />
 
 
 
@@ -35,46 +35,31 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="单例模式(Singleton Pattern)是一种创建型设计模式。意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+<meta name="description" content="桥接模式(BridgePattern)是一种结构型设计模式。意图：将抽象部分与它的实现部分分离，使它们都可以独立地变化，从而将抽象与实现解耦。
 
 
-懒汉式public class SingletonA
-{
-    private static SingletonA _singleton;
-    private SingletonA()
-    {
-    }
-
-    public static Single">
+代码实现参与者Abstraction： 1. 定义抽象接口。  2. 拥有一个实现（Implementor）类型对象引用。
+RefinedAbstraction: 1. 扩展Abstraction中的接口定义。
+public abstract clas">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单例模式">
-<meta property="og:url" content="http://yoursite.com/2015/08/19/SingletonPattern/index.html">
+<meta property="og:title" content="桥接模式">
+<meta property="og:url" content="http://yoursite.com/2015/08/23/BridgePattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="单例模式(Singleton Pattern)是一种创建型设计模式。意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+<meta property="og:description" content="桥接模式(BridgePattern)是一种结构型设计模式。意图：将抽象部分与它的实现部分分离，使它们都可以独立地变化，从而将抽象与实现解耦。
 
 
-懒汉式public class SingletonA
-{
-    private static SingletonA _singleton;
-    private SingletonA()
-    {
-    }
-
-    public static Single">
-<meta property="og:updated_time" content="2015-08-22T09:47:21.650Z">
+代码实现参与者Abstraction： 1. 定义抽象接口。  2. 拥有一个实现（Implementor）类型对象引用。
+RefinedAbstraction: 1. 扩展Abstraction中的接口定义。
+public abstract clas">
+<meta property="og:updated_time" content="2015-08-23T09:46:29.995Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单例模式">
-<meta name="twitter:description" content="单例模式(Singleton Pattern)是一种创建型设计模式。意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+<meta name="twitter:title" content="桥接模式">
+<meta name="twitter:description" content="桥接模式(BridgePattern)是一种结构型设计模式。意图：将抽象部分与它的实现部分分离，使它们都可以独立地变化，从而将抽象与实现解耦。
 
 
-懒汉式public class SingletonA
-{
-    private static SingletonA _singleton;
-    private SingletonA()
-    {
-    }
-
-    public static Single">
+代码实现参与者Abstraction： 1. 定义抽象接口。  2. 拥有一个实现（Implementor）类型对象引用。
+RefinedAbstraction: 1. 扩展Abstraction中的接口定义。
+public abstract clas">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -84,7 +69,7 @@
   };
 </script>
 
-  <title> 单例模式 | lwei的博客 </title>
+  <title> 桥接模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -230,7 +215,7 @@
           
           
             
-              单例模式
+              桥接模式
             
           
         </h1>
@@ -239,8 +224,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T21:02:02+08:00" content="2015-08-19">
-            2015-08-19
+          <time itemprop="dateCreated" datetime="2015-08-23T16:48:51+08:00" content="2015-08-23">
+            2015-08-23
           </time>
         </span>
 
@@ -261,8 +246,8 @@
 
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/创建型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">创建型设计模式</span>
+                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">结构型设计模式</span>
                 </a>
               </span>
 
@@ -277,8 +262,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/19/SingletonPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/SingletonPattern/" itemprop="commentsCount"></span>
+              <a href="/2015/08/23/BridgePattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/23/BridgePattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -293,118 +278,90 @@
 
       
         <span itemprop="articleBody"><blockquote>
-<p>单例模式(Singleton Pattern)是一种<em>创建型设计模式</em>。意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<p>桥接模式(BridgePattern)是一种<em>结构型设计模式</em>。意图：将抽象部分与它的实现部分分离，使它们都可以独立地变化，从而将抽象与实现解耦。</p>
 </blockquote>
 <hr>
-<h3 id="懒汉式">懒汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonA</span>
+<h3 id="代码实现">代码实现</h3><h4 id="参与者">参与者</h4><p>Abstraction： 1. 定义抽象接口。  2. 拥有一个实现（Implementor）类型对象引用。</p>
+<p>RefinedAbstraction: 1. 扩展Abstraction中的接口定义。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Shape</span>
 {
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonA _singleton;
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonA</span>(<span class="params"></span>)
-    </span>{
-    }
+    <span class="keyword">protected</span> Corlor _color;
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonA <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            _singleton = <span class="keyword">new</span> SingletonA();
-        }
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DrawShape</span>(<span class="params"></span>)</span>;
 
-        <span class="keyword">return</span> _singleton;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetColor</span>(<span class="params">Corlor corlor</span>)
+    </span>{
+        _color = corlor;
     }
 }
 
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonA a1 = SingletonA.GetInstance();
-    SingletonA a2 = SingletonA.GetInstance();
-    <span class="keyword">if</span> (a1.Equals(a2))
-    {
-        Console.WriteLine(<span class="string">"a1 = a2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"a1 != a2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="饿汉式">饿汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonB</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Rectangle</span> : <span class="title">Shape</span>
 {
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonB _singleton = <span class="keyword">new</span> SingletonB();
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonB</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawShape</span>(<span class="params"></span>)
     </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonB <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> _singleton;
+        _color.DrawColor();
+        Console.WriteLine(<span class="string">"长方形"</span>);
     }
 }
 
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonB b1 = SingletonB.GetInstance();
-    SingletonB b2 = SingletonB.GetInstance();
-    <span class="keyword">if</span> (b1.Equals(b2))
-    {
-        Console.WriteLine(<span class="string">"b1 = b2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"b1 != b2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="双重检查锁定">双重检查锁定</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonLock</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Square</span> : <span class="title">Shape</span>
 {
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonLock _singleton;
-    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Object sysncObject = <span class="keyword">new</span> Object();
-
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonLock</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawShape</span>(<span class="params"></span>)
     </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonLock <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            <span class="keyword">lock</span> (sysncObject)
-            {
-                <span class="keyword">if</span>(<span class="keyword">null</span> == _singleton) {
-                    _singleton = <span class="keyword">new</span> SingletonLock();
-                }
-            }
-        }
-        <span class="keyword">return</span> _singleton;
-    }
-
+        _color.DrawColor();
+        Console.WriteLine(<span class="string">"正方形"</span>);
+    } 
+}
+</code></pre><h4 id="实现者">实现者</h4><p>Implementor类定义了实现类的接口，这个接口不一定要与Abstraction的接口完全一致；实际上，这两个接口可以完全不同；</p>
+<p>ConcreteImplementor类实现了Implementor定义的接口。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Corlor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DrawColor</span>(<span class="params"></span>)</span>;
 }
 
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{    
-    SingletonLock lock1 = SingletonLock.GetInstance();
-    SingletonLock lock2 = SingletonLock.GetInstance();
-    <span class="keyword">if</span> (lock1.Equals(lock2))
-    {
-        Console.WriteLine(<span class="string">"lock1 = lock2"</span>);
+<span class="keyword">public</span>  <span class="keyword">class</span> <span class="title">Red</span> : <span class="title">Corlor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawColor</span>(<span class="params"></span>)
+    </span>{
+        Console.Write(<span class="string">"红色的"</span>);
     }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"lock1 != lock2"</span>);
-    }
-
-    Console.ReadLine();
 }
-</code></pre><h3 id="适用性">适用性</h3><blockquote>
-<p><strong>适用性</strong> 整个应用程序的生命周期只需要一个实例。</p>
-<p><strong>各种写法的比较</strong>  懒汉式适用于单线程的程序，在多线程的程序中会造成多个实例。 双重锁检查的写法可以很好的解决多线程的问题。饿汉式的写法在类装载的时候就出事话，没有达到懒汉式装载的效果。</p>
+
+
+<span class="keyword">public</span>  <span class="keyword">class</span> <span class="title">White</span> : <span class="title">Corlor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawColor</span>(<span class="params"></span>)
+    </span>{
+        Console.Write(<span class="string">"白色的"</span>);
+    }
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    {
+        <span class="type">Corlor</span> corlor = <span class="keyword">new</span> <span class="type">Red</span><span class="literal">()</span>;
+        <span class="type">Shape</span> shape = <span class="keyword">new</span> <span class="type">Square</span><span class="literal">()</span>;
+
+        shape.<span class="type">SetColor</span>(corlor);
+        shape.<span class="type">DrawShape</span><span class="literal">()</span>;
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>桥接模式可以用来解决对象有2个或者2个以上的维度变化的问题。对客户隐藏抽象的实现部分（指的是实现者这部分）。</p>
+<blockquote>
+<p><strong>适用性：</strong></p>
+<p>你不希望在抽象和它的实现部分有一个固定的绑定关系。</p>
+<p>类的抽象和它的实现部分都可以通过子类扩展。</p>
+<p>对实现部分的修改，不会影响客户端（主要是指编译）。</p>
+<p>如果某个变化在多个对象中共享是，可以抽象该变化，然后该变化的不同因素。</p>
 </blockquote>
 <hr>
 <h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/BoyXiao/archive/2010/05/07/1729376.html?login=1" target="_blank" rel="external">小宝马爸爸–单例模式</a></li>
-<li><a href="http://cantellow.iteye.com/blog/838473" target="_blank" rel="external">单例模式的七种写法</a></li>
+<li><a href="http://www.cnblogs.com/houleixx/archive/2008/02/23/1078877.html" target="_blank" rel="external">设计模式—–桥接模式(Bridge Pattern)</a></li>
+<li><a href="http://www.cnblogs.com/rush/archive/2011/06/29/2093743.html" target="_blank" rel="external">桥接模式（Bridge）</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750452" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://www.jellythink.com/archives/132" target="_blank" rel="external">C++设计模式——桥接模式</a></li>
 </ul>
 </span>
       
@@ -414,7 +371,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/单例模式/" rel="tag">#单例模式</a>
+            <a href="/tags/桥接模式/" rel="tag">#桥接模式</a>
           
         </div>
       
@@ -423,13 +380,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/20/BuilderPattern/" rel="prev">建造者模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/19/FactoryPattern/" rel="next">工厂模式</a>
+              <a href="/2015/08/22/AdapterPattern/" rel="next">适配器模式</a>
             
           </div>
         </div>
@@ -454,8 +409,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/19/SingletonPattern/"
-                   data-title="单例模式" data-url="http://yoursite.com/2015/08/19/SingletonPattern/">
+              <div class="ds-thread" data-thread-key="2015/08/23/BridgePattern/"
+                   data-title="桥接模式" data-url="http://yoursite.com/2015/08/23/BridgePattern/">
               </div>
             
           </div>
@@ -552,7 +507,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#懒汉式"><span class="nav-number">1.</span> <span class="nav-text">懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#饿汉式"><span class="nav-number">2.</span> <span class="nav-text">饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双重检查锁定"><span class="nav-number">3.</span> <span class="nav-text">双重检查锁定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#适用性"><span class="nav-number">4.</span> <span class="nav-text">适用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参与者"><span class="nav-number">1.1.</span> <span class="nav-text">参与者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现者"><span class="nav-number">1.2.</span> <span class="nav-text">实现者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.3.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
