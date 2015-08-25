@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="装饰模式," />
+  <meta name="keywords" content="外观模式," />
 
 
 
@@ -35,37 +35,40 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="装饰模式(DecoratorPattern)是一种结构型设计模式。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 
+<meta name="description" content="外观模式(FacadePattern)是一种结构型设计模式。意图：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
 
-代码实现抽象构建compnent:定义了一个接口可以动态的给对象添加职责。
-public abstract class AbstractCar
+
+代码实现子系统类提供一系列的具体的操作
+public class Tea
 {
-    public abstract void Show();
-}
-具体的">
+    public void AddTea()
+    {
+        Console.WriteLine(&quot;加入茶叶&quot;);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="装饰模式">
-<meta property="og:url" content="http://yoursite.com/2015/08/24/DecoratorPattern/index.html">
+<meta property="og:title" content="外观模式">
+<meta property="og:url" content="http://yoursite.com/2015/08/25/FacadePattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="装饰模式(DecoratorPattern)是一种结构型设计模式。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 
+<meta property="og:description" content="外观模式(FacadePattern)是一种结构型设计模式。意图：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
 
-代码实现抽象构建compnent:定义了一个接口可以动态的给对象添加职责。
-public abstract class AbstractCar
+
+代码实现子系统类提供一系列的具体的操作
+public class Tea
 {
-    public abstract void Show();
-}
-具体的">
-<meta property="og:updated_time" content="2015-08-24T14:25:35.616Z">
+    public void AddTea()
+    {
+        Console.WriteLine(&quot;加入茶叶&quot;);">
+<meta property="og:updated_time" content="2015-08-25T09:54:48.560Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="装饰模式">
-<meta name="twitter:description" content="装饰模式(DecoratorPattern)是一种结构型设计模式。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 
+<meta name="twitter:title" content="外观模式">
+<meta name="twitter:description" content="外观模式(FacadePattern)是一种结构型设计模式。意图：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
 
-代码实现抽象构建compnent:定义了一个接口可以动态的给对象添加职责。
-public abstract class AbstractCar
+
+代码实现子系统类提供一系列的具体的操作
+public class Tea
 {
-    public abstract void Show();
-}
-具体的">
+    public void AddTea()
+    {
+        Console.WriteLine(&quot;加入茶叶&quot;);">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -75,7 +78,7 @@ public abstract class AbstractCar
   };
 </script>
 
-  <title> 装饰模式 | lwei的博客 </title>
+  <title> 外观模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -221,7 +224,7 @@ public abstract class AbstractCar
           
           
             
-              装饰模式
+              外观模式
             
           
         </h1>
@@ -230,8 +233,8 @@ public abstract class AbstractCar
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-24T21:32:40+08:00" content="2015-08-24">
-            2015-08-24
+          <time itemprop="dateCreated" datetime="2015-08-25T17:17:46+08:00" content="2015-08-25">
+            2015-08-25
           </time>
         </span>
 
@@ -268,8 +271,8 @@ public abstract class AbstractCar
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/24/DecoratorPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/24/DecoratorPattern/" itemprop="commentsCount"></span>
+              <a href="/2015/08/25/FacadePattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/25/FacadePattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -284,114 +287,91 @@ public abstract class AbstractCar
 
       
         <span itemprop="articleBody"><blockquote>
-<p>装饰模式(DecoratorPattern)是一种<em>结构型设计模式</em>。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 </p>
+<p>外观模式(FacadePattern)是一种<em>结构型设计模式</em>。意图：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p>
 </blockquote>
-<h3 id="代码实现">代码实现</h3><h4 id="抽象构建">抽象构建</h4><p>compnent:定义了一个接口可以动态的给对象添加职责。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractCar</span>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="子系统类">子系统类</h4><p>提供一系列的具体的操作</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Tea</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)</span>;
-}
-</code></pre><h4 id="具体的构建角色">具体的构建角色</h4><p>concreteCompnet:一个实现了compnent接口的对象。这个对象会被装饰，但是它不会访问装饰者的信息，而装饰者不会访问它的实现。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ChinaCar</span> : <span class="title">AbstractCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddTea</span>(<span class="params"></span>)
     </span>{
-        Console.WriteLine(<span class="string">"这是一辆国产小汽车"</span>);
-    }
-}
-</code></pre><h4 id="装饰接口">装饰接口</h4><p>Decorator:包含一个compnent对象的引用。定义了一个与compnent相同的接口。客户端可以处理它们，而不用关心装饰者之间的差别。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DecoratorCar</span> : <span class="title">AbstractCar</span>
-{
-    <span class="keyword">private</span> AbstractCar _car;
-    <span class="function"><span class="keyword">public</span> <span class="title">DecoratorCar</span>(<span class="params">AbstractCar car</span>)
-    </span>{
-        <span class="keyword">this</span>._car = car;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> != _car)
-        {
-            _car.Show();
-        }
-    }
-}
-</code></pre><h4 id="具体的装饰者对象">具体的装饰者对象</h4><p>ConcreteDecorator:它向compnent添加职责，添加额外的装饰功能。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LacquerCar</span> : <span class="title">DecoratorCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">LacquerCar</span>(<span class="params">AbstractCar car</span>) :
-        <span class="title">base</span>(<span class="params">car</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        LacquerCarRed();
-        <span class="keyword">base</span>.Show();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">LacquerCarRed</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"给汽车图绘成红色"</span>);
+        Console.WriteLine(<span class="string">"加入茶叶"</span>);
     }
 }
 
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GpsCar</span> : <span class="title">DecoratorCar</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Water</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="title">GpsCar</span>(<span class="params">AbstractCar car</span>) :
-        <span class="title">base</span>(<span class="params">car</span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">HeatUpWater</span>(<span class="params"></span>)
     </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        LoadGpsForCar();
-        <span class="keyword">base</span>.Show();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">LoadGpsForCar</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"给汽车图装上GPS"</span>);
+        Console.WriteLine(<span class="string">"烧开水"</span>);
     }
 }
-</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Waiter</span>
 {
-    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
-    {
-        <span class="type">AbstractCar</span> car = <span class="keyword">new</span> <span class="type">ChinaCar</span><span class="literal">()</span>;
-        <span class="type">LacquerCar</span> lacquerCar = <span class="keyword">new</span> <span class="type">LacquerCar</span>(car);
-        lacquerCar.<span class="type">Show</span><span class="literal">()</span>;
-
-        <span class="type">GpsCar</span> gpsCar = <span class="keyword">new</span> <span class="type">GpsCar</span>(lacquerCar);
-        gpsCar.<span class="type">Show</span><span class="literal">()</span>;
-
-        <span class="type">Console</span>.<span class="type">ReadLine</span><span class="literal">()</span>;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MakeTea</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"泡茶"</span>);
     }
 }
-</code></pre><h3 id="个人理解">个人理解</h3><p>装饰模式避免了构造大量的基类。可以额外的添加大量的功能。与桥接模式的区别：桥接模式主要是在维度上的变化，装饰模式则在一个维度上添加大量额外功能。</p>
+</code></pre><h4 id="外观类">外观类</h4><p>整合子系统的操作，对外提供一个一致的接口，降低客户端和子系统的耦合。抽象的外观类，方便扩展子类外观。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractFacade</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">GoodTea</span>(<span class="params"></span>)</span>;
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Facade</span> : <span class="title">AbstractFacade</span>
+{
+    <span class="keyword">private</span> Tea _tea;
+    <span class="keyword">private</span> Water _water;
+    <span class="keyword">private</span> Waiter _waiter;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Facade</span>(<span class="params"></span>)
+    </span>{
+        _tea = <span class="keyword">new</span> Tea();
+        _water = <span class="keyword">new</span> Water();
+        _waiter = <span class="keyword">new</span> Waiter();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">GoodTea</span>(<span class="params"></span>)
+    </span>{
+        _water.HeatUpWater();
+        _tea.AddTea();
+        _water.HeatUpWater();
+    }
+
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="title">Program</span>
+{
+    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+    </span>{
+        AbstractFacade facade = <span class="keyword">new</span> Facade();
+        facade.GoodTea();
+
+        Console.Read();
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>外观类通过整合一系列的子系统的操作，降低客户端和子系统的耦合。</p>
 <blockquote>
 <p><strong>适用性：</strong></p>
-<p>在不影响其他对象的情况下，用动态、透明的方式给单个对象添加职责。</p>
-<p>处理那些可以撤销的职责。</p>
-<p>不能采用子类扩展时候。一种是:可能有<strong>大量独立的扩展</strong>，为了支持每一种扩展，需要产生大量的子类，使子类数目暴涨。另外一种是类定义被隐藏，或者类定义不能用于生成子类。</p>
+<p>为复杂的子系统提供一个简单的接口。</p>
+<p>客户程序和抽象类的实现部分存在一个存在很大的依赖性，引入Facade类可以分离子系统和客户端，使得子系统更加自主、独立。</p>
+<p>当你需要构建一个层次结构的子系统的时候，使用facade模式提供子系统每层的入口点。如果子系统相互依赖，可以通过facade在它们之间通讯，从而简化它们的依赖关系。</p>
 <p><strong>优缺点：</strong></p>
-<p>装饰模式和子类继承都可以扩展对象的功能。但是装饰模式更加灵活。</p>
-<p>通过不同的排列组合，可以创造出更多的功能的类。</p>
-<p>装饰模式会产生更多的小对象，过度使用，会使程序变得复杂。</p>
-<p><strong>与桥接模式的区别：</strong></p>
-<p>两者都是为了防止过度继承，子类泛滥的情况。</p>
-<p>桥接模式是结构和实现的分离或属性和基于属性行为的分离。装饰模式只是对基于属性的行为封装的类，然后对其进行装饰。例如：异常和异常处理用桥接模式，异常处理添加功能用装饰模式。</p>
-<p>桥接模式是横向行为，行为彼此之间没有关联。 装饰模式中的行为具有可叠加性，其表现结果是一个整体，但是其实是各个行为组合后的结果。</p>
+<p>它屏蔽了子系统空间，减少客户端所有操作的对象的数目，使得客户端的代码变得简单。</p>
+<p>它实现了子系统和客户端的松耦合关系，使得子系统的变化的时候不影响客户端，只需要调整facade类即可。</p>
+<p>一个子系统的变化不会影响到其他子系统，子系统的内部变化也不会影响到外观对象。</p>
+<p>限制了客户端对子系统的访问，减少了可变性和灵活性。</p>
+<p>增加子系统可能需要修改外观对象，违背了开闭原则。</p>
+<p><strong>模式间的区别：</strong></p>
+<p>Facade模式注重简化接口，Adapter模式注重转换接口，Bridge模式注重分离接口（抽象）与其实现，Decorator模式注重稳定接口的前提下为对象扩展功能。</p>
 </blockquote>
 <hr>
 <h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750454" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://www.jellythink.com/archives/171" target="_blank" rel="external">C++设计模式——装饰模式</a></li>
-<li><a href="http://www.cnblogs.com/saville/archive/2011/07/19/2110830.html" target="_blank" rel="external">C#设计模式——装饰者模式(Decorator Pattern)</a></li>
-<li><a href="http://www.uml.org.cn/sjms/201010253.asp" target="_blank" rel="external">.NET中的设计模式——一步步发现装饰模式 </a></li>
-<li><a href="http://blog.jobbole.com/78077/" target="_blank" rel="external">C#设计模式(9)——装饰者模式（Decorator Pattern）</a></li>
-<li><a href="http://blog.csdn.net/wzg1031/article/details/7796806" target="_blank" rel="external">桥接模式与装饰者模式的区别</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750455" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/lovelion/article/details/8259789" target="_blank" rel="external">深入浅出外观模式</a></li>
+<li><a href="http://blog.csdn.net/shylanse/article/details/4303082" target="_blank" rel="external">外观模式</a></li>
+<li><a href="http://dev.yesky.com/203/2175203.shtml" target="_blank" rel="external">Java设计模式之外观模式研究</a></li>
 </ul>
 </span>
       
@@ -401,7 +381,7 @@ public abstract class AbstractCar
       
         <div class="post-tags">
           
-            <a href="/tags/装饰模式/" rel="tag">#装饰模式</a>
+            <a href="/tags/外观模式/" rel="tag">#外观模式</a>
           
         </div>
       
@@ -410,13 +390,11 @@ public abstract class AbstractCar
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/25/FacadePattern/" rel="prev">外观模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/23/CompsitePattern/" rel="next">组合模式</a>
+              <a href="/2015/08/24/DecoratorPattern/" rel="next">装饰模式</a>
             
           </div>
         </div>
@@ -441,8 +419,8 @@ public abstract class AbstractCar
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/24/DecoratorPattern/"
-                   data-title="装饰模式" data-url="http://yoursite.com/2015/08/24/DecoratorPattern/">
+              <div class="ds-thread" data-thread-key="2015/08/25/FacadePattern/"
+                   data-title="外观模式" data-url="http://yoursite.com/2015/08/25/FacadePattern/">
               </div>
             
           </div>
@@ -539,7 +517,7 @@ public abstract class AbstractCar
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象构建"><span class="nav-number">1.1.</span> <span class="nav-text">抽象构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体的构建角色"><span class="nav-number">1.2.</span> <span class="nav-text">具体的构建角色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰接口"><span class="nav-number">1.3.</span> <span class="nav-text">装饰接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体的装饰者对象"><span class="nav-number">1.4.</span> <span class="nav-text">具体的装饰者对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.5.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#子系统类"><span class="nav-number">1.1.</span> <span class="nav-text">子系统类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外观类"><span class="nav-number">1.2.</span> <span class="nav-text">外观类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.3.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
