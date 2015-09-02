@@ -201,6 +201,245 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/02/InterpreterPattern/" itemprop="url">
+                解释器模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-02T21:59:25+08:00" content="2015-09-02">
+            2015-09-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/02/InterpreterPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/02/InterpreterPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>解释器模式(InterpreterPattern)是一种<em>行为型设计模式</em>。意图：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。</p>
+</blockquote>
+<hr>
+<h4 id="代码实现">代码实现</h4><h5 id="抽象解释器">抽象解释器</h5><p>抽象解释器声明一个所有具体的表达式所要实现的接口。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Expression</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)</span>;
+}
+</code></pre><h5 id="终结符表达式">终结符表达式</h5><p>终结符表达式实现与文法中相关联的解释操作。</p>
+<pre><code><span class="keyword">class</span> <span class="title">VarExpression</span> : <span class="title">Expression</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _key;
+    <span class="function"><span class="keyword">public</span> <span class="title">VarExpression</span>(<span class="params"><span class="keyword">string</span> key</span>)
+    </span>{
+        _key = key;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">var</span>[_key];
+    }
+}
+</code></pre><h5 id="非终结符表达式">非终结符表达式</h5><p>文法中每条规则对应一个非终结符表达式。非终结符表达式一般是指“+”等这种。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">SymbolExpression</span> : <span class="title">Expression</span>
+{
+    <span class="keyword">protected</span> Expression _left;
+    <span class="keyword">protected</span> Expression _right;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">SymbolExpression</span>(<span class="params">Expression left, Expression right</span>)
+    </span>{
+        _left = left;
+        _right = right;
+    }
+}
+
+
+<span class="keyword">class</span> <span class="title">AddExpression</span> : <span class="title">SymbolExpression</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">AddExpression</span>(<span class="params">Expression left, Expression right</span>) :
+        <span class="title">base</span>(<span class="params">left, right</span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">base</span>._left.Interpreter(<span class="keyword">var</span>) + <span class="keyword">base</span>._right.Interpreter(<span class="keyword">var</span>);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">SubExpression</span> : <span class="title">SymbolExpression</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">SubExpression</span>(<span class="params">Expression left, Expression right</span>) :
+        <span class="title">base</span>(<span class="params">left, right</span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">base</span>._left.Interpreter(<span class="keyword">var</span>) - <span class="keyword">base</span>._right.Interpreter(<span class="keyword">var</span>);
+    }
+}
+</code></pre><h5 id="封装的解释器">封装的解释器</h5><pre><code><span class="keyword">class</span> <span class="title">Calculator</span>
+{
+    <span class="keyword">private</span> Expression _expression;
+    <span class="keyword">private</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; _dictionary;
+    <span class="function"><span class="keyword">public</span> <span class="title">Calculator</span>(<span class="params"><span class="keyword">string</span> str</span>)
+    </span>{
+        <span class="keyword">string</span>[] listStr = str.Split(<span class="keyword">new</span> Char[] { <span class="string">' '</span> }, StringSplitOptions.RemoveEmptyEntries);
+        GetDictonary(listStr);
+
+        Expression left = <span class="keyword">null</span>;
+        Expression right = <span class="keyword">null</span>;
+        Expression expression = <span class="keyword">null</span>;
+
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; listStr.Length; i++)
+        {
+            <span class="keyword">switch</span> (listStr[i])
+            {
+                <span class="keyword">case</span> <span class="string">"+"</span>:
+                    left = expression;
+                    right = <span class="keyword">new</span> VarExpression(listStr[++i]);
+                    expression = <span class="keyword">new</span> AddExpression(left, right);
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">"-"</span>:
+                    left = expression;
+                    right = <span class="keyword">new</span> VarExpression(listStr[++i]);
+                    expression = <span class="keyword">new</span> SubExpression(left, right);
+                    <span class="keyword">break</span>;
+                <span class="keyword">default</span>:
+                    expression = <span class="keyword">new</span> VarExpression(listStr[i]);
+                    <span class="keyword">break</span>;
+            }
+        }
+
+        _expression = expression;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Run</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span> , <span class="keyword">int</span> &gt; <span class="keyword">var</span></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">this</span>._expression.Interpreter(<span class="keyword">var</span>);
+    }
+
+
+    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">GetDictonary</span>(<span class="params"><span class="keyword">string</span>[] listStr </span>)
+    </span>{
+        _dictionary = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt;();
+
+        <span class="keyword">foreach</span> (<span class="keyword">string</span> curString <span class="keyword">in</span> listStr)
+        {
+            <span class="keyword">if</span> (curString != <span class="string">"+"</span> &amp;&amp; curString != <span class="string">"-"</span>)
+            {
+                _dictionary.Add(curString, Convert.ToInt32(curString));
+            }
+        }
+    }
+}
+</code></pre><h5 id="测试代码">测试代码</h5><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Program</span>
+</span>{
+    <span class="keyword">static</span> <span class="keyword">void</span> Main(string[] args)
+    {
+        string <span class="keyword">str</span> = <span class="string">"1234 + 234234 - 948 + 3242 - 4994 + 3"</span>;
+        Calculator calculator = <span class="keyword">new</span> Calculator(<span class="keyword">str</span>);
+        Console.WriteLine(calculator.Run(GetDictonary(<span class="keyword">str</span>)));
+
+        Console.Read();
+    }
+
+}
+</code></pre><h4 id="个人理解">个人理解</h4><p>解释器是一个语法分析工具。</p>
+<blockquote>
+<p><strong>适用性</strong></p>
+<p>当一个语言需要解释执行，你可以将语言中的句子表示为抽象的语法树时。</p>
+<p>有一个简单的语法规则（如：sql）,一些重复的操作（如：+ - * /）。</p>
+<p><strong>优缺点</strong></p>
+<p>增加一个规则只需要增加一个非终结符表达式。修改一个规则只需要修改非终结符表达式。具有良好的扩展性。</p>
+<p>解释器模式会引起类的膨胀。每个语法都会产生一个非终结符表达式。而且进行语法解释的时候，会使用回调，影响效率。</p>
+</blockquote>
+<hr>
+<h4 id="参考资料">参考资料</h4><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750459" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/zhengzhb/article/details/7666020" target="_blank" rel="external">23种设计模式（14）：解释器模式</a></li>
+<li><a href="http://www.cnblogs.com/cbf4life/archive/2009/12/17/1626125.html" target="_blank" rel="external">解释器模式</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/30/ProxyPattern/" itemprop="url">
                 代理模式
               </a>
@@ -2166,215 +2405,6 @@
 
 
     
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/SingletonPattern/" itemprop="url">
-                单例模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T21:02:02+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">设计模式</span>
-                </a>
-              </span>
-
-              
-              
-                ， 
-              
-
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/创建型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">创建型设计模式</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/SingletonPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/SingletonPattern/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>单例模式(Singleton Pattern)是一种<em>创建型设计模式</em>。意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
-</blockquote>
-<hr>
-<h3 id="懒汉式">懒汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonA</span>
-{
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonA _singleton;
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonA</span>(<span class="params"></span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonA <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            _singleton = <span class="keyword">new</span> SingletonA();
-        }
-
-        <span class="keyword">return</span> _singleton;
-    }
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonA a1 = SingletonA.GetInstance();
-    SingletonA a2 = SingletonA.GetInstance();
-    <span class="keyword">if</span> (a1.Equals(a2))
-    {
-        Console.WriteLine(<span class="string">"a1 = a2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"a1 != a2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="饿汉式">饿汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonB</span>
-{
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonB _singleton = <span class="keyword">new</span> SingletonB();
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonB</span>(<span class="params"></span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonB <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> _singleton;
-    }
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SingletonB b1 = SingletonB.GetInstance();
-    SingletonB b2 = SingletonB.GetInstance();
-    <span class="keyword">if</span> (b1.Equals(b2))
-    {
-        Console.WriteLine(<span class="string">"b1 = b2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"b1 != b2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="双重检查锁定">双重检查锁定</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonLock</span>
-{
-    <span class="keyword">private</span> <span class="keyword">static</span> SingletonLock _singleton;
-    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Object sysncObject = <span class="keyword">new</span> Object();
-
-    <span class="function"><span class="keyword">private</span> <span class="title">SingletonLock</span>(<span class="params"></span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonLock <span class="title">GetInstance</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
-        {
-            <span class="keyword">lock</span> (sysncObject)
-            {
-                <span class="keyword">if</span>(<span class="keyword">null</span> == _singleton) {
-                    _singleton = <span class="keyword">new</span> SingletonLock();
-                }
-            }
-        }
-        <span class="keyword">return</span> _singleton;
-    }
-
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{    
-    SingletonLock lock1 = SingletonLock.GetInstance();
-    SingletonLock lock2 = SingletonLock.GetInstance();
-    <span class="keyword">if</span> (lock1.Equals(lock2))
-    {
-        Console.WriteLine(<span class="string">"lock1 = lock2"</span>);
-    }
-    <span class="keyword">else</span>
-    {
-        Console.WriteLine(<span class="string">"lock1 != lock2"</span>);
-    }
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="适用性">适用性</h3><blockquote>
-<p><strong>适用性</strong> 整个应用程序的生命周期只需要一个实例。</p>
-<p><strong>各种写法的比较</strong>  懒汉式适用于单线程的程序，在多线程的程序中会造成多个实例。 双重锁检查的写法可以很好的解决多线程的问题。饿汉式的写法在类装载的时候就出事话，没有达到懒汉式装载的效果。</p>
-</blockquote>
-<hr>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/BoyXiao/archive/2010/05/07/1729376.html?login=1" target="_blank" rel="external">小宝马爸爸–单例模式</a></li>
-<li><a href="http://cantellow.iteye.com/blog/838473" target="_blank" rel="external">单例模式的七种写法</a></li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2413,21 +2443,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="装饰模式," />
+  <meta name="keywords" content="解释器模式," />
 
 
 
@@ -35,37 +35,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="装饰模式(DecoratorPattern)是一种结构型设计模式。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 
+<meta name="description" content="解释器模式(InterpreterPattern)是一种行为型设计模式。意图：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。
 
-代码实现抽象构建compnent:定义了一个接口可以动态的给对象添加职责。
-public abstract class AbstractCar
+
+代码实现抽象解释器抽象解释器声明一个所有具体的表达式所要实现的接口。
+abstract class Expression
 {
-    public abstract void Show();
-}
-具体的">
+    public abstract int Interpreter(Dictionary&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="装饰模式">
-<meta property="og:url" content="http://yoursite.com/2015/08/24/DecoratorPattern/index.html">
+<meta property="og:title" content="解释器模式">
+<meta property="og:url" content="http://yoursite.com/2015/09/02/InterpreterPattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="装饰模式(DecoratorPattern)是一种结构型设计模式。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 
+<meta property="og:description" content="解释器模式(InterpreterPattern)是一种行为型设计模式。意图：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。
 
-代码实现抽象构建compnent:定义了一个接口可以动态的给对象添加职责。
-public abstract class AbstractCar
+
+代码实现抽象解释器抽象解释器声明一个所有具体的表达式所要实现的接口。
+abstract class Expression
 {
-    public abstract void Show();
-}
-具体的">
-<meta property="og:updated_time" content="2015-08-24T14:25:35.616Z">
+    public abstract int Interpreter(Dictionary&amp;">
+<meta property="og:updated_time" content="2015-09-02T03:27:33.237Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="装饰模式">
-<meta name="twitter:description" content="装饰模式(DecoratorPattern)是一种结构型设计模式。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 
+<meta name="twitter:title" content="解释器模式">
+<meta name="twitter:description" content="解释器模式(InterpreterPattern)是一种行为型设计模式。意图：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。
 
-代码实现抽象构建compnent:定义了一个接口可以动态的给对象添加职责。
-public abstract class AbstractCar
+
+代码实现抽象解释器抽象解释器声明一个所有具体的表达式所要实现的接口。
+abstract class Expression
 {
-    public abstract void Show();
-}
-具体的">
+    public abstract int Interpreter(Dictionary&amp;">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -75,7 +72,7 @@ public abstract class AbstractCar
   };
 </script>
 
-  <title> 装饰模式 | lwei的博客 </title>
+  <title> 解释器模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -221,7 +218,7 @@ public abstract class AbstractCar
           
           
             
-              装饰模式
+              解释器模式
             
           
         </h1>
@@ -230,8 +227,8 @@ public abstract class AbstractCar
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-24T21:32:40+08:00" content="2015-08-24">
-            2015-08-24
+          <time itemprop="dateCreated" datetime="2015-09-02T21:59:25+08:00" content="2015-09-02">
+            2015-09-02
           </time>
         </span>
 
@@ -252,8 +249,8 @@ public abstract class AbstractCar
 
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">结构型设计模式</span>
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
                 </a>
               </span>
 
@@ -268,8 +265,8 @@ public abstract class AbstractCar
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/24/DecoratorPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/24/DecoratorPattern/" itemprop="commentsCount"></span>
+              <a href="/2015/09/02/InterpreterPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/02/InterpreterPattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -284,114 +281,148 @@ public abstract class AbstractCar
 
       
         <span itemprop="articleBody"><blockquote>
-<p>装饰模式(DecoratorPattern)是一种<em>结构型设计模式</em>。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 </p>
+<p>解释器模式(InterpreterPattern)是一种<em>行为型设计模式</em>。意图：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。</p>
 </blockquote>
-<h3 id="代码实现">代码实现</h3><h4 id="抽象构建">抽象构建</h4><p>compnent:定义了一个接口可以动态的给对象添加职责。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractCar</span>
+<hr>
+<h4 id="代码实现">代码实现</h4><h5 id="抽象解释器">抽象解释器</h5><p>抽象解释器声明一个所有具体的表达式所要实现的接口。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Expression</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)</span>;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)</span>;
 }
-</code></pre><h4 id="具体的构建角色">具体的构建角色</h4><p>concreteCompnet:一个实现了compnent接口的对象。这个对象会被装饰，但是它不会访问装饰者的信息，而装饰者不会访问它的实现。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ChinaCar</span> : <span class="title">AbstractCar</span>
+</code></pre><h5 id="终结符表达式">终结符表达式</h5><p>终结符表达式实现与文法中相关联的解释操作。</p>
+<pre><code><span class="keyword">class</span> <span class="title">VarExpression</span> : <span class="title">Expression</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
+    <span class="keyword">private</span> <span class="keyword">string</span> _key;
+    <span class="function"><span class="keyword">public</span> <span class="title">VarExpression</span>(<span class="params"><span class="keyword">string</span> key</span>)
     </span>{
-        Console.WriteLine(<span class="string">"这是一辆国产小汽车"</span>);
-    }
-}
-</code></pre><h4 id="装饰接口">装饰接口</h4><p>Decorator:包含一个compnent对象的引用。定义了一个与compnent相同的接口。客户端可以处理它们，而不用关心装饰者之间的差别。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DecoratorCar</span> : <span class="title">AbstractCar</span>
-{
-    <span class="keyword">private</span> AbstractCar _car;
-    <span class="function"><span class="keyword">public</span> <span class="title">DecoratorCar</span>(<span class="params">AbstractCar car</span>)
-    </span>{
-        <span class="keyword">this</span>._car = car;
+        _key = key;
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
     </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> != _car)
+        <span class="keyword">return</span> <span class="keyword">var</span>[_key];
+    }
+}
+</code></pre><h5 id="非终结符表达式">非终结符表达式</h5><p>文法中每条规则对应一个非终结符表达式。非终结符表达式一般是指“+”等这种。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">SymbolExpression</span> : <span class="title">Expression</span>
+{
+    <span class="keyword">protected</span> Expression _left;
+    <span class="keyword">protected</span> Expression _right;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">SymbolExpression</span>(<span class="params">Expression left, Expression right</span>)
+    </span>{
+        _left = left;
+        _right = right;
+    }
+}
+
+
+<span class="keyword">class</span> <span class="title">AddExpression</span> : <span class="title">SymbolExpression</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">AddExpression</span>(<span class="params">Expression left, Expression right</span>) :
+        <span class="title">base</span>(<span class="params">left, right</span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">base</span>._left.Interpreter(<span class="keyword">var</span>) + <span class="keyword">base</span>._right.Interpreter(<span class="keyword">var</span>);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">SubExpression</span> : <span class="title">SymbolExpression</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">SubExpression</span>(<span class="params">Expression left, Expression right</span>) :
+        <span class="title">base</span>(<span class="params">left, right</span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">base</span>._left.Interpreter(<span class="keyword">var</span>) - <span class="keyword">base</span>._right.Interpreter(<span class="keyword">var</span>);
+    }
+}
+</code></pre><h5 id="封装的解释器">封装的解释器</h5><pre><code><span class="keyword">class</span> <span class="title">Calculator</span>
+{
+    <span class="keyword">private</span> Expression _expression;
+    <span class="keyword">private</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; _dictionary;
+    <span class="function"><span class="keyword">public</span> <span class="title">Calculator</span>(<span class="params"><span class="keyword">string</span> str</span>)
+    </span>{
+        <span class="keyword">string</span>[] listStr = str.Split(<span class="keyword">new</span> Char[] { <span class="string">' '</span> }, StringSplitOptions.RemoveEmptyEntries);
+        GetDictonary(listStr);
+
+        Expression left = <span class="keyword">null</span>;
+        Expression right = <span class="keyword">null</span>;
+        Expression expression = <span class="keyword">null</span>;
+
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; listStr.Length; i++)
         {
-            _car.Show();
+            <span class="keyword">switch</span> (listStr[i])
+            {
+                <span class="keyword">case</span> <span class="string">"+"</span>:
+                    left = expression;
+                    right = <span class="keyword">new</span> VarExpression(listStr[++i]);
+                    expression = <span class="keyword">new</span> AddExpression(left, right);
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="string">"-"</span>:
+                    left = expression;
+                    right = <span class="keyword">new</span> VarExpression(listStr[++i]);
+                    expression = <span class="keyword">new</span> SubExpression(left, right);
+                    <span class="keyword">break</span>;
+                <span class="keyword">default</span>:
+                    expression = <span class="keyword">new</span> VarExpression(listStr[i]);
+                    <span class="keyword">break</span>;
+            }
+        }
+
+        _expression = expression;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Run</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span> , <span class="keyword">int</span> &gt; <span class="keyword">var</span></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">this</span>._expression.Interpreter(<span class="keyword">var</span>);
+    }
+
+
+    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">GetDictonary</span>(<span class="params"><span class="keyword">string</span>[] listStr </span>)
+    </span>{
+        _dictionary = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt;();
+
+        <span class="keyword">foreach</span> (<span class="keyword">string</span> curString <span class="keyword">in</span> listStr)
+        {
+            <span class="keyword">if</span> (curString != <span class="string">"+"</span> &amp;&amp; curString != <span class="string">"-"</span>)
+            {
+                _dictionary.Add(curString, Convert.ToInt32(curString));
+            }
         }
     }
 }
-</code></pre><h4 id="具体的装饰者对象">具体的装饰者对象</h4><p>ConcreteDecorator:它向compnent添加职责，添加额外的装饰功能。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LacquerCar</span> : <span class="title">DecoratorCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">LacquerCar</span>(<span class="params">AbstractCar car</span>) :
-        <span class="title">base</span>(<span class="params">car</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        LacquerCarRed();
-        <span class="keyword">base</span>.Show();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">LacquerCarRed</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"给汽车图绘成红色"</span>);
-    }
-}
-
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GpsCar</span> : <span class="title">DecoratorCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">GpsCar</span>(<span class="params">AbstractCar car</span>) :
-        <span class="title">base</span>(<span class="params">car</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        LoadGpsForCar();
-        <span class="keyword">base</span>.Show();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">LoadGpsForCar</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"给汽车图装上GPS"</span>);
-    }
-}
-</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
-{
-    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+</code></pre><h5 id="测试代码">测试代码</h5><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Program</span>
+</span>{
+    <span class="keyword">static</span> <span class="keyword">void</span> Main(string[] args)
     {
-        <span class="type">AbstractCar</span> car = <span class="keyword">new</span> <span class="type">ChinaCar</span><span class="literal">()</span>;
-        <span class="type">LacquerCar</span> lacquerCar = <span class="keyword">new</span> <span class="type">LacquerCar</span>(car);
-        lacquerCar.<span class="type">Show</span><span class="literal">()</span>;
+        string <span class="keyword">str</span> = <span class="string">"1234 + 234234 - 948 + 3242 - 4994 + 3"</span>;
+        Calculator calculator = <span class="keyword">new</span> Calculator(<span class="keyword">str</span>);
+        Console.WriteLine(calculator.Run(GetDictonary(<span class="keyword">str</span>)));
 
-        <span class="type">GpsCar</span> gpsCar = <span class="keyword">new</span> <span class="type">GpsCar</span>(lacquerCar);
-        gpsCar.<span class="type">Show</span><span class="literal">()</span>;
-
-        <span class="type">Console</span>.<span class="type">ReadLine</span><span class="literal">()</span>;
+        Console.Read();
     }
+
 }
-</code></pre><h3 id="个人理解">个人理解</h3><p>装饰模式避免了构造大量的基类。可以额外的添加大量的功能。与桥接模式的区别：桥接模式主要是在维度上的变化，装饰模式则在一个维度上添加大量额外功能。</p>
+</code></pre><h4 id="个人理解">个人理解</h4><p>解释器是一个语法分析工具。</p>
 <blockquote>
-<p><strong>适用性：</strong></p>
-<p>在不影响其他对象的情况下，用动态、透明的方式给单个对象添加职责。</p>
-<p>处理那些可以撤销的职责。</p>
-<p>不能采用子类扩展时候。一种是:可能有<strong>大量独立的扩展</strong>，为了支持每一种扩展，需要产生大量的子类，使子类数目暴涨。另外一种是类定义被隐藏，或者类定义不能用于生成子类。</p>
-<p><strong>优缺点：</strong></p>
-<p>装饰模式和子类继承都可以扩展对象的功能。但是装饰模式更加灵活。</p>
-<p>通过不同的排列组合，可以创造出更多的功能的类。</p>
-<p>装饰模式会产生更多的小对象，过度使用，会使程序变得复杂。</p>
-<p><strong>与桥接模式的区别：</strong></p>
-<p>两者都是为了防止过度继承，子类泛滥的情况。</p>
-<p>桥接模式是结构和实现的分离或属性和基于属性行为的分离。装饰模式只是对基于属性的行为封装的类，然后对其进行装饰。例如：异常和异常处理用桥接模式，异常处理添加功能用装饰模式。</p>
-<p>桥接模式是横向行为，行为彼此之间没有关联。 装饰模式中的行为具有可叠加性，其表现结果是一个整体，但是其实是各个行为组合后的结果。</p>
+<p><strong>适用性</strong></p>
+<p>当一个语言需要解释执行，你可以将语言中的句子表示为抽象的语法树时。</p>
+<p>有一个简单的语法规则（如：sql）,一些重复的操作（如：+ - * /）。</p>
+<p><strong>优缺点</strong></p>
+<p>增加一个规则只需要增加一个非终结符表达式。修改一个规则只需要修改非终结符表达式。具有良好的扩展性。</p>
+<p>解释器模式会引起类的膨胀。每个语法都会产生一个非终结符表达式。而且进行语法解释的时候，会使用回调，影响效率。</p>
 </blockquote>
 <hr>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750454" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://www.jellythink.com/archives/171" target="_blank" rel="external">C++设计模式——装饰模式</a></li>
-<li><a href="http://www.cnblogs.com/saville/archive/2011/07/19/2110830.html" target="_blank" rel="external">C#设计模式——装饰者模式(Decorator Pattern)</a></li>
-<li><a href="http://www.uml.org.cn/sjms/201010253.asp" target="_blank" rel="external">.NET中的设计模式——一步步发现装饰模式 </a></li>
-<li><a href="http://blog.jobbole.com/78077/" target="_blank" rel="external">C#设计模式(9)——装饰者模式（Decorator Pattern）</a></li>
-<li><a href="http://blog.csdn.net/wzg1031/article/details/7796806" target="_blank" rel="external">桥接模式与装饰者模式的区别</a></li>
+<h4 id="参考资料">参考资料</h4><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750459" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/zhengzhb/article/details/7666020" target="_blank" rel="external">23种设计模式（14）：解释器模式</a></li>
+<li><a href="http://www.cnblogs.com/cbf4life/archive/2009/12/17/1626125.html" target="_blank" rel="external">解释器模式</a></li>
 </ul>
 </span>
       
@@ -401,7 +432,7 @@ public abstract class AbstractCar
       
         <div class="post-tags">
           
-            <a href="/tags/装饰模式/" rel="tag">#装饰模式</a>
+            <a href="/tags/解释器模式/" rel="tag">#解释器模式</a>
           
         </div>
       
@@ -410,13 +441,11 @@ public abstract class AbstractCar
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/25/FacadePattern/" rel="prev">外观模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/23/CompsitePattern/" rel="next">组合模式</a>
+              <a href="/2015/08/30/ProxyPattern/" rel="next">代理模式</a>
             
           </div>
         </div>
@@ -441,8 +470,8 @@ public abstract class AbstractCar
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/24/DecoratorPattern/"
-                   data-title="装饰模式" data-url="http://yoursite.com/2015/08/24/DecoratorPattern/">
+              <div class="ds-thread" data-thread-key="2015/09/02/InterpreterPattern/"
+                   data-title="解释器模式" data-url="http://yoursite.com/2015/09/02/InterpreterPattern/">
               </div>
             
           </div>
@@ -539,7 +568,7 @@ public abstract class AbstractCar
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象构建"><span class="nav-number">1.1.</span> <span class="nav-text">抽象构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体的构建角色"><span class="nav-number">1.2.</span> <span class="nav-text">具体的构建角色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰接口"><span class="nav-number">1.3.</span> <span class="nav-text">装饰接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体的装饰者对象"><span class="nav-number">1.4.</span> <span class="nav-text">具体的装饰者对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.5.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#抽象解释器"><span class="nav-number">1.1.</span> <span class="nav-text">抽象解释器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#终结符表达式"><span class="nav-number">1.2.</span> <span class="nav-text">终结符表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非终结符表达式"><span class="nav-number">1.3.</span> <span class="nav-text">非终结符表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#封装的解释器"><span class="nav-number">1.4.</span> <span class="nav-text">封装的解释器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试代码"><span class="nav-number">1.5.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
