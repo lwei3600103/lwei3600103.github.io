@@ -53,7 +53,7 @@ abstract class Expression
 abstract class Expression
 {
     public abstract int Interpreter(Dictionary&amp;">
-<meta property="og:updated_time" content="2015-09-02T03:27:33.237Z">
+<meta property="og:updated_time" content="2015-09-02T03:36:33.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解释器模式">
 <meta name="twitter:description" content="解释器模式(InterpreterPattern)是一种行为型设计模式。意图：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。
@@ -378,9 +378,9 @@ abstract class Expression
         _expression = expression;
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Run</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span> , <span class="keyword">int</span> &gt; <span class="keyword">var</span></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Run</span>(<span class="params"></span>)
     </span>{
-        <span class="keyword">return</span> <span class="keyword">this</span>._expression.Interpreter(<span class="keyword">var</span>);
+        <span class="keyword">return</span> <span class="keyword">this</span>._expression.Interpreter(_dictionary);
     }
 
 
@@ -397,13 +397,13 @@ abstract class Expression
         }
     }
 }
-</code></pre><h5 id="测试代码">测试代码</h5><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Program</span>
-</span>{
-    <span class="keyword">static</span> <span class="keyword">void</span> Main(string[] args)
-    {
-        string <span class="keyword">str</span> = <span class="string">"1234 + 234234 - 948 + 3242 - 4994 + 3"</span>;
-        Calculator calculator = <span class="keyword">new</span> Calculator(<span class="keyword">str</span>);
-        Console.WriteLine(calculator.Run(GetDictonary(<span class="keyword">str</span>)));
+</code></pre><h5 id="测试代码">测试代码</h5><pre><code><span class="keyword">class</span> <span class="title">Program</span>
+{
+    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+    </span>{
+        <span class="keyword">string</span> str = <span class="string">"1234 + 234234 - 948 + 3242 - 4994 + 3"</span>;
+        Calculator calculator = <span class="keyword">new</span> Calculator(str);
+        Console.WriteLine(calculator.Run());
 
         Console.Read();
     }
