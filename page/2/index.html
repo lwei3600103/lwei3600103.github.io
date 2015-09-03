@@ -201,6 +201,244 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/20/BuilderPattern/" itemprop="url">
+                建造者模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-20T21:53:57+08:00" content="2015-08-20">
+            2015-08-20
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/创建型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">创建型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/20/BuilderPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/20/BuilderPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>建造者模式(BuilderPattern)是一种<em>创建型设计模式</em>。意图：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+</blockquote>
+<hr>
+<h4 id="产品类">产品类</h4><pre><code><span class="keyword">class</span> <span class="title">Product</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _partHead { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">private</span> <span class="keyword">string</span> _partBody { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">private</span> <span class="keyword">string</span> _partFoot { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHead</span>(<span class="params"><span class="keyword">string</span> property</span>)
+    </span>{
+        _partHead = property;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBody</span>(<span class="params"><span class="keyword">string</span> property</span>)
+    </span>{
+        _partBody = property;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFoot</span>(<span class="params"><span class="keyword">string</span> property</span>)
+    </span>{
+        _partFoot = property;
+    }
+
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>) 
+    </span>{
+        Console.WriteLine(<span class="string">"Head :"</span> + _partHead);
+        Console.WriteLine(<span class="string">"Body :"</span> + _partBody);
+        Console.WriteLine(<span class="string">"Foot :"</span> + _partFoot);
+    }
+}
+</code></pre><h4 id="建造类">建造类</h4><pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Builder</span>
+{        
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">BuildHead</span>(<span class="params"></span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">BuildBody</span>(<span class="params"></span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">BuildFoot</span>(<span class="params"></span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Product <span class="title">GetProduct</span>(<span class="params"></span>)</span>;
+}
+
+<span class="keyword">class</span> <span class="title">ConcretBuilderAnimal</span> : <span class="title">Builder</span>
+{
+    <span class="keyword">private</span> Product _product;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">ConcretBuilderAnimal</span>(<span class="params"></span>)
+    </span>{
+        _product = <span class="keyword">new</span> Product();
+
+    }
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildHead</span>(<span class="params"></span>)
+    </span>{
+        _product.setHead(<span class="string">"this is animal head!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildBody</span>(<span class="params"></span>)
+    </span>{
+        _product.setBody(<span class="string">"this is animal body!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildFoot</span>(<span class="params"></span>)
+    </span>{
+        _product.setFoot(<span class="string">"this is animal foot!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">GetProduct</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _product;
+    }
+}
+
+<span class="keyword">class</span> <span class="title">ConcretBuilderMan</span> : <span class="title">Builder</span>
+{
+    <span class="keyword">private</span> Product _product;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">ConcretBuilderMan</span>(<span class="params"></span>)
+    </span>{
+        _product = <span class="keyword">new</span> Product();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildHead</span>(<span class="params"></span>)
+    </span>{
+        _product.setHead(<span class="string">"this is man head!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildBody</span>(<span class="params"></span>)
+    </span>{
+        _product.setBody(<span class="string">"this is man body!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">BuildFoot</span>(<span class="params"></span>)
+    </span>{
+        _product.setFoot(<span class="string">"this is man foot!"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">GetProduct</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _product;
+    }
+}
+</code></pre><h4 id="导演类">导演类</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="type">Director</span>
+{
+    public void <span class="type">Construct</span><span class="container">(<span class="type">Builder</span> <span class="title">builder</span>)</span>
+    {
+        builder.<span class="type">BuildHead</span><span class="container">()</span>;
+        builder.<span class="type">BuildBody</span><span class="container">()</span>;
+        builder.<span class="type">BuildFoot</span><span class="container">()</span>;
+    }
+}</span>
+</code></pre><h4 id="具体测试和实现">具体测试和实现</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    {
+        <span class="type">Builder</span> builder = <span class="keyword">new</span> <span class="type">ConcretBuilderMan</span><span class="literal">()</span>;
+        <span class="type">Director</span> director = <span class="keyword">new</span> <span class="type">Director</span><span class="literal">()</span>;
+        director.<span class="type">Construct</span>(builder);
+
+        <span class="type">Product</span> product = builder.<span class="type">GetProduct</span><span class="literal">()</span>;
+        product.show<span class="literal">()</span>;
+
+        <span class="type">Console</span>.<span class="type">ReadLine</span><span class="literal">()</span>;
+    }
+}
+</code></pre><p>建造类负责构造对象的细节，由导演类统一的规范流程来构造对象。使得同样的流程可以建造出不同的对象。</p>
+<h4 id="个人理解">个人理解</h4><p>举汽车建造过程的例子来说明：建造者生产不同汽车的轮胎，外壳， 系统。然后将这些产品拿到外面的工厂按照统一的组装成汽车。但是出来的汽车可能是甲壳虫，奥迪等。该模式的特点是：建造对象的算法，既独立于对象的组成部分，也独立于对象的装配过程。工厂模式中， 对象装配过程也在对象中。两者的使用区别是：构造<strong>复杂的对象</strong>，而且客户端不必知道产品的细节的时候，用工厂模式，构造<strong>更加复杂的对象</strong>用建造者模式</p>
+<blockquote>
+<p><strong>好处：</strong></p>
+<p>客户端不必知道产品的细节。</p>
+<p>建造者相互独立，有利于系统扩展。</p>
+<p>建造者是独立的，可以对建造的过程进行细化，而不影响其他的模块。</p>
+<p><strong>适用范围：</strong></p>
+<p>构建复杂的对象，构建的流程是统一的，构建的组件是复杂的。</p>
+<p>构建对象的算法，既独立于构建过程，也独立于组成部分的装配方法。</p>
+</blockquote>
+<hr>
+<h4 id="参考资料">参考资料</h4><ul>
+<li><a href="http://www.cnblogs.com/BeyondAnyTime/archive/2012/07/19/2599980.html" target="_blank" rel="external">设计模式之建造者模式（Builder)</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750447" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/hello_haozi/article/details/38819935" target="_blank" rel="external">设计模式——建造者</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/19/SingletonPattern/" itemprop="url">
                 单例模式
               </a>
@@ -798,7 +1036,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -812,7 +1050,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
