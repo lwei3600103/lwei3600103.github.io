@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="模板模式," />
+  <meta name="keywords" content="责任链模式," />
 
 
 
@@ -35,40 +35,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="模板模式(TemplatePattern)是一种行为型设计模式。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。
+<meta name="description" content="责任链模式(ChainOfResponsibilityPattern)是一种行为型设计模式。意图：使多个对象都有机会处理请求，从而避免发送者和接收者之间的耦合关系。将所有可以处理请求的对象串成一条链，并沿着这条链传递请求，直到有对象处理它。
 
 
-代码实现抽象模板类抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。
-abstract class AbstractBeverage
+代码实现请求对象class Request
 {
-    public void Create()
-    {
-        BoilWater();">
+    private int _day;
+    private string _reason;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模板模式">
-<meta property="og:url" content="http://yoursite.com/2015/09/03/TemplatePattern/index.html">
+<meta property="og:title" content="责任链模式">
+<meta property="og:url" content="http://yoursite.com/2015/09/04/ChainOfResponsibilityPattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="模板模式(TemplatePattern)是一种行为型设计模式。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。
+<meta property="og:description" content="责任链模式(ChainOfResponsibilityPattern)是一种行为型设计模式。意图：使多个对象都有机会处理请求，从而避免发送者和接收者之间的耦合关系。将所有可以处理请求的对象串成一条链，并沿着这条链传递请求，直到有对象处理它。
 
 
-代码实现抽象模板类抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。
-abstract class AbstractBeverage
+代码实现请求对象class Request
 {
-    public void Create()
-    {
-        BoilWater();">
-<meta property="og:updated_time" content="2015-09-03T09:49:12.142Z">
+    private int _day;
+    private string _reason;">
+<meta property="og:updated_time" content="2015-09-04T04:20:38.789Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="模板模式">
-<meta name="twitter:description" content="模板模式(TemplatePattern)是一种行为型设计模式。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。
+<meta name="twitter:title" content="责任链模式">
+<meta name="twitter:description" content="责任链模式(ChainOfResponsibilityPattern)是一种行为型设计模式。意图：使多个对象都有机会处理请求，从而避免发送者和接收者之间的耦合关系。将所有可以处理请求的对象串成一条链，并沿着这条链传递请求，直到有对象处理它。
 
 
-代码实现抽象模板类抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。
-abstract class AbstractBeverage
+代码实现请求对象class Request
 {
-    public void Create()
-    {
-        BoilWater();">
+    private int _day;
+    private string _reason;">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -78,7 +72,7 @@ abstract class AbstractBeverage
   };
 </script>
 
-  <title> 模板模式 | lwei的博客 </title>
+  <title> 责任链模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -224,7 +218,7 @@ abstract class AbstractBeverage
           
           
             
-              模板模式
+              责任链模式
             
           
         </h1>
@@ -233,8 +227,8 @@ abstract class AbstractBeverage
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-03T17:33:44+08:00" content="2015-09-03">
-            2015-09-03
+          <time itemprop="dateCreated" datetime="2015-09-04T11:56:13+08:00" content="2015-09-04">
+            2015-09-04
           </time>
         </span>
 
@@ -271,8 +265,8 @@ abstract class AbstractBeverage
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/03/TemplatePattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/03/TemplatePattern/" itemprop="commentsCount"></span>
+              <a href="/2015/09/04/ChainOfResponsibilityPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/04/ChainOfResponsibilityPattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -287,113 +281,148 @@ abstract class AbstractBeverage
 
       
         <span itemprop="articleBody"><blockquote>
-<p>模板模式(TemplatePattern)是一种<em>行为型设计模式</em>。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。</p>
+<p>责任链模式(ChainOfResponsibilityPattern)是一种<em>行为型设计模式</em>。意图：使多个对象都有机会处理请求，从而避免发送者和接收者之间的耦合关系。将所有可以处理请求的对象串成一条链，并沿着这条链传递请求，直到有对象处理它。</p>
 </blockquote>
 <hr>
-<h3 id="代码实现">代码实现</h3><h4 id="抽象模板类">抽象模板类</h4><p>抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。</p>
-<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractBeverage</span>
+<h3 id="代码实现">代码实现</h3><h4 id="请求对象">请求对象</h4><pre><code><span class="keyword">class</span> <span class="title">Request</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Create</span>(<span class="params"></span>)
-    </span>{
-        BoilWater();
-        AddCoundiments();
-        Brew();
-        PourInCup();
+    <span class="keyword">private</span> <span class="keyword">int</span> _day;
+    <span class="keyword">private</span> <span class="keyword">string</span> _reason;
 
-        <span class="keyword">if</span> (Hook())
+
+    <span class="keyword">public</span> <span class="keyword">int</span> Day
+    {
+        <span class="keyword">get</span> { <span class="keyword">return</span> _day; }
+        <span class="keyword">set</span> { _day = <span class="keyword">value</span>; }
+    }
+
+    <span class="keyword">public</span> <span class="keyword">string</span> Reason 
+    {
+        <span class="keyword">get</span> { <span class="keyword">return</span> _reason; }
+        <span class="keyword">set</span> { _reason = <span class="keyword">value</span>; }
+    }
+}
+</code></pre><h4 id="一个抽象“链”对象">一个抽象“链”对象</h4><p>抽象对象定义抽象的处理请求的方法，并定义下个链对象。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractHandler</span>
+{
+    <span class="keyword">private</span> AbstractHandler _successor;
+    <span class="keyword">protected</span> <span class="keyword">string</span> _name;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">AbstractHandler</span>(<span class="params"><span class="keyword">string</span> name</span>)
+    </span>{
+        _name = name;
+    }
+
+    <span class="keyword">public</span> AbstractHandler Successor 
+    {
+        <span class="keyword">get</span> { <span class="keyword">return</span> _successor; }
+        <span class="keyword">set</span> { _successor = <span class="keyword">value</span>; }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">bool</span> <span class="title">PassHandle</span>(<span class="params">Request request</span>)</span>;
+}
+</code></pre><h4 id="具体的请求处理对象">具体的请求处理对象</h4><p>具体的对象根据条件实现请求的方法。</p>
+<pre><code><span class="keyword">class</span> <span class="title">PM</span> : <span class="title">AbstractHandler</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">PM</span>(<span class="params"><span class="keyword">string</span> name</span>) :
+        <span class="title">base</span>(<span class="params">name</span>)
+    </span>{
+
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">PassHandle</span>(<span class="params">Request request</span>)
+    </span>{
+        <span class="keyword">if</span> (request.Day &lt; <span class="number">0.5</span>)
         {
-            Again();
+            Console.WriteLine(<span class="string">"PM "</span> + _name + <span class="string">" 批准请假。 "</span>);
+            <span class="keyword">return</span> <span class="keyword">true</span>;
         }
+
+        <span class="keyword">return</span> Successor.PassHandle(request);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">HR</span> : <span class="title">AbstractHandler</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">HR</span>(<span class="params"><span class="keyword">string</span> name</span>) :
+        <span class="title">base</span>(<span class="params">name</span>)
+    </span>{
+
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BoilWater</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">PassHandle</span>(<span class="params">Request request</span>)
     </span>{
-        Console.WriteLine(<span class="string">"烧开水"</span>);
+        <span class="keyword">if</span> (request.Day &gt; <span class="number">0.5</span> &amp;&amp; request.Day &lt; <span class="number">3</span>) 
+        {
+            Console.WriteLine(<span class="string">"HR "</span> + _name + <span class="string">" 批准请假。 "</span>);
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }
+
+        <span class="keyword">return</span> Successor.PassHandle(request);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">Manager</span> : <span class="title">AbstractHandler</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span>(<span class="params"><span class="keyword">string</span> name</span>) :
+        <span class="title">base</span>(<span class="params">name</span>)
+    </span>{
+
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">AddCoundiments</span>(<span class="params"></span>)</span>;
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Brew</span>(<span class="params"></span>)</span>;
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PourInCup</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">PassHandle</span>(<span class="params">Request request</span>)
     </span>{
-        Console.WriteLine(<span class="string">"倒入杯子中"</span>);
-    }
+        <span class="keyword">if</span> (request.Reason.Equals(<span class="string">"正当理由"</span>))
+        {
+            Console.WriteLine(<span class="string">"Manager "</span> + _name + <span class="string">" 批准请假。 "</span>);
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }
 
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">Hook</span>(<span class="params"></span>)
-    </span>{
+        Console.WriteLine(<span class="string">"Manager "</span> + _name + <span class="string">" 认为理由不正当，不允许批准。 "</span>);
         <span class="keyword">return</span> <span class="keyword">false</span>;
     }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Again</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"在来一杯"</span>);
-    }
 }
-</code></pre><h4 id="具体实现的子类">具体实现的子类</h4><p>子类实现抽象函数中的方法，实现个性化。</p>
-<pre><code><span class="keyword">class</span> <span class="title">Tea</span> : <span class="title">AbstractBeverage</span>
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> Program
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddCoundiments</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"加入茶叶"</span>);
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Brew</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"冲泡茶叶"</span>);
-    }
-
-
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Hook</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">true</span>;
-    }
-}
-
-<span class="keyword">class</span> <span class="title">Coffer</span> : <span class="title">AbstractBeverage</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddCoundiments</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"加入咖啡豆"</span>);
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Brew</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"冲泡咖啡"</span>);
-        Season();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Season</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"加入2块方糖，调节味道"</span>);
-    }
-}
-</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
-{
-    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    static void Main(<span class="built_in">string</span>[] args)
     {
-        <span class="type">AbstractBeverage</span> beverageTea = <span class="keyword">new</span> <span class="type">Tea</span><span class="literal">()</span>;
-        beverageTea.<span class="type">Create</span><span class="literal">()</span>;
+        PM pm = <span class="keyword">new</span> PM(<span class="string">"项目经理"</span>);
+        HR hr = <span class="keyword">new</span> HR(<span class="string">"人力资源"</span>);
+        Manager manager = <span class="keyword">new</span> Manager(<span class="string">"总经理"</span>);
 
-        <span class="type">AbstractBeverage</span> beverageCoffer = <span class="keyword">new</span> <span class="type">Coffer</span><span class="literal">()</span>;
-        beverageCoffer.<span class="type">Create</span><span class="literal">()</span>;
+        pm.Successor = hr;
+        hr.Successor = manager;
 
-        <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
+
+        <span class="built_in">Request</span> request1 = <span class="keyword">new</span> <span class="built_in">Request</span>();
+        request1.<span class="built_in">Day</span> = <span class="number">2</span>;
+        request1.Reason = <span class="string">"正当理由"</span>;
+
+        pm.PassHandle(request1);
+
+        <span class="built_in">Request</span> request2 = <span class="keyword">new</span> <span class="built_in">Request</span>();
+        request2.<span class="built_in">Day</span> = <span class="number">6</span>;
+        request2.Reason = <span class="string">"不正当理由"</span>;
+
+        pm.PassHandle(request2);
+
+        Console.Read();
     }
 }
-</code></pre><h3 id="个人理解">个人理解</h3><p>模板方法通过定义一个相同的算法框架，而将其中部分步骤的实现延迟到子类中实现。</p>
+</code></pre><h3 id="个人理解">个人理解</h3><p>责任链模式通过一条链来处理请求，请求者并不知道处理者对象，分离了请求者和处理者。但是每个请求都必须从链头开始处理，造成了内存中的垃圾对象。</p>
 <blockquote>
 <p><strong>适用性</strong></p>
-<p>一次性实现算法的固定部分，将可变的行为留给子类。</p>
-<p>各个子类中的公有行为被提取到超类中，提高了代码的可复用性。</p>
-<p>通过钩子（hook）控制了子类的扩展。子类可以实现也可以不是先钩子方法。</p>
+<p>有多个对象处理请求时，而且请求在运行时候决定。</p>
+<p>在不明确处理者的时候，向多个对象提出一个请求。</p>
+<p>可处理一个请求的对象集合应该被动态指定。</p>
+<p>如果存在N对N，或者是常规线性关系，我们完全可以用表驱动代替责任链。</p>
+<p>责任链并非只可以在上下级间传递，也可以在同级间传递。</p>
 </blockquote>
 <hr>
 <h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750460" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://blog.csdn.net/lovelion/article/details/8299927" target="_blank" rel="external">模板方法模式深度解析</a></li>
-<li><a href="http://www.cnblogs.com/wangjq/archive/2012/07/09/2582978.html" target="_blank" rel="external">设计模式学习笔记-模板方法模式</a></li>
-<li><a href="http://meigesir.iteye.com/blog/1506484" target="_blank" rel="external">设计模式：模版模式(Template Pattern)</a></li>
+<li><a href="http://www.cnblogs.com/xudong-bupt/p/3617860.html" target="_blank" rel="external">设计模式之责任链模式</a></li>
+<li><a href="http://www.cnblogs.com/kym/archive/2009/04/06/1430078.html" target="_blank" rel="external">重温设计模式（三）——职责链模式(chain of responsibility)</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750461" target="_blank" rel="external">23种设计模式</a></li>
 </ul>
 </span>
       
@@ -403,7 +432,7 @@ abstract class AbstractBeverage
       
         <div class="post-tags">
           
-            <a href="/tags/模板模式/" rel="tag">#模板模式</a>
+            <a href="/tags/责任链模式/" rel="tag">#责任链模式</a>
           
         </div>
       
@@ -412,13 +441,11 @@ abstract class AbstractBeverage
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/04/ChainOfResponsibilityPattern/" rel="prev">责任链模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/02/InterpreterPattern/" rel="next">解释器模式</a>
+              <a href="/2015/09/03/TemplatePattern/" rel="next">模板模式</a>
             
           </div>
         </div>
@@ -443,8 +470,8 @@ abstract class AbstractBeverage
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/03/TemplatePattern/"
-                   data-title="模板模式" data-url="http://yoursite.com/2015/09/03/TemplatePattern/">
+              <div class="ds-thread" data-thread-key="2015/09/04/ChainOfResponsibilityPattern/"
+                   data-title="责任链模式" data-url="http://yoursite.com/2015/09/04/ChainOfResponsibilityPattern/">
               </div>
             
           </div>
@@ -541,7 +568,7 @@ abstract class AbstractBeverage
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象模板类"><span class="nav-number">1.1.</span> <span class="nav-text">抽象模板类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体实现的子类"><span class="nav-number">1.2.</span> <span class="nav-text">具体实现的子类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.3.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求对象"><span class="nav-number">1.1.</span> <span class="nav-text">请求对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个抽象“链”对象"><span class="nav-number">1.2.</span> <span class="nav-text">一个抽象“链”对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体的请求处理对象"><span class="nav-number">1.3.</span> <span class="nav-text">具体的请求处理对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.4.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
