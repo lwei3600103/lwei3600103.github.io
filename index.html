@@ -201,6 +201,332 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/05/CommandPattern/" itemprop="url">
+                命令行模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-05T13:27:34+08:00" content="2015-09-05">
+            2015-09-05
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/05/CommandPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/05/CommandPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>命令行模式(CommandPattern)是一种<em>行为型设计模式</em>。意图：将一个请求封装成一个对象，从而使你可用不同的请求对客户进行参数化。对请求排队、记录日志以及可撤销的操作等。</p>
+</blockquote>
+<hr>
+<h3 id="代码实现1">代码实现1</h3><h4 id="接收者">接收者</h4><p>Receiver接收调用者请求的实际去操作的对象。</p>
+<pre><code><span class="keyword">class</span> ReceiverTV
+{
+
+    <span class="keyword">private</span> <span class="keyword">int</span> _currentChannel;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">ReceiverTV</span><span class="params">()</span>
+    </span>{
+        _currentChannel = <span class="number">0</span>;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TurnOn</span><span class="params">()</span>
+    </span>{
+        Console.WriteLine(<span class="string">"打开电视机。"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TurnOff</span><span class="params">()</span>
+    </span>{
+        Console.WriteLine(<span class="string">"关闭电视机"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ChangeChannel</span><span class="params">()</span>
+    </span>{
+        Console.WriteLine(<span class="string">"调整频道为："</span> + (++_currentChannel));
+    }
+}
+</code></pre><h4 id="抽象命令对象">抽象命令对象</h4><p>ICommand用于解耦目标对象与调用者之间的抽象命令对象。</p>
+<pre><code><span class="keyword">interface</span> <span class="title">ICommand</span>
+{
+   <span class="function"><span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h4 id="命令实现的对象">命令实现的对象</h4><p>ConcreteCommand是ICommand的实现类，实现ICommand中的接口。</p>
+<pre><code><span class="keyword">class</span> <span class="title">TurnOn</span> : <span class="title">ICommand</span>
+{
+    <span class="keyword">private</span> ReceiverTV _tv;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">TurnOn</span>(<span class="params">ReceiverTV tv</span>)
+    </span>{
+        _tv = tv;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)
+    </span>{
+        _tv.TurnOn();
+    }
+}
+
+<span class="keyword">class</span> <span class="title">TurnOff</span> : <span class="title">ICommand</span>
+{
+    <span class="keyword">private</span> ReceiverTV _tv;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">TurnOff</span>(<span class="params">ReceiverTV tv</span>)
+    </span>{
+        _tv = tv;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)
+    </span>{
+        _tv.TurnOff();
+    }
+}
+
+<span class="keyword">class</span> <span class="title">ChangeChannel</span> : <span class="title">ICommand</span>
+{
+    <span class="keyword">private</span> ReceiverTV _tv;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">ChangeChannel</span>(<span class="params">ReceiverTV tv</span>)
+    </span>{
+        _tv = tv;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)
+    </span>{
+        _tv.ChangeChannel();
+    }
+}
+</code></pre><h4 id="调用者">调用者</h4><p>Invoker调用者负责调用对象。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Invoker</span>
+{
+    <span class="keyword">private</span> List&lt;ICommand&gt; _list;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">ICommand command</span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == _list)
+        {
+            _list = <span class="keyword">new</span> List&lt;ICommand&gt;();
+        }
+
+        _list.Add(command);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">foreach</span> (ICommand command <span class="keyword">in</span> _list)
+        {
+            command.Execute();
+        }
+    }
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span><span class="container">(<span class="title">string</span>[] <span class="title">args</span>)</span>
+    {
+        <span class="type">ReceiverTV</span> tv = new <span class="type">ReceiverTV</span><span class="container">()</span>;
+
+        <span class="type">Invoker</span> invoker = new <span class="type">Invoker</span><span class="container">()</span>;
+
+        <span class="type">ICommand</span> commandTurnOn = new <span class="type">TurnOn</span><span class="container">(<span class="title">tv</span>)</span>;
+        invoker.<span class="type">Add</span><span class="container">(<span class="title">commandTurnOn</span>)</span>;
+
+        <span class="type">ICommand</span> commandChangerChannel = new <span class="type">ChangeChannel</span><span class="container">(<span class="title">tv</span>)</span>;
+        invoker.<span class="type">Add</span><span class="container">(<span class="title">commandChangerChannel</span>)</span>;
+
+        <span class="type">ICommand</span> commandTurnOff = new <span class="type">TurnOff</span><span class="container">(<span class="title">tv</span>)</span>;
+        invoker.<span class="type">Add</span><span class="container">(<span class="title">commandTurnOff</span>)</span>;
+
+        invoker.<span class="type">Run</span><span class="container">()</span>;
+
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="container">()</span>;
+    }
+}</span>
+</code></pre><h3 id="代码实现2（轻量级的事件队列）">代码实现2（轻量级的事件队列）</h3><h4 id="调用者-1">调用者</h4><pre><code><span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">HandleExecute</span>(<span class="params"></span>)</span>;
+
+<span class="keyword">class</span> <span class="title">EventHandleInvoker</span>
+{
+    IList&lt;HandleExecute&gt; _list = <span class="keyword">new</span> List&lt;HandleExecute&gt;();
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddHanler</span>(<span class="params">HandleExecute handle</span>)
+    </span>{
+        _list.Add(handle);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">foreach</span> (HandleExecute handle <span class="keyword">in</span> _list)
+        {
+            handle();
+        }
+    }
+}
+</code></pre><h4 id="测试代码-1">测试代码</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span><span class="container">(<span class="title">string</span>[] <span class="title">args</span>)</span>
+    {
+        <span class="type">ReceiverTV</span> tv = new <span class="type">ReceiverTV</span><span class="container">()</span>;
+
+        <span class="type">EventHandleInvoker</span> eventHandle = new <span class="type">EventHandleInvoker</span><span class="container">()</span>;
+        eventHandle.<span class="type">AddHanler</span><span class="container">(<span class="title">tv</span>.<span class="type">TurnOn</span>)</span>;
+        eventHandle.<span class="type">AddHanler</span><span class="container">(<span class="title">tv</span>.<span class="type">ChangeChannel</span>)</span>;
+        eventHandle.<span class="type">AddHanler</span><span class="container">(<span class="title">tv</span>.<span class="type">TurnOff</span>)</span>;
+
+        eventHandle.<span class="type">Run</span><span class="container">()</span>;
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="container">()</span>;
+    }
+}</span>
+</code></pre><h3 id="代码实现3（异步命令）">代码实现3（异步命令）</h3><h4 id="异步接口命令">异步接口命令</h4><pre><code><span class="keyword">interface</span> <span class="title">IAsynCommandBase</span> : <span class="title">ICommand</span>
+{
+    <span class="keyword">event</span> AsyncCallback _asynCallback;
+
+    <span class="keyword">event</span> EventHandler _handler;
+
+    <span class="function"><span class="keyword">void</span> <span class="title">AsynExecute</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h4 id="异步命令抽象实现">异步命令抽象实现</h4><pre><code><span class="keyword">class</span> <span class="title">AsynCommandBase</span> : <span class="title">IAsynCommandBase</span>
+{
+    <span class="keyword">public</span> <span class="keyword">event</span> AsyncCallback _asynCallback;
+
+    <span class="keyword">public</span> <span class="keyword">event</span> EventHandler _handler;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AsynExecute</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> != _handler &amp;&amp; <span class="keyword">null</span> != _asynCallback)
+        {
+            _handler.BeginInvoke(<span class="keyword">this</span>, <span class="keyword">new</span> EventArgs(), _asynCallback, <span class="keyword">null</span>);
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)
+    </span>{
+    }
+}
+</code></pre><h4 id="实体内容">实体内容</h4><pre><code><span class="keyword">class</span> <span class="title">TestCommand</span> : <span class="title">AsynCommandBase</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">TestCommand</span>(<span class="params"></span>)
+    </span>{
+        _asynCallback += <span class="keyword">new</span> AsyncCallback(TestCommand__asynCallback);
+        _handler += <span class="keyword">new</span> EventHandler(TestCommand__handler);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestCommand__asynCallback</span>(<span class="params">IAsyncResult asynBase</span>)
+    </span>{
+        Console.WriteLine(<span class="string">"TestCommand__asynCallback"</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestCommand__handler</span>(<span class="params">Object sender, EventArgs args</span>)
+    </span>{
+        Console.WriteLine(<span class="string">"TestCommand__handler"</span>);
+    }
+}
+</code></pre><h4 id="测试代码-2">测试代码</h4><pre><code><span class="keyword">class</span> Program
+{
+    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(<span class="built_in">string</span>[] args)</span>
+    </span>{
+        IAsynCommandBase asyn = <span class="keyword">new</span> TestCommand();
+        asyn.AsynExecute();
+        System.Threading.Thread.Sleep(<span class="number">10000</span>);
+
+        Console.Read();
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>命令模式解耦了调用者和接受者间关系。调用者只需要知道命令即可，不用管实际接受者的具体操作。</p>
+<blockquote>
+<p><strong>适用性</strong></p>
+<p>使用命令模式作为回调函数（callBack）的替代。</p>
+<p>异步执行的请求或操作。即使请求者已经销毁了，调用者依旧执行操作。</p>
+<p>系统支持撤销、恢复等操作。通过记录的日志重新执行命令Execute或Undo。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750462" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/zhengzhb/article/details/7550895" target="_blank" rel="external">23种设计模式（10）：命令模式</a></li>
+<li><a href="http://www.cnblogs.com/hegezhou_hot/archive/2011/02/26/1965769.html" target="_blank" rel="external">设计模式系列-命令模式</a></li>
+<li><a href="http://www.cnblogs.com/lzhp/p/3395320.html" target="_blank" rel="external">命令模式（head first 设计模式5）</a></li>
+<li><a href="http://www.cnblogs.com/devinzhang/archive/2012/01/06/2315235.html" target="_blank" rel="external">Java之命令模式（Command Pattern）</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/04/ChainOfResponsibilityPattern/" itemprop="url">
                 责任链模式
               </a>
@@ -2202,191 +2528,6 @@
 
 
     
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/22/AdapterPattern/" itemprop="url">
-                适配器模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-22T16:54:06+08:00" content="2015-08-22">
-            2015-08-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">设计模式</span>
-                </a>
-              </span>
-
-              
-              
-                ， 
-              
-
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">结构型设计模式</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/22/AdapterPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/22/AdapterPattern/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>适配器模式(Adapter Pattern)是一种<em>结构型设计模式</em>。意图：将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。 </p>
-</blockquote>
-<hr>
-<h3 id="代码实现">代码实现</h3><p>一个接口提供外语的学习方法。原来是讲英语的，现在我们需要它讲法语。同样的接口做不同的工作。提供出来的新的功能的时候，我们可以用适配器模式</p>
-<h4 id="类适配器">类适配器</h4><pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ITargert</span>
-</span>{
-    <span class="keyword">void</span> Request();
-}
-
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span>
-</span>{
-    <span class="keyword">public</span> <span class="keyword">void</span> SpecialRequest()
-    {
-        Console.WriteLine(<span class="string">"i can speek franch."</span>);
-    }
-}
-
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassAdapter</span> : <span class="title">Adaptee</span>, <span class="title">ITargert</span>
-</span>{
-    <span class="keyword">public</span> <span class="keyword">void</span> Request()
-    {
-        <span class="keyword">this</span>.SpecialRequest();
-    }
-}
-
-<span class="class"><span class="keyword">class</span> <span class="title">Program</span>
-</span>{
-    <span class="keyword">static</span> <span class="keyword">void</span> Main(<span class="keyword">string</span>[] args)
-    {
-        ITargert target = <span class="keyword">new</span> ClassAdapter();
-        target.Request();
-
-        Console.Read();
-    }
-}
-</code></pre><p>通过在类的Request()方法中我们调用Adaptee类的SpecialRequest()来实现法语。</p>
-<h4 id="对象适配器">对象适配器</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Targert</span> : <span class="title">ITargert</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"i can speek english."</span>);
-    }
-}
-
-<span class="keyword">class</span> <span class="title">ObjectAdapter</span> : <span class="title">Targert</span>
-{
-    <span class="keyword">private</span> Adaptee _adaptee;
-
-    <span class="function"><span class="keyword">public</span> <span class="title">ObjectAdapter</span>(<span class="params"></span>)
-    </span>{
-        _adaptee = <span class="keyword">new</span> Adaptee();
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)
-    </span>{
-        _adaptee.SpecialRequest();
-    }
-}
-
-<span class="keyword">class</span> <span class="title">Program</span>
-{
-    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-    </span>{
-        ITargert targert = <span class="keyword">new</span> ObjectAdapter();
-        targert.Request();
-
-        Console.Read();
-    }
-}
-</code></pre><p>我们在ObjectAdapter中new一个Adaptee对象出来，然后在方法中Request()调用Adaptee对象的SpecialRequest()，来实现法语。</p>
-<h3 id="个人理解">个人理解</h3><p>类适配器和对象适配器都很好的复用了现有类。类适配器通过”多继承”的方式，使得它可以从新实现Adaptee的行为，也造成了高耦合的特点。对象适配器通过”对象组合”的方式，使得它松耦合，但是也不能重新定义Adaptee的行为，只能从Adaptee子类中实现。</p>
-<blockquote>
-<p><strong>适用性：</strong></p>
-<p>使用一个已经存在的类，而它的接口不符合你的需求。</p>
-<p>创建一个可以复用的类，该类可以与其他不相关的类或不可预见的类（即那些接口可能不一定兼容的类）协同工作。</p>
-<p>使用一些已经存在的子类，但是不可能对每一个都进行子类化以匹配它们的接口。对象适配器可以适配它的父类接口。</p>
-<p><strong>优缺点：</strong></p>
-<p>类适配器模式优点：1，可以在不修改原有代码的基础上来复用现有类，很好地符合 “开闭原则”。 2，可以重新定义Adaptee(被适配的类)的部分行为，因为在类适配器模式中，Adapter是Adaptee的子类。 3，仅仅引入一个对象，并不需要额外的字段来引用Adaptee实例（这个即是优点也是缺点）。</p>
-<p>类适配器模式缺点：1，用一个具体的Adapter类对Adaptee和Target进行匹配，当如果想要匹配一个类以及所有它的子类时，类的适配器模式就不能胜任了。因为类的适配器模式中没有引入Adaptee的实例，光调用this.SpecificRequest方法并不能去调用它对应子类的SpecificRequest方法。 2， 采用了 “多继承”的实现方式，带来了不良的高耦合。</p>
-<p>对象适配器的优点:1, 可以在不修改原有代码的基础上来复用现有类，很好地符合 “开闭原则”（这点是两种实现方式都具有的）。 2，采用 “对象组合”的方式，更符合松耦合。</p>
-<p>对象适配器的缺点:1，使得重定义Adaptee的行为较困难，这就需要生成Adaptee的子类并且使得Adapter引用这个子类而不是引用Adaptee本身。</p>
-</blockquote>
-<hr>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://blog.jobbole.com/78073/" target="_blank" rel="external">C#设计模式(7)——适配器模式</a></li>
-<li><a href="http://www.cnblogs.com/libingql/p/3495699.html" target="_blank" rel="external">C#设计模式系列：适配器模式（Adapter）</a></li>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750451" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://www.jellythink.com/archives/108" target="_blank" rel="external">C++设计模式——适配器模式</a></li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2425,7 +2566,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2439,7 +2580,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
