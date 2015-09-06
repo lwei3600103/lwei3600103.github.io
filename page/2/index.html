@@ -201,6 +201,187 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/23/BridgePattern/" itemprop="url">
+                桥接模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-23T16:48:51+08:00" content="2015-08-23">
+            2015-08-23
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">结构型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/23/BridgePattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/23/BridgePattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>桥接模式(BridgePattern)是一种<em>结构型设计模式</em>。意图：将抽象部分与它的实现部分分离，使它们都可以独立地变化，从而将抽象与实现解耦。</p>
+</blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="参与者">参与者</h4><p>Abstraction： 1. 定义抽象接口。  2. 拥有一个实现（Implementor）类型对象引用。</p>
+<p>RefinedAbstraction: 1. 扩展Abstraction中的接口定义。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Shape</span>
+{
+    <span class="keyword">protected</span> Corlor _color;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DrawShape</span>(<span class="params"></span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetColor</span>(<span class="params">Corlor corlor</span>)
+    </span>{
+        _color = corlor;
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Rectangle</span> : <span class="title">Shape</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawShape</span>(<span class="params"></span>)
+    </span>{
+        _color.DrawColor();
+        Console.WriteLine(<span class="string">"长方形"</span>);
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Square</span> : <span class="title">Shape</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawShape</span>(<span class="params"></span>)
+    </span>{
+        _color.DrawColor();
+        Console.WriteLine(<span class="string">"正方形"</span>);
+    } 
+}
+</code></pre><h4 id="实现者">实现者</h4><p>Implementor类定义了实现类的接口，这个接口不一定要与Abstraction的接口完全一致；实际上，这两个接口可以完全不同；</p>
+<p>ConcreteImplementor类实现了Implementor定义的接口。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Corlor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DrawColor</span>(<span class="params"></span>)</span>;
+}
+
+<span class="keyword">public</span>  <span class="keyword">class</span> <span class="title">Red</span> : <span class="title">Corlor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawColor</span>(<span class="params"></span>)
+    </span>{
+        Console.Write(<span class="string">"红色的"</span>);
+    }
+}
+
+
+<span class="keyword">public</span>  <span class="keyword">class</span> <span class="title">White</span> : <span class="title">Corlor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DrawColor</span>(<span class="params"></span>)
+    </span>{
+        Console.Write(<span class="string">"白色的"</span>);
+    }
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    {
+        <span class="type">Corlor</span> corlor = <span class="keyword">new</span> <span class="type">Red</span><span class="literal">()</span>;
+        <span class="type">Shape</span> shape = <span class="keyword">new</span> <span class="type">Square</span><span class="literal">()</span>;
+
+        shape.<span class="type">SetColor</span>(corlor);
+        shape.<span class="type">DrawShape</span><span class="literal">()</span>;
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>桥接模式可以用来解决对象有2个或者2个以上的维度变化的问题。对客户隐藏抽象的实现部分（指的是实现者这部分）。</p>
+<blockquote>
+<p><strong>适用性：</strong></p>
+<p>你不希望在抽象和它的实现部分有一个固定的绑定关系。</p>
+<p>类的抽象和它的实现部分都可以通过子类扩展。</p>
+<p>对实现部分的修改，不会影响客户端（主要是指编译）。</p>
+<p>如果某个变化在多个对象中共享是，可以抽象该变化，然后该变化的不同因素。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/houleixx/archive/2008/02/23/1078877.html" target="_blank" rel="external">设计模式—–桥接模式(Bridge Pattern)</a></li>
+<li><a href="http://www.cnblogs.com/rush/archive/2011/06/29/2093743.html" target="_blank" rel="external">桥接模式（Bridge）</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750452" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://www.jellythink.com/archives/132" target="_blank" rel="external">C++设计模式——桥接模式</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/22/AdapterPattern/" itemprop="url">
                 适配器模式
               </a>
@@ -1444,7 +1625,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1458,7 +1639,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
