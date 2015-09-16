@@ -201,6 +201,212 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/16/MediatorPattern/" itemprop="url">
+                中介者模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-16T20:03:33+08:00" content="2015-09-16">
+            2015-09-16
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/16/MediatorPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/16/MediatorPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>中介者模式(MediatorPattern)是一种<em>行为型设计模式</em>。意图：用一个中介对象封装一系列的对象的交互。中介者使各个对象不需要的显示引用，从而使其耦合松散，并且可以独立的改变他们之间的交互。</p>
+</blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="抽象同事类">抽象同事类</h4><p>抽象同事类（Colleague）主要负责约束同事类的类型，并实现一些同事类的公共功能。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Colleague</span>
+{
+    <span class="keyword">protected</span> AbstractMediator _mediator;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SetMediator</span>(<span class="params">Mediator mediator</span>)
+    </span>{
+        _mediator = mediator;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> != _mediator)
+        {
+            _mediator.SendMessage(message, <span class="keyword">this</span>);
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">ReceiveMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)</span>;
+}
+</code></pre><h4 id="同事类">同事类</h4><p>同事类实现自己的业务，当与中介者有交互的时候就通知中介者。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Button</span> : <span class="title">Colleague</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">ReceiveMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)
+    </span>{
+        Console.WriteLine(<span class="string">"button receive "</span> + message);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">TextEdit</span> : <span class="title">Colleague</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">ReceiveMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)
+    </span>{
+        Console.WriteLine(<span class="string">"TextEdit receive "</span> + message);
+        SendMessage(<span class="string">" TextEdit has receive message. "</span>);
+    }
+}
+</code></pre><h4 id="抽象中介者类">抽象中介者类</h4><p>抽象中介者定义各个同事间需要的方法，可以是公共方法。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractMediator</span>
+{
+    <span class="keyword">protected</span> IList&lt;<span class="keyword">object</span>&gt; _list;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> message, <span class="keyword">object</span> obj</span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">AddColleague</span>(<span class="params"><span class="keyword">object</span> obj</span>)</span>;
+
+}
+</code></pre><h4 id="中介者类">中介者类</h4><p>中介者类了解各个同事对象，并协调各个同事对象的交互。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Mediator</span> : <span class="title">AbstractMediator</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddColleague</span>(<span class="params"><span class="keyword">object</span> obj</span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == _list)
+        {
+            _list = <span class="keyword">new</span> List&lt;<span class="keyword">object</span>&gt;();
+        }
+
+        _list.Add(obj);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> message, <span class="keyword">object</span> obj</span>)
+    </span>{
+        <span class="keyword">foreach</span> (Colleague curObject <span class="keyword">in</span> _list)
+        {
+            <span class="keyword">if</span> (curObject.GetType().Name != obj.GetType().Name)
+            {
+                curObject.ReceiveMessage(message);
+            }
+        }
+    }
+
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code>class Program
+{
+    static void Main<span class="params">(string[] args)</span>
+    {
+        Mediator mediator = new Mediator<span class="params">()</span>;
+        Button button = new Button<span class="params">()</span>;
+        button.SetMediator<span class="params">(mediator)</span>;
+
+        TextEdit edit1 = new TextEdit<span class="params">()</span>;
+        edit1.SetMediator<span class="params">(mediator)</span>;
+
+        TextEdit edit2 = new TextEdit<span class="params">()</span>;
+        edit2.SetMediator<span class="params">(mediator)</span>;
+
+        mediator.AddColleague<span class="params">(button)</span>;
+        mediator.AddColleague<span class="params">(edit1)</span>;
+        mediator.AddColleague<span class="params">(edit2)</span>;
+
+        button.SendMessage<span class="params">(<span class="string">"button clicked. "</span>)</span>;
+
+        Console.Read<span class="params">()</span>;
+
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>中介者封装各个对象的交互，使得原来的网状接口变成星状结构。</p>
+<blockquote>
+<p><strong>适用性</strong></p>
+<p>一组对象以定义良好但是复杂的方式进行通信。产生的相互依赖关系结构混乱且难以理解。</p>
+<p>一个对象引用其他很多对象，并且直接和这些对象通信，导致难以复用这些对象。</p>
+<p>想定义一个分布在多个类的行为，又不想生成多个子类。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750464" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://www.cnblogs.com/zxj159/p/3466115.html" target="_blank" rel="external">设计模式之中介者模式(十一)</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/06/IteratorPattern/" itemprop="url">
                 迭代器模式
               </a>
@@ -2362,210 +2568,6 @@ class <span class="type">Program</span>
 
 
     
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/23/CompsitePattern/" itemprop="url">
-                组合模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-23T22:06:02+08:00" content="2015-08-23">
-            2015-08-23
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">设计模式</span>
-                </a>
-              </span>
-
-              
-              
-                ， 
-              
-
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">结构型设计模式</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/23/CompsitePattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/23/CompsitePattern/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>组合模式（CompsitePattern）是一种<em>结构型设计模式</em>。意图：将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
-</blockquote>
-<h3 id="代码实现">代码实现</h3><h4 id="组件">组件</h4><pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Compnent</span>
-{
-    <span class="keyword">protected</span> <span class="keyword">string</span> _name;
-
-    <span class="function"><span class="keyword">public</span> <span class="title">Compnent</span>(<span class="params"><span class="keyword">string</span> name</span>)
-    </span>{
-        _name = name;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">Compnent compnent</span>)</span>;
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">Compnent compnent</span>)</span>;
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"><span class="keyword">int</span> depath</span>)</span>;
-
-}
-</code></pre><p>它声明组合中对象的接口。申明获得所有管理子类对象的接口。声明公共接口</p>
-<h4 id="组合类">组合类</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Compsite</span> : <span class="title">Compnent</span>
-{
-    <span class="keyword">private</span> List&lt;Compnent&gt; _childs = <span class="keyword">new</span> List&lt;Compnent&gt;();
-
-    <span class="function"><span class="keyword">public</span> <span class="title">Compsite</span>(<span class="params"><span class="keyword">string</span> name</span>) : <span class="title">base</span>(<span class="params">name</span>)
-    </span>{            
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">Compnent compnent</span>)
-    </span>{
-        _childs.Add(compnent);
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">Compnent compnent</span>)
-    </span>{
-        _childs.Remove(compnent);
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"><span class="keyword">int</span> depath</span>)
-    </span>{
-        Console.WriteLine(<span class="keyword">new</span> <span class="keyword">string</span>(<span class="string">'-'</span>, depath) + _name);
-
-        <span class="keyword">foreach</span> (Compnent compnent <span class="keyword">in</span> _childs)
-        {
-            compnent.Display(depath + <span class="number">2</span>);
-        }
-    }
-}
-</code></pre><p>它实现子类相关的操作。</p>
-<h4 id="叶节点">叶节点</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Leaf</span> : <span class="title">Compnent</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">Leaf</span>(<span class="params"><span class="keyword">string</span> name</span>)
-        : <span class="title">base</span>(<span class="params">name</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">Compnent compnent</span>)
-    </span>{            
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">Compnent compnent</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"><span class="keyword">int</span> depath</span>)
-    </span>{
-        Console.WriteLine(<span class="keyword">new</span> <span class="keyword">string</span>(<span class="string">'-'</span>, depath) + _name);
-    }
-}
-</code></pre><p>它实现具体的叶节点的操作。</p>
-<h4 id="测试代码">测试代码</h4><pre><code>class Program
-{
-    static void Main<span class="params">(string[] args)</span>
-    {
-        Compnent rootCompnet = new Compsite<span class="params">(<span class="string">"ROOT"</span>)</span>;
-
-        Compnent rootLeaf1 = new Leaf<span class="params">(<span class="string">"ROOTLEAF1"</span>)</span>;
-        rootCompnet.Add<span class="params">(rootLeaf1)</span>;
-
-        Compnent rootLeaf2 = new Leaf<span class="params">(<span class="string">"ROOTLEAF2"</span>)</span>;
-        rootCompnet.Add<span class="params">(rootLeaf2)</span>;
-
-        Compnent rootCompsite= new Compsite<span class="params">(<span class="string">"ROOTCOMPSITE"</span>)</span>;
-        Compnent leaf1 = new Leaf<span class="params">(<span class="string">"LEAF1"</span>)</span>;
-        rootCompsite.Add<span class="params">(leaf1)</span>;
-        Compnent leaf2 = new Leaf<span class="params">(<span class="string">"LEAF2"</span>)</span>;
-        rootCompsite.Add<span class="params">(leaf2)</span>;
-        rootCompnet.Add<span class="params">(rootCompsite)</span>;
-
-        rootCompnet.Display<span class="params">(<span class="number">0</span>)</span>;
-
-        Console.Read<span class="params">()</span>;
-    }
-}
-</code></pre><h3 id="个人理解">个人理解</h3><p>组合模式让客户端操作一个<em>树形结构</em>的对象，让客户端的操作统一起来。</p>
-<blockquote>
-<p><strong>适用性：</strong></p>
-<p>把对象表示成<em>部分-整体</em>的结构</p>
-<p>用户忽略单个对象和组合对象的不同，用户统一的使用组合中的对象。</p>
-<p>使得新增类型的组件更加容易。新定义的Composite或Leaf子类自动地与已有的结构和客户代码一起协同工作，客户程序不需因新的Component类而改变。</p>
-</blockquote>
-<hr>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://blog.csdn.net/hguisu/article/details/7530783" target="_blank" rel="external">设计模式（七）组合模式Composite（结构型）</a></li>
-<li><a href="http://www.cnblogs.com/libingql/p/3496345.html" target="_blank" rel="external">C#设计模式系列：组合模式（Composite）</a></li>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750453" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://blog.csdn.net/watkinsong/article/details/7291416" target="_blank" rel="external"> C#设计模式之9——组合模式</a></li>
-<li><a href="http://blog.csdn.net/jason0539/article/details/22642281" target="_blank" rel="external">JAVA设计模式初探之组合模式</a></li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2604,7 +2606,7 @@ class <span class="type">Program</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2618,7 +2620,7 @@ class <span class="type">Program</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

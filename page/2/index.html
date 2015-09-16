@@ -201,6 +201,210 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/23/CompsitePattern/" itemprop="url">
+                组合模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-23T22:06:02+08:00" content="2015-08-23">
+            2015-08-23
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">结构型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/23/CompsitePattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/23/CompsitePattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>组合模式（CompsitePattern）是一种<em>结构型设计模式</em>。意图：将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
+</blockquote>
+<h3 id="代码实现">代码实现</h3><h4 id="组件">组件</h4><pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Compnent</span>
+{
+    <span class="keyword">protected</span> <span class="keyword">string</span> _name;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Compnent</span>(<span class="params"><span class="keyword">string</span> name</span>)
+    </span>{
+        _name = name;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">Compnent compnent</span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">Compnent compnent</span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"><span class="keyword">int</span> depath</span>)</span>;
+
+}
+</code></pre><p>它声明组合中对象的接口。申明获得所有管理子类对象的接口。声明公共接口</p>
+<h4 id="组合类">组合类</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Compsite</span> : <span class="title">Compnent</span>
+{
+    <span class="keyword">private</span> List&lt;Compnent&gt; _childs = <span class="keyword">new</span> List&lt;Compnent&gt;();
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Compsite</span>(<span class="params"><span class="keyword">string</span> name</span>) : <span class="title">base</span>(<span class="params">name</span>)
+    </span>{            
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">Compnent compnent</span>)
+    </span>{
+        _childs.Add(compnent);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">Compnent compnent</span>)
+    </span>{
+        _childs.Remove(compnent);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"><span class="keyword">int</span> depath</span>)
+    </span>{
+        Console.WriteLine(<span class="keyword">new</span> <span class="keyword">string</span>(<span class="string">'-'</span>, depath) + _name);
+
+        <span class="keyword">foreach</span> (Compnent compnent <span class="keyword">in</span> _childs)
+        {
+            compnent.Display(depath + <span class="number">2</span>);
+        }
+    }
+}
+</code></pre><p>它实现子类相关的操作。</p>
+<h4 id="叶节点">叶节点</h4><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Leaf</span> : <span class="title">Compnent</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">Leaf</span>(<span class="params"><span class="keyword">string</span> name</span>)
+        : <span class="title">base</span>(<span class="params">name</span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">Compnent compnent</span>)
+    </span>{            
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">Compnent compnent</span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"><span class="keyword">int</span> depath</span>)
+    </span>{
+        Console.WriteLine(<span class="keyword">new</span> <span class="keyword">string</span>(<span class="string">'-'</span>, depath) + _name);
+    }
+}
+</code></pre><p>它实现具体的叶节点的操作。</p>
+<h4 id="测试代码">测试代码</h4><pre><code>class Program
+{
+    static void Main<span class="params">(string[] args)</span>
+    {
+        Compnent rootCompnet = new Compsite<span class="params">(<span class="string">"ROOT"</span>)</span>;
+
+        Compnent rootLeaf1 = new Leaf<span class="params">(<span class="string">"ROOTLEAF1"</span>)</span>;
+        rootCompnet.Add<span class="params">(rootLeaf1)</span>;
+
+        Compnent rootLeaf2 = new Leaf<span class="params">(<span class="string">"ROOTLEAF2"</span>)</span>;
+        rootCompnet.Add<span class="params">(rootLeaf2)</span>;
+
+        Compnent rootCompsite= new Compsite<span class="params">(<span class="string">"ROOTCOMPSITE"</span>)</span>;
+        Compnent leaf1 = new Leaf<span class="params">(<span class="string">"LEAF1"</span>)</span>;
+        rootCompsite.Add<span class="params">(leaf1)</span>;
+        Compnent leaf2 = new Leaf<span class="params">(<span class="string">"LEAF2"</span>)</span>;
+        rootCompsite.Add<span class="params">(leaf2)</span>;
+        rootCompnet.Add<span class="params">(rootCompsite)</span>;
+
+        rootCompnet.Display<span class="params">(<span class="number">0</span>)</span>;
+
+        Console.Read<span class="params">()</span>;
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>组合模式让客户端操作一个<em>树形结构</em>的对象，让客户端的操作统一起来。</p>
+<blockquote>
+<p><strong>适用性：</strong></p>
+<p>把对象表示成<em>部分-整体</em>的结构</p>
+<p>用户忽略单个对象和组合对象的不同，用户统一的使用组合中的对象。</p>
+<p>使得新增类型的组件更加容易。新定义的Composite或Leaf子类自动地与已有的结构和客户代码一起协同工作，客户程序不需因新的Component类而改变。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://blog.csdn.net/hguisu/article/details/7530783" target="_blank" rel="external">设计模式（七）组合模式Composite（结构型）</a></li>
+<li><a href="http://www.cnblogs.com/libingql/p/3496345.html" target="_blank" rel="external">C#设计模式系列：组合模式（Composite）</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750453" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/watkinsong/article/details/7291416" target="_blank" rel="external"> C#设计模式之9——组合模式</a></li>
+<li><a href="http://blog.csdn.net/jason0539/article/details/22642281" target="_blank" rel="external">JAVA设计模式初探之组合模式</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/23/BridgePattern/" itemprop="url">
                 桥接模式
               </a>
@@ -1625,7 +1829,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1639,7 +1843,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

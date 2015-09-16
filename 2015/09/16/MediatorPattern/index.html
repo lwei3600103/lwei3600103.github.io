@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="中介者模式," />
 
 
 
@@ -35,52 +35,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="安装步骤nodejs在nodejs上下载msi的安装包，安装nodejs
-hexoGit Bash
-npm install hexo --save
-进入文件夹hexo init
-hexo g
-npm install hexo-server --save
-npm install
-npm s
-这样就可以在本地地址里面查看
+<meta name="description" content="中介者模式(MediatorPattern)是一种行为型设计模式。意图：用一个中介对象封装一系列的对象的交互。中介者使各个对象不需要的显示引用，从而使其耦合松散，并且可以独立的改变他们之间的交互。
 
-参考资料
 
-1,如何搭建一个独立博客——简明Github Pages与Hexo">
+代码实现抽象同事类抽象同事类（Colleague）主要负责约束同事类的类型，并实现一些同事类的公共功能。
+abstract class Colleague
+{
+    protected Abstr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo部署github博客">
-<meta property="og:url" content="http://yoursite.com/2015/08/15/Hexo/index.html">
+<meta property="og:title" content="中介者模式">
+<meta property="og:url" content="http://yoursite.com/2015/09/16/MediatorPattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="安装步骤nodejs在nodejs上下载msi的安装包，安装nodejs
-hexoGit Bash
-npm install hexo --save
-进入文件夹hexo init
-hexo g
-npm install hexo-server --save
-npm install
-npm s
-这样就可以在本地地址里面查看
+<meta property="og:description" content="中介者模式(MediatorPattern)是一种行为型设计模式。意图：用一个中介对象封装一系列的对象的交互。中介者使各个对象不需要的显示引用，从而使其耦合松散，并且可以独立的改变他们之间的交互。
 
-参考资料
 
-1,如何搭建一个独立博客——简明Github Pages与Hexo">
-<meta property="og:updated_time" content="2015-08-19T14:35:31.917Z">
+代码实现抽象同事类抽象同事类（Colleague）主要负责约束同事类的类型，并实现一些同事类的公共功能。
+abstract class Colleague
+{
+    protected Abstr">
+<meta property="og:updated_time" content="2015-09-16T12:22:11.555Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo部署github博客">
-<meta name="twitter:description" content="安装步骤nodejs在nodejs上下载msi的安装包，安装nodejs
-hexoGit Bash
-npm install hexo --save
-进入文件夹hexo init
-hexo g
-npm install hexo-server --save
-npm install
-npm s
-这样就可以在本地地址里面查看
+<meta name="twitter:title" content="中介者模式">
+<meta name="twitter:description" content="中介者模式(MediatorPattern)是一种行为型设计模式。意图：用一个中介对象封装一系列的对象的交互。中介者使各个对象不需要的显示引用，从而使其耦合松散，并且可以独立的改变他们之间的交互。
 
-参考资料
 
-1,如何搭建一个独立博客——简明Github Pages与Hexo">
+代码实现抽象同事类抽象同事类（Colleague）主要负责约束同事类的类型，并实现一些同事类的公共功能。
+abstract class Colleague
+{
+    protected Abstr">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -90,7 +72,7 @@ npm s
   };
 </script>
 
-  <title> hexo部署github博客 | lwei的博客 </title>
+  <title> 中介者模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +218,7 @@ npm s
           
           
             
-              hexo部署github博客
+              中介者模式
             
           
         </h1>
@@ -245,8 +227,8 @@ npm s
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-15T13:02:02+08:00" content="2015-08-15">
-            2015-08-15
+          <time itemprop="dateCreated" datetime="2015-09-16T20:03:33+08:00" content="2015-09-16">
+            2015-09-16
           </time>
         </span>
 
@@ -255,8 +237,20 @@ npm s
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/hexo/" itemprop="url" rel="index">
-                  <span itemprop="name">hexo</span>
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
                 </a>
               </span>
 
@@ -271,8 +265,8 @@ npm s
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/15/Hexo/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/15/Hexo/" itemprop="commentsCount"></span>
+              <a href="/2015/09/16/MediatorPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/16/MediatorPattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -286,20 +280,117 @@ npm s
       
 
       
-        <span itemprop="articleBody"><h2 id="安装步骤">安装步骤</h2><h3 id="nodejs">nodejs</h3><p>在<a href="https://nodejs.org/download/" target="_blank" rel="external">nodejs</a>上下载msi的安装包，安装nodejs</p>
-<h3 id="hexo">hexo</h3><p><code>Git Bash</code></p>
-<p><code>npm install hexo --save</code></p>
-<p>进入文件夹<br><code>hexo init</code></p>
-<p><code>hexo g</code></p>
-<p><code>npm install hexo-server --save</code></p>
-<p><code>npm install</code></p>
-<p><code>npm s</code></p>
-<p>这样就可以在<a href="http://localhost:4000" target="_blank" rel="external">本地地址</a>里面查看</p>
-<hr>
-<h3 id="参考资料">参考资料</h3><hr>
-<blockquote>
-<p><a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/" target="_blank" rel="external">1,如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="external">2,hexo系列教程</a></p>
+        <span itemprop="articleBody"><blockquote>
+<p>中介者模式(MediatorPattern)是一种<em>行为型设计模式</em>。意图：用一个中介对象封装一系列的对象的交互。中介者使各个对象不需要的显示引用，从而使其耦合松散，并且可以独立的改变他们之间的交互。</p>
 </blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="抽象同事类">抽象同事类</h4><p>抽象同事类（Colleague）主要负责约束同事类的类型，并实现一些同事类的公共功能。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Colleague</span>
+{
+    <span class="keyword">protected</span> AbstractMediator _mediator;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SetMediator</span>(<span class="params">Mediator mediator</span>)
+    </span>{
+        _mediator = mediator;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> != _mediator)
+        {
+            _mediator.SendMessage(message, <span class="keyword">this</span>);
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">ReceiveMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)</span>;
+}
+</code></pre><h4 id="同事类">同事类</h4><p>同事类实现自己的业务，当与中介者有交互的时候就通知中介者。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Button</span> : <span class="title">Colleague</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">ReceiveMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)
+    </span>{
+        Console.WriteLine(<span class="string">"button receive "</span> + message);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">TextEdit</span> : <span class="title">Colleague</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">ReceiveMessage</span>(<span class="params"><span class="keyword">string</span> message</span>)
+    </span>{
+        Console.WriteLine(<span class="string">"TextEdit receive "</span> + message);
+        SendMessage(<span class="string">" TextEdit has receive message. "</span>);
+    }
+}
+</code></pre><h4 id="抽象中介者类">抽象中介者类</h4><p>抽象中介者定义各个同事间需要的方法，可以是公共方法。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractMediator</span>
+{
+    <span class="keyword">protected</span> IList&lt;<span class="keyword">object</span>&gt; _list;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> message, <span class="keyword">object</span> obj</span>)</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">AddColleague</span>(<span class="params"><span class="keyword">object</span> obj</span>)</span>;
+
+}
+</code></pre><h4 id="中介者类">中介者类</h4><p>中介者类了解各个同事对象，并协调各个同事对象的交互。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Mediator</span> : <span class="title">AbstractMediator</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddColleague</span>(<span class="params"><span class="keyword">object</span> obj</span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == _list)
+        {
+            _list = <span class="keyword">new</span> List&lt;<span class="keyword">object</span>&gt;();
+        }
+
+        _list.Add(obj);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> message, <span class="keyword">object</span> obj</span>)
+    </span>{
+        <span class="keyword">foreach</span> (Colleague curObject <span class="keyword">in</span> _list)
+        {
+            <span class="keyword">if</span> (curObject.GetType().Name != obj.GetType().Name)
+            {
+                curObject.ReceiveMessage(message);
+            }
+        }
+    }
+
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code>class Program
+{
+    static void Main<span class="params">(string[] args)</span>
+    {
+        Mediator mediator = new Mediator<span class="params">()</span>;
+        Button button = new Button<span class="params">()</span>;
+        button.SetMediator<span class="params">(mediator)</span>;
+
+        TextEdit edit1 = new TextEdit<span class="params">()</span>;
+        edit1.SetMediator<span class="params">(mediator)</span>;
+
+        TextEdit edit2 = new TextEdit<span class="params">()</span>;
+        edit2.SetMediator<span class="params">(mediator)</span>;
+
+        mediator.AddColleague<span class="params">(button)</span>;
+        mediator.AddColleague<span class="params">(edit1)</span>;
+        mediator.AddColleague<span class="params">(edit2)</span>;
+
+        button.SendMessage<span class="params">(<span class="string">"button clicked. "</span>)</span>;
+
+        Console.Read<span class="params">()</span>;
+
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>中介者封装各个对象的交互，使得原来的网状接口变成星状结构。</p>
+<blockquote>
+<p><strong>适用性</strong></p>
+<p>一组对象以定义良好但是复杂的方式进行通信。产生的相互依赖关系结构混乱且难以理解。</p>
+<p>一个对象引用其他很多对象，并且直接和这些对象通信，导致难以复用这些对象。</p>
+<p>想定义一个分布在多个类的行为，又不想生成多个子类。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750464" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://www.cnblogs.com/zxj159/p/3466115.html" target="_blank" rel="external">设计模式之中介者模式(十一)</a></li>
+</ul>
 </span>
       
     </div>
@@ -308,7 +399,7 @@ npm s
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/中介者模式/" rel="tag">#中介者模式</a>
           
         </div>
       
@@ -317,11 +408,11 @@ npm s
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/19/FactoryPattern/" rel="prev">工厂模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/06/IteratorPattern/" rel="next">迭代器模式</a>
             
           </div>
         </div>
@@ -346,8 +437,8 @@ npm s
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/15/Hexo/"
-                   data-title="hexo部署github博客" data-url="http://yoursite.com/2015/08/15/Hexo/">
+              <div class="ds-thread" data-thread-key="2015/09/16/MediatorPattern/"
+                   data-title="中介者模式" data-url="http://yoursite.com/2015/09/16/MediatorPattern/">
               </div>
             
           </div>
@@ -444,7 +535,7 @@ npm s
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装步骤"><span class="nav-number">1.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs"><span class="nav-number">1.1.</span> <span class="nav-text">nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo"><span class="nav-number">1.2.</span> <span class="nav-text">hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象同事类"><span class="nav-number">1.1.</span> <span class="nav-text">抽象同事类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同事类"><span class="nav-number">1.2.</span> <span class="nav-text">同事类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象中介者类"><span class="nav-number">1.3.</span> <span class="nav-text">抽象中介者类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中介者类"><span class="nav-number">1.4.</span> <span class="nav-text">中介者类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.5.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
