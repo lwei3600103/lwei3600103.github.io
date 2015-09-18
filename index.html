@@ -201,6 +201,196 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/18/MementoPattern/" itemprop="url">
+                备忘录模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-18T16:53:09+08:00" content="2015-09-18">
+            2015-09-18
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/18/MementoPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/MementoPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>备忘录模式(MementoPattern)是一种<em>行为型设计模式</em>。意图：在不破坏封装性的前提下，获取一个对象的内部状态，并在对象外面把它保存下来，这样以后就可以把它恢复到保存的状态。</p>
+</blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="备忘录对象">备忘录对象</h4><p>备忘录对象(Memento)存储对象的内部状态，在需要的时候提供发起人需要的内部状态。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Memento</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _state;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetState</span>(<span class="params"><span class="keyword">string</span> state</span>)
+    </span>{
+        _state = state;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">State</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _state;
+    }
+}
+</code></pre><h4 id="发起人对象">发起人对象</h4><p>发起人对象（Originator）记录当前时刻的内部状态，负责定义那些属于备份范围的状态，创建和恢复备忘数据。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Originator</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _state;
+
+    <span class="keyword">public</span> <span class="keyword">string</span> State
+    {
+        <span class="keyword">get</span> { <span class="keyword">return</span> _state; }
+        <span class="keyword">set</span>
+        {
+            _state = <span class="keyword">value</span>;
+            Console.WriteLine(<span class="string">"Current state: "</span> + _state);
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> Memento <span class="title">CreateMemento</span>(<span class="params"></span>)
+    </span>{
+        Memento memento = <span class="keyword">new</span> Memento();
+        memento.SetState(_state);
+
+
+        <span class="keyword">return</span> memento;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RestoreState</span>(<span class="params">Memento memento</span>)
+    </span>{
+        Console.WriteLine(<span class="string">"start to restore state."</span>);
+        <span class="keyword">this</span>.State = memento.State();
+        Console.WriteLine(<span class="string">"Current state: "</span> + _state);
+    }
+}
+</code></pre><h4 id="管理角色">管理角色</h4><p>管理角色（Caretaker）对备忘录管理，保存和提供备忘录。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Caretaker</span>
+{
+    <span class="keyword">private</span> Memento _memento;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetMemento</span>(<span class="params">Memento memento</span>)
+    </span>{
+        _memento = memento;
+    }
+
+    <span class="function"><span class="keyword">public</span> Memento <span class="title">GetMemento</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _memento;
+    }
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    {
+        <span class="type">Originator</span> originator = <span class="keyword">new</span> <span class="type">Originator</span><span class="literal">()</span>;
+        originator.<span class="type">State</span> = <span class="string">"state1"</span>;
+        <span class="type">Caretaker</span> caretaker = <span class="keyword">new</span> <span class="type">Caretaker</span><span class="literal">()</span>;
+        caretaker.<span class="type">SetMemento</span>(originator.<span class="type">CreateMemento</span><span class="literal">()</span>);
+
+        originator.<span class="type">State</span> = <span class="string">"state2"</span>;
+        originator.<span class="type">RestoreState</span>(caretaker.<span class="type">GetMemento</span><span class="literal">()</span>);
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
+
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>备忘录模式在不破坏内部结构和整体继承关系的前提下，保存内部状态，恢复数据。</p>
+<blockquote>
+<p><strong>适用性</strong></p>
+<p>必须保存一个对象在某一时刻的状态，这样在以后就可以恢复到当前这一时刻的状态。如果用接口来保存这一状态，就会暴露内部状态出去，破坏封装性。</p>
+<p>发起人状态改变的时候，可能是错误的改变，可以恢复到原来的状态。</p>
+<p>备份的状态保存在发起人外部，而不是内部。</p>
+<p>备忘录模式的缺点保存过多的状态，对资源消耗比较大。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750465" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://www.cnblogs.com/libingql/p/3651033.html" target="_blank" rel="external">C#设计模式系列：备忘录模式（Memento）</a></li>
+<li><a href="http://blog.csdn.net/zhengzhb/article/details/7697549" target="_blank" rel="external">23种设计模式（15）：备忘录模式</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/16/MediatorPattern/" itemprop="url">
                 中介者模式
               </a>
@@ -2363,211 +2553,6 @@ class <span class="type">Program</span>
 
 
     
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/24/DecoratorPattern/" itemprop="url">
-                装饰模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-24T21:32:40+08:00" content="2015-08-24">
-            2015-08-24
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">设计模式</span>
-                </a>
-              </span>
-
-              
-              
-                ， 
-              
-
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">结构型设计模式</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/24/DecoratorPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/24/DecoratorPattern/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>装饰模式(DecoratorPattern)是一种<em>结构型设计模式</em>。意图：动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator 模式相比生成子类更为灵活。 </p>
-</blockquote>
-<h3 id="代码实现">代码实现</h3><h4 id="抽象构建">抽象构建</h4><p>compnent:定义了一个接口可以动态的给对象添加职责。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)</span>;
-}
-</code></pre><h4 id="具体的构建角色">具体的构建角色</h4><p>concreteCompnet:一个实现了compnent接口的对象。这个对象会被装饰，但是它不会访问装饰者的信息，而装饰者不会访问它的实现。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ChinaCar</span> : <span class="title">AbstractCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"这是一辆国产小汽车"</span>);
-    }
-}
-</code></pre><h4 id="装饰接口">装饰接口</h4><p>Decorator:包含一个compnent对象的引用。定义了一个与compnent相同的接口。客户端可以处理它们，而不用关心装饰者之间的差别。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DecoratorCar</span> : <span class="title">AbstractCar</span>
-{
-    <span class="keyword">private</span> AbstractCar _car;
-    <span class="function"><span class="keyword">public</span> <span class="title">DecoratorCar</span>(<span class="params">AbstractCar car</span>)
-    </span>{
-        <span class="keyword">this</span>._car = car;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">if</span> (<span class="keyword">null</span> != _car)
-        {
-            _car.Show();
-        }
-    }
-}
-</code></pre><h4 id="具体的装饰者对象">具体的装饰者对象</h4><p>ConcreteDecorator:它向compnent添加职责，添加额外的装饰功能。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LacquerCar</span> : <span class="title">DecoratorCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">LacquerCar</span>(<span class="params">AbstractCar car</span>) :
-        <span class="title">base</span>(<span class="params">car</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        LacquerCarRed();
-        <span class="keyword">base</span>.Show();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">LacquerCarRed</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"给汽车图绘成红色"</span>);
-    }
-}
-
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GpsCar</span> : <span class="title">DecoratorCar</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">GpsCar</span>(<span class="params">AbstractCar car</span>) :
-        <span class="title">base</span>(<span class="params">car</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)
-    </span>{
-        LoadGpsForCar();
-        <span class="keyword">base</span>.Show();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">LoadGpsForCar</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"给汽车图装上GPS"</span>);
-    }
-}
-</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
-{
-    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
-    {
-        <span class="type">AbstractCar</span> car = <span class="keyword">new</span> <span class="type">ChinaCar</span><span class="literal">()</span>;
-        <span class="type">LacquerCar</span> lacquerCar = <span class="keyword">new</span> <span class="type">LacquerCar</span>(car);
-        lacquerCar.<span class="type">Show</span><span class="literal">()</span>;
-
-        <span class="type">GpsCar</span> gpsCar = <span class="keyword">new</span> <span class="type">GpsCar</span>(lacquerCar);
-        gpsCar.<span class="type">Show</span><span class="literal">()</span>;
-
-        <span class="type">Console</span>.<span class="type">ReadLine</span><span class="literal">()</span>;
-    }
-}
-</code></pre><h3 id="个人理解">个人理解</h3><p>装饰模式避免了构造大量的基类。可以额外的添加大量的功能。与桥接模式的区别：桥接模式主要是在维度上的变化，装饰模式则在一个维度上添加大量额外功能。</p>
-<blockquote>
-<p><strong>适用性：</strong></p>
-<p>在不影响其他对象的情况下，用动态、透明的方式给单个对象添加职责。</p>
-<p>处理那些可以撤销的职责。</p>
-<p>不能采用子类扩展时候。一种是:可能有<strong>大量独立的扩展</strong>，为了支持每一种扩展，需要产生大量的子类，使子类数目暴涨。另外一种是类定义被隐藏，或者类定义不能用于生成子类。</p>
-<p><strong>优缺点：</strong></p>
-<p>装饰模式和子类继承都可以扩展对象的功能。但是装饰模式更加灵活。</p>
-<p>通过不同的排列组合，可以创造出更多的功能的类。</p>
-<p>装饰模式会产生更多的小对象，过度使用，会使程序变得复杂。</p>
-<p><strong>与桥接模式的区别：</strong></p>
-<p>两者都是为了防止过度继承，子类泛滥的情况。</p>
-<p>桥接模式是结构和实现的分离或属性和基于属性行为的分离。装饰模式只是对基于属性的行为封装的类，然后对其进行装饰。例如：异常和异常处理用桥接模式，异常处理添加功能用装饰模式。</p>
-<p>桥接模式是横向行为，行为彼此之间没有关联。 装饰模式中的行为具有可叠加性，其表现结果是一个整体，但是其实是各个行为组合后的结果。</p>
-</blockquote>
-<hr>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750454" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://www.jellythink.com/archives/171" target="_blank" rel="external">C++设计模式——装饰模式</a></li>
-<li><a href="http://www.cnblogs.com/saville/archive/2011/07/19/2110830.html" target="_blank" rel="external">C#设计模式——装饰者模式(Decorator Pattern)</a></li>
-<li><a href="http://www.uml.org.cn/sjms/201010253.asp" target="_blank" rel="external">.NET中的设计模式——一步步发现装饰模式 </a></li>
-<li><a href="http://blog.jobbole.com/78077/" target="_blank" rel="external">C#设计模式(9)——装饰者模式（Decorator Pattern）</a></li>
-<li><a href="http://blog.csdn.net/wzg1031/article/details/7796806" target="_blank" rel="external">桥接模式与装饰者模式的区别</a></li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2606,7 +2591,7 @@ class <span class="type">Program</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2620,7 +2605,7 @@ class <span class="type">Program</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
