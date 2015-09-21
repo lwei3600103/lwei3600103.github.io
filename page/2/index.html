@@ -201,6 +201,200 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/26/FlyweightPattern/" itemprop="url">
+                享元模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-26T21:28:49+08:00" content="2015-08-26">
+            2015-08-26
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/结构型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">结构型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/26/FlyweightPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/26/FlyweightPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>享元模式(FlyweightPattern)是一种<em>结构型设计模式</em>。意图：运用共享技术有效的支持大量的细粒度对象。</p>
+</blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="抽象享元角色">抽象享元角色</h4><p>Flyweight:享元类的超类，为这些类提供需要的公共接口和抽象类。但是并不强制实现共享。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractFlyweight</span>
+{
+    <span class="keyword">protected</span> <span class="keyword">string</span> _color;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Operate</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h4 id="具体享元角色">具体享元角色</h4><p>ConcreteFlyweight:实现享元类共享的接口，还是抽象类。享元类可以在内部实现共享。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Flyweight</span> : <span class="title">AbstractFlyweight</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="title">Flyweight</span>(<span class="params"><span class="keyword">string</span> color</span>)
+    </span>{
+        _color = color;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Operate</span>(<span class="params"></span>)
+    </span>{
+
+        Console.WriteLine(<span class="string">" color: "</span>  + _color);
+    }
+}
+</code></pre><h4 id="享元工厂">享元工厂</h4><p>FlyweightFactory:工厂实现角色的创建，并在需要的时候保证共享。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Factory</span>
+{
+    <span class="keyword">private</span> Dictionary&lt;<span class="keyword">string</span>, AbstractFlyweight&gt; _dictionary;
+    <span class="keyword">static</span> Factory factory;
+
+    <span class="function"><span class="keyword">private</span> <span class="title">Factory</span>(<span class="params"></span>)
+    </span>{
+        _dictionary = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, AbstractFlyweight&gt;();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Factory <span class="title">GetInstance</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == factory)
+        {
+            factory = <span class="keyword">new</span> Factory();
+        }
+        <span class="keyword">return</span> factory;
+    }
+
+    <span class="function"><span class="keyword">public</span> AbstractFlyweight <span class="title">Create</span>(<span class="params"><span class="keyword">string</span> color</span>)
+    </span>{
+        <span class="keyword">if</span> ( _dictionary.ContainsKey(color))
+        {
+            <span class="keyword">return</span> _dictionary[color];
+        }
+        <span class="keyword">else</span>
+        {
+            AbstractFlyweight flyweight = <span class="keyword">new</span> Flyweight(color);
+            _dictionary.Add(color, flyweight);
+
+            <span class="keyword">return</span> flyweight;
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Count</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _dictionary.Count;
+    }
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code>class Program
+{
+    static void Main<span class="params">(string[] args)</span>
+    {
+        AbstractFlyweight flyweight1 = Factory.GetInstance<span class="params">()</span>.Create<span class="params">(<span class="string">"red"</span>)</span>;
+        AbstractFlyweight flyweight2 = Factory.GetInstance<span class="params">()</span>.Create<span class="params">(<span class="string">"white"</span>)</span>;
+        AbstractFlyweight flyweight3 = Factory.GetInstance<span class="params">()</span>.Create<span class="params">(<span class="string">"black"</span>)</span>;
+        AbstractFlyweight flyweight4 = Factory.GetInstance<span class="params">()</span>.Create<span class="params">(<span class="string">"white"</span>)</span>;
+        AbstractFlyweight flyweight5 = Factory.GetInstance<span class="params">()</span>.Create<span class="params">(<span class="string">"red"</span>)</span>;
+
+        Console.WriteLine<span class="params">(<span class="string">"Instance count is : "</span> + Factory.GetInstance<span class="params">()</span>.Count<span class="params">()</span>)</span>;
+
+        Console.Read<span class="params">()</span>;
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>享元模式通过共享对象，保证以较少的实例取代多组对象，保证存储和内存的开销。</p>
+<blockquote>
+<p><strong>适用性：</strong></p>
+<p>一个应用程序引用了大量的对象。对象的大部分状态可以变成外部状态。如果删除外部状态可以用较少的共享对象代替多组对象。应用程序不依赖对象标示。</p>
+<p><strong>优缺点：</strong></p>
+<p>享元模式减少了内存和存储的开销。</p>
+<p>增加了系统的复杂性。</p>
+<p>享元模式将享元对象的状态外部化，读取外部状态的时间变得稍长。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750456" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://www.cnblogs.com/kym/archive/2009/03/29/1424255.html" target="_blank" rel="external">重温设计模式（一）——享元模式(Flyweight)</a></li>
+<li><a href="http://blog.csdn.net/jason0539/article/details/22908915" target="_blank" rel="external">JAVA设计模式之享元模式</a></li>
+<li><a href="http://www.blogjava.net/qileilove/archive/2012/12/14/393015.html" target="_blank" rel="external">跟屌丝大哥学习设计模式–享元模式</a></li>
+<li><a href="http://www.cnblogs.com/rush/archive/2011/10/01/2197785.html" target="_blank" rel="external">享元模式（Flyweight）</a></li>
+<li><a href="http://blog.csdn.net/ai92/article/details/224598" target="_blank" rel="external">深入浅出享元模式</a></li>
+<li><a href="http://www.cnblogs.com/hegezhou_hot/archive/2010/12/12/1903728.html" target="_blank" rel="external">设计模式系列-享元模式</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/25/FacadePattern/" itemprop="url">
                 外观模式
               </a>
@@ -2081,108 +2275,11 @@
 
 
     
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/15/Hexo/" itemprop="url">
-                hexo部署github博客
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-15T13:02:02+08:00" content="2015-08-15">
-            2015-08-15
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/hexo/" itemprop="url" rel="index">
-                  <span itemprop="name">hexo</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/15/Hexo/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/15/Hexo/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="安装步骤">安装步骤</h2><h3 id="nodejs">nodejs</h3><p>在<a href="https://nodejs.org/download/" target="_blank" rel="external">nodejs</a>上下载msi的安装包，安装nodejs</p>
-<h3 id="hexo">hexo</h3><p><code>Git Bash</code></p>
-<p><code>npm install hexo --save</code></p>
-<p>进入文件夹<br><code>hexo init</code></p>
-<p><code>hexo g</code></p>
-<p><code>npm install hexo-server --save</code></p>
-<p><code>npm install</code></p>
-<p><code>npm s</code></p>
-<p>这样就可以在<a href="http://localhost:4000" target="_blank" rel="external">本地地址</a>里面查看</p>
-<hr>
-<h3 id="参考资料">参考资料</h3><hr>
-<blockquote>
-<p><a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/" target="_blank" rel="external">1,如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="external">2,hexo系列教程</a></p>
-</blockquote>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
   </nav>
 
  </div>
@@ -2216,7 +2313,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2230,7 +2327,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
