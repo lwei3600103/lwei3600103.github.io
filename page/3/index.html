@@ -201,6 +201,270 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/19/FactoryPattern/" itemprop="url">
+                工厂模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-19T16:50:02+08:00" content="2015-08-19">
+            2015-08-19
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/创建型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">创建型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/19/FactoryPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/FactoryPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>工厂模式(Factory Pattern)是一种<em>创建型设计模式</em>。意图：定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method 使一个类的实例化延迟到其子类。</p>
+</blockquote>
+<hr>
+<h3 id="简单工厂模式">简单工厂模式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">className</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">this</span>.GetType().Name;
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductA</span> : <span class="title">Product</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is "</span> + className());
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductB</span> : <span class="title">Product</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is "</span> + className());
+    }
+}
+
+<span class="keyword">enum</span> ProductType {
+    A = <span class="number">0</span>,
+    B,
+    UNKONW= -<span class="number">1</span>
+}
+
+<span class="keyword">class</span> <span class="title">SimpleFactory</span>
+{
+    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span>(<span class="params">ProductType type</span>)
+    </span>{
+        Product product = <span class="keyword">null</span>;
+        <span class="keyword">switch</span> (type)
+        {
+        <span class="keyword">case</span> ProductType.A:
+            product = <span class="keyword">new</span> ProductA();
+            <span class="keyword">break</span>;
+        <span class="keyword">case</span> ProductType.B:
+            product = <span class="keyword">new</span> ProductB();
+            <span class="keyword">break</span>;
+        }
+
+        <span class="keyword">return</span> product;
+    }
+}
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+</span>{
+    SimpleFactory factory = <span class="keyword">new</span> SimpleFactory();
+
+    Product product = factory.createProduct(ProductType.A);
+    product.show();
+
+    Console.ReadLine();
+}
+</code></pre><h3 id="工厂模式">工厂模式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Factory</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> Product <span class="title">createProduct</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">null</span>;
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FactoryA</span> : <span class="title">Factory</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProduct</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">new</span> ProductA();
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FactoryB</span> : <span class="title">Factory</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProduct</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">new</span> ProductB();
+    }
+}
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+</span>{
+    Factory factory = <span class="keyword">new</span> FactoryB();
+    Product product = factory.createProduct();
+    product.show();
+}
+</code></pre><h3 id="抽象工厂模式">抽象工厂模式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AbstractFactory</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> Product <span class="title">createProductA</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">null</span>;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> Product <span class="title">createProductB</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">null</span>;
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AbstractFactoryA</span> : <span class="title">AbstractFactory</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductA</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">new</span> ProductA1();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductB</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">new</span> ProductB1();
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AbstractFactoryB</span> : <span class="title">AbstractFactory</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductA</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">new</span> ProductA();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductB</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">new</span> ProductB();
+    }
+
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductA1</span> : <span class="title">Product</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is "</span> + className());
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductB1</span> : <span class="title">Product</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is "</span> + className());
+    }
+}
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+</span>{
+    AbstractFactory factory = <span class="keyword">new</span> AbstractFactoryA();
+    Product product = factory.createProductA();
+    product.show();
+}
+</code></pre><hr>
+<h3 id="优缺点">优缺点</h3><blockquote>
+<p>适用性：类的实例由子类指定。</p>
+<p>优缺点：简单工厂模式实现了责任的分离，也造成了工厂类的复杂性，每添加一个产品都必须修改工厂类，不符合开放和封闭原则。工厂模式<br>解决了简单工厂模式工厂类的复杂性问题，但是产品多样的时候，工厂类众多。抽象工厂模式实现了一类产品的构造。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://blog.csdn.net/wuzhekai1985/article/details/6660462" target="_blank" rel="external">设计模式的c++实现</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750445" target="_blank" rel="external">23中设计模式</a></li>
+<li><a href="http://www.cnblogs.com/vipygd/p/3428259.html?utm_source=tuicool" target="_blank" rel="external">c++设计模式系列</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/15/Hexo/" itemprop="url">
                 hexo部署github博客
               </a>
@@ -325,7 +589,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -339,7 +603,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

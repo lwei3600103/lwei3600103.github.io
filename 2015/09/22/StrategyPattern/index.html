@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="模板模式," />
+  <meta name="keywords" content="策略模式," />
 
 
 
@@ -35,40 +35,40 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="模板模式(TemplatePattern)是一种行为型设计模式。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。
+<meta name="description" content="策略模式(StrategyPattern)是一种行为型设计模式。意图：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。算法可以独立客户端变化。
 
 
-代码实现抽象模板类抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。
-abstract class AbstractBeverage
+代码实现环境对象环境对象（Context）:维护一个策略对象的引用。并提供一个接口来允许策略对象访问它的数据。
+class Context
 {
-    public void Create()
-    {
-        BoilWater();">
+    AbstractStrategy _strategy;
+
+    public Con">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模板模式">
-<meta property="og:url" content="http://yoursite.com/2015/09/03/TemplatePattern/index.html">
+<meta property="og:title" content="策略模式">
+<meta property="og:url" content="http://yoursite.com/2015/09/22/StrategyPattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="模板模式(TemplatePattern)是一种行为型设计模式。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。
+<meta property="og:description" content="策略模式(StrategyPattern)是一种行为型设计模式。意图：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。算法可以独立客户端变化。
 
 
-代码实现抽象模板类抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。
-abstract class AbstractBeverage
+代码实现环境对象环境对象（Context）:维护一个策略对象的引用。并提供一个接口来允许策略对象访问它的数据。
+class Context
 {
-    public void Create()
-    {
-        BoilWater();">
-<meta property="og:updated_time" content="2015-09-03T09:49:12.142Z">
+    AbstractStrategy _strategy;
+
+    public Con">
+<meta property="og:updated_time" content="2015-09-22T06:04:45.366Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="模板模式">
-<meta name="twitter:description" content="模板模式(TemplatePattern)是一种行为型设计模式。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。
+<meta name="twitter:title" content="策略模式">
+<meta name="twitter:description" content="策略模式(StrategyPattern)是一种行为型设计模式。意图：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。算法可以独立客户端变化。
 
 
-代码实现抽象模板类抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。
-abstract class AbstractBeverage
+代码实现环境对象环境对象（Context）:维护一个策略对象的引用。并提供一个接口来允许策略对象访问它的数据。
+class Context
 {
-    public void Create()
-    {
-        BoilWater();">
+    AbstractStrategy _strategy;
+
+    public Con">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -78,7 +78,7 @@ abstract class AbstractBeverage
   };
 </script>
 
-  <title> 模板模式 | lwei的博客 </title>
+  <title> 策略模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -224,7 +224,7 @@ abstract class AbstractBeverage
           
           
             
-              模板模式
+              策略模式
             
           
         </h1>
@@ -233,8 +233,8 @@ abstract class AbstractBeverage
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-03T17:33:44+08:00" content="2015-09-03">
-            2015-09-03
+          <time itemprop="dateCreated" datetime="2015-09-22T13:49:54+08:00" content="2015-09-22">
+            2015-09-22
           </time>
         </span>
 
@@ -271,8 +271,8 @@ abstract class AbstractBeverage
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/03/TemplatePattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/03/TemplatePattern/" itemprop="commentsCount"></span>
+              <a href="/2015/09/22/StrategyPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/22/StrategyPattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -287,113 +287,88 @@ abstract class AbstractBeverage
 
       
         <span itemprop="articleBody"><blockquote>
-<p>模板模式(TemplatePattern)是一种<em>行为型设计模式</em>。意图：定义一个算法的框架，而将其中的一些步骤的实现延迟到子类中。</p>
+<p>策略模式(StrategyPattern)是一种<em>行为型设计模式</em>。意图：定义一系列算法，把它们一个个封装起来，并且使它们可以相互替换。算法可以独立客户端变化。</p>
 </blockquote>
 <hr>
-<h3 id="代码实现">代码实现</h3><h4 id="抽象模板类">抽象模板类</h4><p>抽象模板类定义算法的框架，定义抽象行为，让其在子类中实现。</p>
-<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractBeverage</span>
+<h3 id="代码实现">代码实现</h3><h4 id="环境对象">环境对象</h4><p>环境对象（Context）:维护一个策略对象的引用。并提供一个接口来允许策略对象访问它的数据。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Context</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Create</span>(<span class="params"></span>)
-    </span>{
-        BoilWater();
-        AddCoundiments();
-        Brew();
-        PourInCup();
+    AbstractStrategy _strategy;
 
-        <span class="keyword">if</span> (Hook())
-        {
-            Again();
-        }
+    <span class="function"><span class="keyword">public</span> <span class="title">Context</span>(<span class="params">AbstractStrategy strategy</span>)
+    </span>{
+        _strategy = strategy;
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BoilWater</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"烧开水"</span>);
+    <span class="keyword">public</span> AbstractStrategy Strategy
+    {
+        <span class="keyword">get</span> { <span class="keyword">return</span> _strategy; }
+        <span class="keyword">set</span> { _strategy = <span class="keyword">value</span>; }
     }
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">AddCoundiments</span>(<span class="params"></span>)</span>;
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Brew</span>(<span class="params"></span>)</span>;
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PourInCup</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ExeSort</span>(<span class="params"></span>)
     </span>{
-        Console.WriteLine(<span class="string">"倒入杯子中"</span>);
-    }
-
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">Hook</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">false</span>;
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Again</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"在来一杯"</span>);
+        _strategy.Sort();
     }
 }
-</code></pre><h4 id="具体实现的子类">具体实现的子类</h4><p>子类实现抽象函数中的方法，实现个性化。</p>
-<pre><code><span class="keyword">class</span> <span class="title">Tea</span> : <span class="title">AbstractBeverage</span>
+</code></pre><h4 id="抽象策略对象">抽象策略对象</h4><p>抽象策略对象（Strategy）:定义一个所有算法的公共接口。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractStrategy</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddCoundiments</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Sort</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h4 id="具体策略对象">具体策略对象</h4><p>具体的策略对象（ConcreteStrategy）: 实现具体的算法接口。</p>
+<pre><code><span class="keyword">class</span> <span class="title">ConcreteStrategyA</span> : <span class="title">AbstractStrategy</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Sort</span>(<span class="params"></span>)
     </span>{
-        Console.WriteLine(<span class="string">"加入茶叶"</span>);
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Brew</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"冲泡茶叶"</span>);
-    }
-
-
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Hook</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">true</span>;
+        Console.WriteLine(<span class="string">"这是一个快速排序算法。"</span>);
     }
 }
 
-<span class="keyword">class</span> <span class="title">Coffer</span> : <span class="title">AbstractBeverage</span>
+<span class="keyword">class</span> <span class="title">ConcreteStrategyB</span> : <span class="title">AbstractStrategy</span>
 {
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddCoundiments</span>(<span class="params"></span>)
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Sort</span>(<span class="params"></span>)
     </span>{
-        Console.WriteLine(<span class="string">"加入咖啡豆"</span>);
+        Console.WriteLine(<span class="string">"这是一个二分法排序算法。"</span>);
     }
+}
 
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Brew</span>(<span class="params"></span>)
+<span class="keyword">class</span> <span class="title">ConcreteStrategyC</span> : <span class="title">AbstractStrategy</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Sort</span>(<span class="params"></span>)
     </span>{
-        Console.WriteLine(<span class="string">"冲泡咖啡"</span>);
-        Season();
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Season</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"加入2块方糖，调节味道"</span>);
+        Console.WriteLine(<span class="string">"这是一个归并排序算法。"</span>);
     }
 }
 </code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="type">Program</span>
 {
     static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
     {
-        <span class="type">AbstractBeverage</span> beverageTea = <span class="keyword">new</span> <span class="type">Tea</span><span class="literal">()</span>;
-        beverageTea.<span class="type">Create</span><span class="literal">()</span>;
+        <span class="type">Context</span> context = <span class="keyword">new</span> <span class="type">Context</span>(<span class="keyword">new</span> <span class="type">ConcreteStrategyB</span><span class="literal">()</span>);
+        context.<span class="type">ExeSort</span><span class="literal">()</span>;
 
-        <span class="type">AbstractBeverage</span> beverageCoffer = <span class="keyword">new</span> <span class="type">Coffer</span><span class="literal">()</span>;
-        beverageCoffer.<span class="type">Create</span><span class="literal">()</span>;
+        context.<span class="type">Strategy</span> = <span class="keyword">new</span> <span class="type">ConcreteStrategyA</span><span class="literal">()</span>;
+        context.<span class="type">ExeSort</span><span class="literal">()</span>;
+
+        context.<span class="type">Strategy</span> = <span class="keyword">new</span> <span class="type">ConcreteStrategyC</span><span class="literal">()</span>;
+        context.<span class="type">ExeSort</span><span class="literal">()</span>;
 
         <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
     }
 }
-</code></pre><h3 id="个人理解">个人理解</h3><p>模板方法通过定义一个相同的算法框架，而将其中部分步骤的实现延迟到子类中实现。</p>
+</code></pre><h3 id="个人理解">个人理解</h3><p>策略模式在开始时候就选定了算法接口。而状态模式则需要将外部状态传入，来觉得选择的具体的实现。</p>
 <blockquote>
 <p><strong>适用性</strong></p>
-<p>一次性实现算法的固定部分，将可变的行为留给子类。</p>
-<p>各个子类中的公有行为被提取到超类中，提高了代码的可复用性。</p>
-<p>通过钩子（hook）控制了子类的扩展。子类可以实现也可以不是先钩子方法。</p>
+<p>提供一个多个行为中为每个行为提供一个类的方法。</p>
+<p>客户端决定使用什么具体的策略对象，而不是策略对象决定。</p>
+<p>策略模式封装算法来决定算法的更新和退休。</p>
 </blockquote>
 <hr>
 <h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750460" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://blog.csdn.net/lovelion/article/details/8299927" target="_blank" rel="external">模板方法模式深度解析</a></li>
-<li><a href="http://www.cnblogs.com/wangjq/archive/2012/07/09/2582978.html" target="_blank" rel="external">设计模式学习笔记-模板方法模式</a></li>
-<li><a href="http://meigesir.iteye.com/blog/1506484" target="_blank" rel="external">设计模式：模版模式(Template Pattern)</a></li>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750468" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://blog.csdn.net/hguisu/article/details/7558249" target="_blank" rel="external"> 设计模式 ( 十八 ) 策略模式Strategy（对象行为型）</a></li>
+<li><a href="http://www.cnblogs.com/justinw/archive/2007/02/06/641414.html" target="_blank" rel="external">鸭子-策略模式（Strategy）</a></li>
+<li><a href="http://www.cnblogs.com/promise-7/articles/2524357.html" target="_blank" rel="external">c#设计模式-策略模式</a></li>
 </ul>
 </span>
       
@@ -403,7 +378,7 @@ abstract class AbstractBeverage
       
         <div class="post-tags">
           
-            <a href="/tags/模板模式/" rel="tag">#模板模式</a>
+            <a href="/tags/策略模式/" rel="tag">#策略模式</a>
           
         </div>
       
@@ -412,13 +387,11 @@ abstract class AbstractBeverage
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/04/ChainOfResponsibilityPattern/" rel="prev">责任链模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/02/InterpreterPattern/" rel="next">解释器模式</a>
+              <a href="/2015/09/21/StatePattern/" rel="next">状态模式</a>
             
           </div>
         </div>
@@ -443,8 +416,8 @@ abstract class AbstractBeverage
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/03/TemplatePattern/"
-                   data-title="模板模式" data-url="http://yoursite.com/2015/09/03/TemplatePattern/">
+              <div class="ds-thread" data-thread-key="2015/09/22/StrategyPattern/"
+                   data-title="策略模式" data-url="http://yoursite.com/2015/09/22/StrategyPattern/">
               </div>
             
           </div>
@@ -541,7 +514,7 @@ abstract class AbstractBeverage
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象模板类"><span class="nav-number">1.1.</span> <span class="nav-text">抽象模板类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体实现的子类"><span class="nav-number">1.2.</span> <span class="nav-text">具体实现的子类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.3.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境对象"><span class="nav-number">1.1.</span> <span class="nav-text">环境对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象策略对象"><span class="nav-number">1.2.</span> <span class="nav-text">抽象策略对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体策略对象"><span class="nav-number">1.3.</span> <span class="nav-text">具体策略对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.4.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

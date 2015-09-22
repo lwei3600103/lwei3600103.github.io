@@ -201,6 +201,370 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/30/ProxyPattern/" itemprop="url">
+                代理模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-30T21:53:57+08:00" content="2015-08-30">
+            2015-08-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/创建型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">创建型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/30/ProxyPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/30/ProxyPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>代理模式(ProxyPattern)是一种<em>创建型设计模式</em>。意图：为其他对象提供一种代理以控制对这个对象的访问。</p>
+</blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="普通代理">普通代理</h4><h5 id="接口类">接口类</h5><p>提供公有的方法</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IGamePlayer</span>
+{
+    <span class="function"><span class="keyword">void</span> <span class="title">Login</span>(<span class="params"><span class="keyword">string</span> user, <span class="keyword">string</span> password</span>)</span>;
+
+    <span class="function"><span class="keyword">void</span> <span class="title">KillBoss</span>(<span class="params"></span>)</span>;
+
+    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span>;
+
+    <span class="function">IGamePlayer <span class="title">GetProxy</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h5 id="实例类">实例类</h5><p>完成接口的方法</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GamePlayer</span> : <span class="title">IGamePlayer</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _user;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Login</span>(<span class="params"><span class="keyword">string</span> user, <span class="keyword">string</span> password</span>)
+    </span>{
+        _user = user;
+        Console.WriteLine(<span class="string">"user is "</span> + user + <span class="string">" password is "</span> + password);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">KillBoss</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(_user + <span class="string">" kill a boss."</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(_user + <span class="string">" update one. "</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> IGamePlayer <span class="title">GetProxy</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">null</span>;
+    }
+}
+</code></pre><h5 id="代理类">代理类</h5><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Proxy</span> : <span class="title">IGamePlayer</span>
+{
+    IGamePlayer _player;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Proxy</span>(<span class="params">IGamePlayer player</span>)
+    </span>{
+        _player = player;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Login</span>(<span class="params"><span class="keyword">string</span> user, <span class="keyword">string</span> password</span>)
+    </span>{
+        _player.Login(user, password);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">KillBoss</span>(<span class="params"></span>)
+    </span>{
+        _player.KillBoss();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)
+    </span>{
+        _player.Update();
+    }
+
+    <span class="function"><span class="keyword">public</span> IGamePlayer <span class="title">GetProxy</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+    }
+}
+</code></pre><h5 id="测试代码">测试代码</h5><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    {
+        <span class="type">IGamePlayer</span> player = <span class="keyword">new</span> <span class="type">GamePlayer</span><span class="literal">()</span>;
+        <span class="type">IGamePlayer</span> proxy = <span class="keyword">new</span> <span class="type">Proxy</span>(player);
+
+        proxy.<span class="type">Login</span>(<span class="string">"test"</span>, <span class="string">"****"</span>);
+        proxy.<span class="type">KillBoss</span><span class="literal">()</span>;
+        proxy.<span class="type">Update</span><span class="literal">()</span>;
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
+    }
+}
+</code></pre><h4 id="强制代理">强制代理</h4><p>一般都是通过代理找到真实对象，强制代理却通过真实对象找到代理。</p>
+<h5 id="实体类">实体类</h5><p>强制代理 只需要将实例类中的方法加入获得代理。 代理必须是真实对象，不能是外部new出来的。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ForceGamePlayer</span> : <span class="title">IGamePlayer</span>
+{
+    <span class="keyword">private</span> <span class="keyword">string</span> _user;
+    <span class="keyword">private</span> IGamePlayer _proxy = <span class="keyword">null</span>;
+
+    <span class="function"><span class="keyword">public</span> IGamePlayer <span class="title">GetProxy</span>(<span class="params"></span>)
+    </span>{
+        _proxy = <span class="keyword">new</span> Proxy(<span class="keyword">this</span>);
+        <span class="keyword">return</span> _proxy;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Login</span>(<span class="params"><span class="keyword">string</span> user, <span class="keyword">string</span> password</span>)
+    </span>{
+        _user = user;
+
+        <span class="keyword">if</span> (IsProxy())
+        {
+            Console.WriteLine(<span class="string">"user is "</span> + user + <span class="string">" password is "</span> + password);
+        }
+        <span class="keyword">else</span>
+        {
+            Console.WriteLine(<span class="string">" please use proxy. "</span>);
+        }
+
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">KillBoss</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (IsProxy())
+        {
+            Console.WriteLine(_user + <span class="string">" kill a boss."</span>);
+        }
+        <span class="keyword">else</span>
+        {
+            Console.WriteLine(<span class="string">" please use proxy. "</span>);
+        }
+
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (IsProxy())
+        {
+            Console.WriteLine(_user + <span class="string">" update one. "</span>);
+        }
+        <span class="keyword">else</span>
+        {
+            Console.WriteLine(<span class="string">" please use proxy. "</span>);
+        }
+
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">IsProxy</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == _proxy)
+        {
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }
+        <span class="keyword">else</span>
+        {
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }
+    }
+}
+</code></pre><h5 id="测试代码-1">测试代码</h5><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    {
+        <span class="type">IGamePlayer</span> forcePlayer = <span class="keyword">new</span> <span class="type">ForceGamePlayer</span><span class="literal">()</span>;
+        <span class="type">IGamePlayer</span> forceProxy = forcePlayer.<span class="type">GetProxy</span><span class="literal">()</span>;
+        forceProxy.<span class="type">Login</span>(<span class="string">"forcePlayer"</span>, <span class="string">"****"</span>);
+        forceProxy.<span class="type">KillBoss</span><span class="literal">()</span>;
+        forceProxy.<span class="type">Update</span><span class="literal">()</span>;
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
+    }
+}
+</code></pre><h4 id="有个性的代理">有个性的代理</h4><p>代理不仅可以完成主体接口，也可以实现其他接口不能完成的任务。</p>
+<h5 id="实体类-1">实体类</h5><p>实体类可以继承多个接口，实现个性化的接口。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> PersonalGamePlayerProxy : IGamePlayer, IProxy
+{
+    IGamePlayer _player;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">PersonalGamePlayerProxy</span><span class="params">(IGamePlayer player)</span>
+    </span>{
+        _player = player;
+    }
+
+    <span class="function"><span class="keyword">public</span> IGamePlayer <span class="title">GetProxy</span><span class="params">()</span>
+    </span>{
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Login</span><span class="params">(<span class="built_in">string</span> user, <span class="built_in">string</span> password)</span>
+    </span>{
+        _player.Login(user, password);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">KillBoss</span><span class="params">()</span>
+    </span>{
+        _player.KillBoss();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span><span class="params">()</span>
+    </span>{
+        Money();
+        _player.Update();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Money</span><span class="params">()</span>
+    </span>{
+        Console.WriteLine(<span class="string">" update on need $15. "</span>);
+    }
+}
+</code></pre><h5 id="新增加的接口类">新增加的接口类</h5><pre><code><span class="keyword">interface</span> <span class="title">IProxy</span>
+{
+    <span class="function"><span class="keyword">void</span> <span class="title">Money</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h5 id="测试代码-2">测试代码</h5><pre><code><span class="keyword">class</span> <span class="type">Program</span>
+{
+    static void <span class="type">Main</span>(<span class="built_in">string</span><span class="literal">[]</span> args)
+    {
+        <span class="type">IGamePlayer</span> personalPlayer = <span class="keyword">new</span> <span class="type">GamePlayer</span><span class="literal">()</span>;
+        <span class="type">IGamePlayer</span> personalProxy = <span class="keyword">new</span> <span class="type">PersonalGamePlayerProxy</span>(personalPlayer);
+        personalProxy.<span class="type">Login</span>(<span class="string">"personalProxy"</span>, <span class="string">"****"</span>);
+        personalProxy.<span class="type">KillBoss</span><span class="literal">()</span>;
+        personalProxy.<span class="type">Update</span><span class="literal">()</span>;
+
+        <span class="type">Console</span>.<span class="type">Read</span><span class="literal">()</span>;
+    }
+}
+</code></pre><h4 id="虚拟代理">虚拟代理</h4><p>在需要的时候才判断是否创建对象，可以避免代理对象较多引起的初始化缓慢的问题，缺点是要在每个方法中判断时候对象是否为null。</p>
+<h5 id="公用接口类">公用接口类</h5><pre><code><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">Subject</span>
+{
+    <span class="function"><span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h5 id="实例类-1">实例类</h5><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RealSubject</span> : <span class="title">Subject</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">" real subject "</span>);
+    }
+}
+</code></pre><h5 id="虚拟代理类">虚拟代理类</h5><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">VirtualProxy</span> : <span class="title">Subject</span>
+{
+    <span class="keyword">private</span> Subject _subject;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Request</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == _subject)
+        {
+            _subject = <span class="keyword">new</span> RealSubject();
+        }
+
+        _subject.Request();
+    }
+}
+</code></pre><h5 id="测试代码-3">测试代码</h5><pre><code><span class="keyword">class</span> <span class="title">Program</span>
+{
+    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+    </span>{
+        VirtualProxy virtualProxy = <span class="keyword">new</span> VirtualProxy();
+        virtualProxy.Request();
+
+        Console.Read();
+    }
+}
+</code></pre><h3 id="个人理解">个人理解</h3><p>在代理模式中，真实的角色实现业务逻辑，而不关心事务，事务由代理对象来处理。真实对象，只要实现了接口，不管怎么变化，代理类都不需要变化。</p>
+<blockquote>
+<p><strong>适用性</strong></p>
+<p>在要用比较通用和复杂的指针代替简单的指针的时候。</p>
+<p>proxy并不一定要求保持接口的一致性，只要能够实现间接控制，有时候损及一些透明性是可以接受的。</p>
+<p>“增加一层间接层”是软件系统中对许多负责问题的一种常见解决方法。</p>
+<p>适配器Adapter 为它所适配的对象提供了一个不同的接口。相反，代理提供了与它的实体相同的接口。</p>
+<p>尽管Decorator的实现部分与代理相似，但Decorator的目的不一样。Decorator为对象添加一个或多个功能，而代理则控制对对象的访问。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750457" target="_blank" rel="external">23种设计模式</a></li>
+<li><a href="http://www.blogjava.net/interface/archive/2008/01/04/172841.html?opt=admin" target="_blank" rel="external">代理模式与动态代理模式</a></li>
+<li><a href="http://blog.csdn.net/hguisu/article/details/7542143" target="_blank" rel="external">设计模式（十一）代理模式Proxy（结构型）</a></li>
+<li><a href="http://www.cnblogs.com/cbf4life/archive/2010/01/27/1657438.html" target="_blank" rel="external">代理模式</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/26/FlyweightPattern/" itemprop="url">
                 享元模式
               </a>
@@ -2011,270 +2375,6 @@
 
 
     
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/FactoryPattern/" itemprop="url">
-                工厂模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T16:50:02+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">设计模式</span>
-                </a>
-              </span>
-
-              
-              
-                ， 
-              
-
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/创建型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">创建型设计模式</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/FactoryPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/FactoryPattern/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>工厂模式(Factory Pattern)是一种<em>创建型设计模式</em>。意图：定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method 使一个类的实例化延迟到其子类。</p>
-</blockquote>
-<hr>
-<h3 id="简单工厂模式">简单工厂模式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">className</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">this</span>.GetType().Name;
-    }
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductA</span> : <span class="title">Product</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"this is "</span> + className());
-    }
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductB</span> : <span class="title">Product</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"this is "</span> + className());
-    }
-}
-
-<span class="keyword">enum</span> ProductType {
-    A = <span class="number">0</span>,
-    B,
-    UNKONW= -<span class="number">1</span>
-}
-
-<span class="keyword">class</span> <span class="title">SimpleFactory</span>
-{
-    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span>(<span class="params">ProductType type</span>)
-    </span>{
-        Product product = <span class="keyword">null</span>;
-        <span class="keyword">switch</span> (type)
-        {
-        <span class="keyword">case</span> ProductType.A:
-            product = <span class="keyword">new</span> ProductA();
-            <span class="keyword">break</span>;
-        <span class="keyword">case</span> ProductType.B:
-            product = <span class="keyword">new</span> ProductB();
-            <span class="keyword">break</span>;
-        }
-
-        <span class="keyword">return</span> product;
-    }
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    SimpleFactory factory = <span class="keyword">new</span> SimpleFactory();
-
-    Product product = factory.createProduct(ProductType.A);
-    product.show();
-
-    Console.ReadLine();
-}
-</code></pre><h3 id="工厂模式">工厂模式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Factory</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> Product <span class="title">createProduct</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">null</span>;
-    }
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FactoryA</span> : <span class="title">Factory</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProduct</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">new</span> ProductA();
-    }
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FactoryB</span> : <span class="title">Factory</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProduct</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">new</span> ProductB();
-    }
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    Factory factory = <span class="keyword">new</span> FactoryB();
-    Product product = factory.createProduct();
-    product.show();
-}
-</code></pre><h3 id="抽象工厂模式">抽象工厂模式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AbstractFactory</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> Product <span class="title">createProductA</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">null</span>;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> Product <span class="title">createProductB</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">null</span>;
-    }
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AbstractFactoryA</span> : <span class="title">AbstractFactory</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductA</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">new</span> ProductA1();
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductB</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">new</span> ProductB1();
-    }
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AbstractFactoryB</span> : <span class="title">AbstractFactory</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductA</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">new</span> ProductA();
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Product <span class="title">createProductB</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">new</span> ProductB();
-    }
-
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductA1</span> : <span class="title">Product</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"this is "</span> + className());
-    }
-}
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductB1</span> : <span class="title">Product</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">show</span>(<span class="params"></span>)
-    </span>{
-        Console.WriteLine(<span class="string">"this is "</span> + className());
-    }
-}
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-</span>{
-    AbstractFactory factory = <span class="keyword">new</span> AbstractFactoryA();
-    Product product = factory.createProductA();
-    product.show();
-}
-</code></pre><hr>
-<h3 id="优缺点">优缺点</h3><blockquote>
-<p>适用性：类的实例由子类指定。</p>
-<p>优缺点：简单工厂模式实现了责任的分离，也造成了工厂类的复杂性，每添加一个产品都必须修改工厂类，不符合开放和封闭原则。工厂模式<br>解决了简单工厂模式工厂类的复杂性问题，但是产品多样的时候，工厂类众多。抽象工厂模式实现了一类产品的构造。</p>
-</blockquote>
-<hr>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="http://blog.csdn.net/wuzhekai1985/article/details/6660462" target="_blank" rel="external">设计模式的c++实现</a></li>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750445" target="_blank" rel="external">23中设计模式</a></li>
-<li><a href="http://www.cnblogs.com/vipygd/p/3428259.html?utm_source=tuicool" target="_blank" rel="external">c++设计模式系列</a></li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2313,7 +2413,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2327,7 +2427,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
