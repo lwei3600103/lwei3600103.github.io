@@ -201,6 +201,201 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/23/VisitorPattern/" itemprop="url">
+                访问者模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-23T08:34:38+08:00" content="2015-09-23">
+            2015-09-23
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/23/VisitorPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/23/VisitorPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>访问者模式(VisitorPattern)是一种<em>行为型设计模式</em>。意图：封装某些作用于某种数据结构中各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作。</p>
+</blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="抽象访问者">抽象访问者</h4><p>抽象访问者（Visitor）:抽象类或者接口，具体到程序中就是接口中定义哪些对象是可以访问的。</p>
+<pre><code><span class="keyword">interface</span> <span class="title">IVisitor</span>
+{
+    <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementA element</span>)</span>;
+    <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementB element</span>)</span>;
+}
+</code></pre><h4 id="访问者">访问者</h4><p>访问者（ConcreteVisitor）：实现抽象访问者定义的接口，并确定访问一个类要做什么操作。</p>
+<pre><code><span class="keyword">class</span> <span class="title">ConcreteVisitor</span> : <span class="title">IVisitor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementA element</span>)
+    </span>{
+        element.Dosomething();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementB element</span>)
+    </span>{
+        element.Dosomething();
+    }
+}
+</code></pre><h4 id="抽象元素类">抽象元素类</h4><p>抽象元素类（Element）:声明接收哪一类的访问者的操作，并定义自身的逻辑。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Element</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisitor visitor</span>)</span>;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Dosomething</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h4 id="元素类">元素类</h4><p>元素类（ConcreteElement）：实现抽象元素类的方法和接口。</p>
+<pre><code><span class="keyword">class</span> <span class="title">ConcreteElementA</span> : <span class="title">Element</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisitor visitor</span>)
+    </span>{
+        visitor.Visit(<span class="keyword">this</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Dosomething</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is element A"</span>);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">ConcreteElementB</span> : <span class="title">Element</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisitor visitor</span>)
+    </span>{
+        visitor.Visit(<span class="keyword">this</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Dosomething</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is element B"</span>);
+    }
+}
+</code></pre><h4 id="结构对象">结构对象</h4><p>结构对象（ObjectStruture ）：一个元素集合。</p>
+<p>   class ObjectStucture<br>    {<br>        private IList<element> _elements = new List<element>();</element></element></p>
+<pre><code>    <span class="function"><span class="keyword">public</span> <span class="title">ObjectStucture</span><span class="params">()</span>
+    </span>{
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)
+        {
+            <span class="keyword">if</span> (<span class="number">1</span> == i % <span class="number">2</span>)
+            {
+                _elements.Add(<span class="keyword">new</span> ConcreteElementA());
+            }
+            <span class="keyword">else</span>
+            {
+                _elements.Add(<span class="keyword">new</span> ConcreteElementB());
+            }
+        }
+    }
+
+    <span class="keyword">public</span> IList&lt;Element&gt; GetElements()
+    {
+        <span class="keyword">return</span> _elements;
+    }
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="title">Program</span>
+{
+    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+    </span>{
+        ObjectStucture objs = <span class="keyword">new</span> ObjectStucture();
+        <span class="keyword">foreach</span> (Element elemnt <span class="keyword">in</span> objs.GetElements())
+        {
+            elemnt.Accept(<span class="keyword">new</span> ConcreteVisitor());
+        }
+
+        Console.Read();
+    }
+}
+</code></pre><h4 id="个人理解">个人理解</h4><blockquote>
+<p><strong>适用性</strong></p>
+<p>一个对象中存在与本身不相关（或关系弱）的操作，为了避免这些操作污染对象，可以通过一个访问者来吧这类操作封装起来。</p>
+<p>一组对象中存在相似的操作，为了避免出现大量重复的操作，可以把这些操作封装到访问者中。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://blog.csdn.net/zhengzhb/article/details/7489639" target="_blank" rel="external">23种设计模式（9）：访问者模式</a></li>
+<li><a href="http://blog.csdn.net/lcl_data/article/details/11607377" target="_blank" rel="external">我所理解的设计模式（C++实现）——访问者模式（Visitor Pattern）</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/22/StrategyPattern/" itemprop="url">
                 策略模式
               </a>
@@ -2107,245 +2302,6 @@ class <span class="type">Program</span>
 
 
     
-      
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/02/InterpreterPattern/" itemprop="url">
-                解释器模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-02T21:59:25+08:00" content="2015-09-02">
-            2015-09-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">设计模式</span>
-                </a>
-              </span>
-
-              
-              
-                ， 
-              
-
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
-                  <span itemprop="name">行为型设计模式</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/02/InterpreterPattern/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/02/InterpreterPattern/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>解释器模式(InterpreterPattern)是一种<em>行为型设计模式</em>。意图：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。</p>
-</blockquote>
-<hr>
-<h4 id="代码实现">代码实现</h4><h5 id="抽象解释器">抽象解释器</h5><p>抽象解释器声明一个所有具体的表达式所要实现的接口。</p>
-<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Expression</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)</span>;
-}
-</code></pre><h5 id="终结符表达式">终结符表达式</h5><p>终结符表达式实现与文法中相关联的解释操作。</p>
-<pre><code><span class="keyword">class</span> <span class="title">VarExpression</span> : <span class="title">Expression</span>
-{
-    <span class="keyword">private</span> <span class="keyword">string</span> _key;
-    <span class="function"><span class="keyword">public</span> <span class="title">VarExpression</span>(<span class="params"><span class="keyword">string</span> key</span>)
-    </span>{
-        _key = key;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">var</span>[_key];
-    }
-}
-</code></pre><h5 id="非终结符表达式">非终结符表达式</h5><p>文法中每条规则对应一个非终结符表达式。非终结符表达式一般是指“+”等这种。</p>
-<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">SymbolExpression</span> : <span class="title">Expression</span>
-{
-    <span class="keyword">protected</span> Expression _left;
-    <span class="keyword">protected</span> Expression _right;
-
-    <span class="function"><span class="keyword">public</span> <span class="title">SymbolExpression</span>(<span class="params">Expression left, Expression right</span>)
-    </span>{
-        _left = left;
-        _right = right;
-    }
-}
-
-
-<span class="keyword">class</span> <span class="title">AddExpression</span> : <span class="title">SymbolExpression</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">AddExpression</span>(<span class="params">Expression left, Expression right</span>) :
-        <span class="title">base</span>(<span class="params">left, right</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">base</span>._left.Interpreter(<span class="keyword">var</span>) + <span class="keyword">base</span>._right.Interpreter(<span class="keyword">var</span>);
-    }
-}
-
-<span class="keyword">class</span> <span class="title">SubExpression</span> : <span class="title">SymbolExpression</span>
-{
-    <span class="function"><span class="keyword">public</span> <span class="title">SubExpression</span>(<span class="params">Expression left, Expression right</span>) :
-        <span class="title">base</span>(<span class="params">left, right</span>)
-    </span>{
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Interpreter</span>(<span class="params">Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; <span class="keyword">var</span></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">base</span>._left.Interpreter(<span class="keyword">var</span>) - <span class="keyword">base</span>._right.Interpreter(<span class="keyword">var</span>);
-    }
-}
-</code></pre><h5 id="封装的解释器">封装的解释器</h5><pre><code><span class="keyword">class</span> <span class="title">Calculator</span>
-{
-    <span class="keyword">private</span> Expression _expression;
-    <span class="keyword">private</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; _dictionary;
-    <span class="function"><span class="keyword">public</span> <span class="title">Calculator</span>(<span class="params"><span class="keyword">string</span> str</span>)
-    </span>{
-        <span class="keyword">string</span>[] listStr = str.Split(<span class="keyword">new</span> Char[] { <span class="string">' '</span> }, StringSplitOptions.RemoveEmptyEntries);
-        GetDictonary(listStr);
-
-        Expression left = <span class="keyword">null</span>;
-        Expression right = <span class="keyword">null</span>;
-        Expression expression = <span class="keyword">null</span>;
-
-        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; listStr.Length; i++)
-        {
-            <span class="keyword">switch</span> (listStr[i])
-            {
-                <span class="keyword">case</span> <span class="string">"+"</span>:
-                    left = expression;
-                    right = <span class="keyword">new</span> VarExpression(listStr[++i]);
-                    expression = <span class="keyword">new</span> AddExpression(left, right);
-                    <span class="keyword">break</span>;
-                <span class="keyword">case</span> <span class="string">"-"</span>:
-                    left = expression;
-                    right = <span class="keyword">new</span> VarExpression(listStr[++i]);
-                    expression = <span class="keyword">new</span> SubExpression(left, right);
-                    <span class="keyword">break</span>;
-                <span class="keyword">default</span>:
-                    expression = <span class="keyword">new</span> VarExpression(listStr[i]);
-                    <span class="keyword">break</span>;
-            }
-        }
-
-        _expression = expression;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Run</span>(<span class="params"></span>)
-    </span>{
-        <span class="keyword">return</span> <span class="keyword">this</span>._expression.Interpreter(_dictionary);
-    }
-
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">GetDictonary</span>(<span class="params"><span class="keyword">string</span>[] listStr </span>)
-    </span>{
-        _dictionary = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt;();
-
-        <span class="keyword">foreach</span> (<span class="keyword">string</span> curString <span class="keyword">in</span> listStr)
-        {
-            <span class="keyword">if</span> (curString != <span class="string">"+"</span> &amp;&amp; curString != <span class="string">"-"</span>)
-            {
-                _dictionary.Add(curString, Convert.ToInt32(curString));
-            }
-        }
-    }
-}
-</code></pre><h5 id="测试代码">测试代码</h5><pre><code><span class="keyword">class</span> <span class="title">Program</span>
-{
-    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
-    </span>{
-        <span class="keyword">string</span> str = <span class="string">"1234 + 234234 - 948 + 3242 - 4994 + 3"</span>;
-        Calculator calculator = <span class="keyword">new</span> Calculator(str);
-        Console.WriteLine(calculator.Run());
-
-        Console.Read();
-    }
-
-}
-</code></pre><h4 id="个人理解">个人理解</h4><p>解释器是一个语法分析工具。</p>
-<blockquote>
-<p><strong>适用性</strong></p>
-<p>当一个语言需要解释执行，你可以将语言中的句子表示为抽象的语法树时。</p>
-<p>有一个简单的语法规则（如：sql）,一些重复的操作（如：+ - * /）。</p>
-<p><strong>优缺点</strong></p>
-<p>增加一个规则只需要增加一个非终结符表达式。修改一个规则只需要修改非终结符表达式。具有良好的扩展性。</p>
-<p>解释器模式会引起类的膨胀。每个语法都会产生一个非终结符表达式。而且进行语法解释的时候，会使用回调，影响效率。</p>
-</blockquote>
-<hr>
-<h4 id="参考资料">参考资料</h4><ul>
-<li><a href="http://www.cnblogs.com/beijiguangyong/archive/2010/11/15/2302807.html#_Toc281750459" target="_blank" rel="external">23种设计模式</a></li>
-<li><a href="http://blog.csdn.net/zhengzhb/article/details/7666020" target="_blank" rel="external">23种设计模式（14）：解释器模式</a></li>
-<li><a href="http://www.cnblogs.com/cbf4life/archive/2009/12/17/1626125.html" target="_blank" rel="external">解释器模式</a></li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2384,7 +2340,7 @@ class <span class="type">Program</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2398,7 +2354,7 @@ class <span class="type">Program</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

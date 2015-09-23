@@ -201,6 +201,215 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/19/SingletonPattern/" itemprop="url">
+                单例模式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-19T21:02:02+08:00" content="2015-08-19">
+            2015-08-19
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/创建型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">创建型设计模式</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/19/SingletonPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/SingletonPattern/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>单例模式(Singleton Pattern)是一种<em>创建型设计模式</em>。意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+</blockquote>
+<hr>
+<h3 id="懒汉式">懒汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonA</span>
+{
+    <span class="keyword">private</span> <span class="keyword">static</span> SingletonA _singleton;
+    <span class="function"><span class="keyword">private</span> <span class="title">SingletonA</span>(<span class="params"></span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonA <span class="title">GetInstance</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
+        {
+            _singleton = <span class="keyword">new</span> SingletonA();
+        }
+
+        <span class="keyword">return</span> _singleton;
+    }
+}
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+</span>{
+    SingletonA a1 = SingletonA.GetInstance();
+    SingletonA a2 = SingletonA.GetInstance();
+    <span class="keyword">if</span> (a1.Equals(a2))
+    {
+        Console.WriteLine(<span class="string">"a1 = a2"</span>);
+    }
+    <span class="keyword">else</span>
+    {
+        Console.WriteLine(<span class="string">"a1 != a2"</span>);
+    }
+
+    Console.ReadLine();
+}
+</code></pre><h3 id="饿汉式">饿汉式</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonB</span>
+{
+    <span class="keyword">private</span> <span class="keyword">static</span> SingletonB _singleton = <span class="keyword">new</span> SingletonB();
+    <span class="function"><span class="keyword">private</span> <span class="title">SingletonB</span>(<span class="params"></span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonB <span class="title">GetInstance</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">return</span> _singleton;
+    }
+}
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+</span>{
+    SingletonB b1 = SingletonB.GetInstance();
+    SingletonB b2 = SingletonB.GetInstance();
+    <span class="keyword">if</span> (b1.Equals(b2))
+    {
+        Console.WriteLine(<span class="string">"b1 = b2"</span>);
+    }
+    <span class="keyword">else</span>
+    {
+        Console.WriteLine(<span class="string">"b1 != b2"</span>);
+    }
+
+    Console.ReadLine();
+}
+</code></pre><h3 id="双重检查锁定">双重检查锁定</h3><pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingletonLock</span>
+{
+    <span class="keyword">private</span> <span class="keyword">static</span> SingletonLock _singleton;
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Object sysncObject = <span class="keyword">new</span> Object();
+
+    <span class="function"><span class="keyword">private</span> <span class="title">SingletonLock</span>(<span class="params"></span>)
+    </span>{
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonLock <span class="title">GetInstance</span>(<span class="params"></span>)
+    </span>{
+        <span class="keyword">if</span> (<span class="keyword">null</span> == _singleton)
+        {
+            <span class="keyword">lock</span> (sysncObject)
+            {
+                <span class="keyword">if</span>(<span class="keyword">null</span> == _singleton) {
+                    _singleton = <span class="keyword">new</span> SingletonLock();
+                }
+            }
+        }
+        <span class="keyword">return</span> _singleton;
+    }
+
+}
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+</span>{    
+    SingletonLock lock1 = SingletonLock.GetInstance();
+    SingletonLock lock2 = SingletonLock.GetInstance();
+    <span class="keyword">if</span> (lock1.Equals(lock2))
+    {
+        Console.WriteLine(<span class="string">"lock1 = lock2"</span>);
+    }
+    <span class="keyword">else</span>
+    {
+        Console.WriteLine(<span class="string">"lock1 != lock2"</span>);
+    }
+
+    Console.ReadLine();
+}
+</code></pre><h3 id="适用性">适用性</h3><blockquote>
+<p><strong>适用性</strong> 整个应用程序的生命周期只需要一个实例。</p>
+<p><strong>各种写法的比较</strong>  懒汉式适用于单线程的程序，在多线程的程序中会造成多个实例。 双重锁检查的写法可以很好的解决多线程的问题。饿汉式的写法在类装载的时候就出事话，没有达到懒汉式装载的效果。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.cnblogs.com/BoyXiao/archive/2010/05/07/1729376.html?login=1" target="_blank" rel="external">小宝马爸爸–单例模式</a></li>
+<li><a href="http://cantellow.iteye.com/blog/838473" target="_blank" rel="external">单例模式的七种写法</a></li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/19/FactoryPattern/" itemprop="url">
                 工厂模式
               </a>
@@ -589,7 +798,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -603,7 +812,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

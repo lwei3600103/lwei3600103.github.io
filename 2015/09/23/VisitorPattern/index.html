@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="访问者模式," />
 
 
 
@@ -35,52 +35,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="安装步骤nodejs在nodejs上下载msi的安装包，安装nodejs
-hexoGit Bash
-npm install hexo --save
-进入文件夹hexo init
-hexo g
-npm install hexo-server --save
-npm install
-npm s
-这样就可以在本地地址里面查看
+<meta name="description" content="访问者模式(VisitorPattern)是一种行为型设计模式。意图：封装某些作用于某种数据结构中各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作。
 
-参考资料
 
-1,如何搭建一个独立博客——简明Github Pages与Hexo">
+代码实现抽象访问者抽象访问者（Visitor）:抽象类或者接口，具体到程序中就是接口中定义哪些对象是可以访问的。
+interface IVisitor
+{
+    void Visit(ConcreteElementA e">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo部署github博客">
-<meta property="og:url" content="http://yoursite.com/2015/08/15/Hexo/index.html">
+<meta property="og:title" content="访问者模式">
+<meta property="og:url" content="http://yoursite.com/2015/09/23/VisitorPattern/index.html">
 <meta property="og:site_name" content="lwei的博客">
-<meta property="og:description" content="安装步骤nodejs在nodejs上下载msi的安装包，安装nodejs
-hexoGit Bash
-npm install hexo --save
-进入文件夹hexo init
-hexo g
-npm install hexo-server --save
-npm install
-npm s
-这样就可以在本地地址里面查看
+<meta property="og:description" content="访问者模式(VisitorPattern)是一种行为型设计模式。意图：封装某些作用于某种数据结构中各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作。
 
-参考资料
 
-1,如何搭建一个独立博客——简明Github Pages与Hexo">
-<meta property="og:updated_time" content="2015-08-19T14:35:31.917Z">
+代码实现抽象访问者抽象访问者（Visitor）:抽象类或者接口，具体到程序中就是接口中定义哪些对象是可以访问的。
+interface IVisitor
+{
+    void Visit(ConcreteElementA e">
+<meta property="og:updated_time" content="2015-09-23T00:54:06.702Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo部署github博客">
-<meta name="twitter:description" content="安装步骤nodejs在nodejs上下载msi的安装包，安装nodejs
-hexoGit Bash
-npm install hexo --save
-进入文件夹hexo init
-hexo g
-npm install hexo-server --save
-npm install
-npm s
-这样就可以在本地地址里面查看
+<meta name="twitter:title" content="访问者模式">
+<meta name="twitter:description" content="访问者模式(VisitorPattern)是一种行为型设计模式。意图：封装某些作用于某种数据结构中各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作。
 
-参考资料
 
-1,如何搭建一个独立博客——简明Github Pages与Hexo">
+代码实现抽象访问者抽象访问者（Visitor）:抽象类或者接口，具体到程序中就是接口中定义哪些对象是可以访问的。
+interface IVisitor
+{
+    void Visit(ConcreteElementA e">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -90,7 +72,7 @@ npm s
   };
 </script>
 
-  <title> hexo部署github博客 | lwei的博客 </title>
+  <title> 访问者模式 | lwei的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +218,7 @@ npm s
           
           
             
-              hexo部署github博客
+              访问者模式
             
           
         </h1>
@@ -245,8 +227,8 @@ npm s
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-15T13:02:02+08:00" content="2015-08-15">
-            2015-08-15
+          <time itemprop="dateCreated" datetime="2015-09-23T08:34:38+08:00" content="2015-09-23">
+            2015-09-23
           </time>
         </span>
 
@@ -255,8 +237,20 @@ npm s
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/hexo/" itemprop="url" rel="index">
-                  <span itemprop="name">hexo</span>
+                <a href="/categories/设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">设计模式</span>
+                </a>
+              </span>
+
+              
+              
+                ， 
+              
+
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/设计模式/行为型设计模式/" itemprop="url" rel="index">
+                  <span itemprop="name">行为型设计模式</span>
                 </a>
               </span>
 
@@ -271,8 +265,8 @@ npm s
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/15/Hexo/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/15/Hexo/" itemprop="commentsCount"></span>
+              <a href="/2015/09/23/VisitorPattern/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/23/VisitorPattern/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -286,20 +280,106 @@ npm s
       
 
       
-        <span itemprop="articleBody"><h2 id="安装步骤">安装步骤</h2><h3 id="nodejs">nodejs</h3><p>在<a href="https://nodejs.org/download/" target="_blank" rel="external">nodejs</a>上下载msi的安装包，安装nodejs</p>
-<h3 id="hexo">hexo</h3><p><code>Git Bash</code></p>
-<p><code>npm install hexo --save</code></p>
-<p>进入文件夹<br><code>hexo init</code></p>
-<p><code>hexo g</code></p>
-<p><code>npm install hexo-server --save</code></p>
-<p><code>npm install</code></p>
-<p><code>npm s</code></p>
-<p>这样就可以在<a href="http://localhost:4000" target="_blank" rel="external">本地地址</a>里面查看</p>
-<hr>
-<h3 id="参考资料">参考资料</h3><hr>
-<blockquote>
-<p><a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/" target="_blank" rel="external">1,如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="external">2,hexo系列教程</a></p>
+        <span itemprop="articleBody"><blockquote>
+<p>访问者模式(VisitorPattern)是一种<em>行为型设计模式</em>。意图：封装某些作用于某种数据结构中各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作。</p>
 </blockquote>
+<hr>
+<h3 id="代码实现">代码实现</h3><h4 id="抽象访问者">抽象访问者</h4><p>抽象访问者（Visitor）:抽象类或者接口，具体到程序中就是接口中定义哪些对象是可以访问的。</p>
+<pre><code><span class="keyword">interface</span> <span class="title">IVisitor</span>
+{
+    <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementA element</span>)</span>;
+    <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementB element</span>)</span>;
+}
+</code></pre><h4 id="访问者">访问者</h4><p>访问者（ConcreteVisitor）：实现抽象访问者定义的接口，并确定访问一个类要做什么操作。</p>
+<pre><code><span class="keyword">class</span> <span class="title">ConcreteVisitor</span> : <span class="title">IVisitor</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementA element</span>)
+    </span>{
+        element.Dosomething();
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">ConcreteElementB element</span>)
+    </span>{
+        element.Dosomething();
+    }
+}
+</code></pre><h4 id="抽象元素类">抽象元素类</h4><p>抽象元素类（Element）:声明接收哪一类的访问者的操作，并定义自身的逻辑。</p>
+<pre><code><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Element</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisitor visitor</span>)</span>;
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Dosomething</span>(<span class="params"></span>)</span>;
+}
+</code></pre><h4 id="元素类">元素类</h4><p>元素类（ConcreteElement）：实现抽象元素类的方法和接口。</p>
+<pre><code><span class="keyword">class</span> <span class="title">ConcreteElementA</span> : <span class="title">Element</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisitor visitor</span>)
+    </span>{
+        visitor.Visit(<span class="keyword">this</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Dosomething</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is element A"</span>);
+    }
+}
+
+<span class="keyword">class</span> <span class="title">ConcreteElementB</span> : <span class="title">Element</span>
+{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisitor visitor</span>)
+    </span>{
+        visitor.Visit(<span class="keyword">this</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Dosomething</span>(<span class="params"></span>)
+    </span>{
+        Console.WriteLine(<span class="string">"this is element B"</span>);
+    }
+}
+</code></pre><h4 id="结构对象">结构对象</h4><p>结构对象（ObjectStruture ）：一个元素集合。</p>
+<p>   class ObjectStucture<br>    {<br>        private IList<element> _elements = new List<element>();</element></element></p>
+<pre><code>    <span class="function"><span class="keyword">public</span> <span class="title">ObjectStucture</span><span class="params">()</span>
+    </span>{
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)
+        {
+            <span class="keyword">if</span> (<span class="number">1</span> == i % <span class="number">2</span>)
+            {
+                _elements.Add(<span class="keyword">new</span> ConcreteElementA());
+            }
+            <span class="keyword">else</span>
+            {
+                _elements.Add(<span class="keyword">new</span> ConcreteElementB());
+            }
+        }
+    }
+
+    <span class="keyword">public</span> IList&lt;Element&gt; GetElements()
+    {
+        <span class="keyword">return</span> _elements;
+    }
+}
+</code></pre><h4 id="测试代码">测试代码</h4><pre><code><span class="keyword">class</span> <span class="title">Program</span>
+{
+    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)
+    </span>{
+        ObjectStucture objs = <span class="keyword">new</span> ObjectStucture();
+        <span class="keyword">foreach</span> (Element elemnt <span class="keyword">in</span> objs.GetElements())
+        {
+            elemnt.Accept(<span class="keyword">new</span> ConcreteVisitor());
+        }
+
+        Console.Read();
+    }
+}
+</code></pre><h4 id="个人理解">个人理解</h4><blockquote>
+<p><strong>适用性</strong></p>
+<p>一个对象中存在与本身不相关（或关系弱）的操作，为了避免这些操作污染对象，可以通过一个访问者来吧这类操作封装起来。</p>
+<p>一组对象中存在相似的操作，为了避免出现大量重复的操作，可以把这些操作封装到访问者中。</p>
+</blockquote>
+<hr>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://blog.csdn.net/zhengzhb/article/details/7489639" target="_blank" rel="external">23种设计模式（9）：访问者模式</a></li>
+<li><a href="http://blog.csdn.net/lcl_data/article/details/11607377" target="_blank" rel="external">我所理解的设计模式（C++实现）——访问者模式（Visitor Pattern）</a></li>
+</ul>
 </span>
       
     </div>
@@ -308,7 +388,7 @@ npm s
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/访问者模式/" rel="tag">#访问者模式</a>
           
         </div>
       
@@ -317,11 +397,11 @@ npm s
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/19/FactoryPattern/" rel="prev">工厂模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/22/StrategyPattern/" rel="next">策略模式</a>
             
           </div>
         </div>
@@ -346,8 +426,8 @@ npm s
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/15/Hexo/"
-                   data-title="hexo部署github博客" data-url="http://yoursite.com/2015/08/15/Hexo/">
+              <div class="ds-thread" data-thread-key="2015/09/23/VisitorPattern/"
+                   data-title="访问者模式" data-url="http://yoursite.com/2015/09/23/VisitorPattern/">
               </div>
             
           </div>
@@ -444,7 +524,7 @@ npm s
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装步骤"><span class="nav-number">1.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs"><span class="nav-number">1.1.</span> <span class="nav-text">nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo"><span class="nav-number">1.2.</span> <span class="nav-text">hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象访问者"><span class="nav-number">1.1.</span> <span class="nav-text">抽象访问者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问者"><span class="nav-number">1.2.</span> <span class="nav-text">访问者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象元素类"><span class="nav-number">1.3.</span> <span class="nav-text">抽象元素类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素类"><span class="nav-number">1.4.</span> <span class="nav-text">元素类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结构对象"><span class="nav-number">1.5.</span> <span class="nav-text">结构对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试代码"><span class="nav-number">1.6.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#个人理解"><span class="nav-number">1.7.</span> <span class="nav-text">个人理解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
